@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/zinh88/talbaa/issues"
   },
-  "homepage": "https://github.com/zinh88/talbaa#readme"
+  "homepage": "https://github.com/zinh88/talbaa#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10"
+  }
 }
