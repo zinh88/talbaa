@@ -1,0 +1,20 @@
+{
+  "name": "talbaa",
+  "version": "1.0.0",
+  "description": "## Group Members: - Faaiq Bilal  - Haashim Ali Mirza - Fatima Naweed - Miqdad Quettawala - Muhammad Zain Khan",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zinh88/talbaa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zinh88/talbaa/issues"
+  },
+  "homepage": "https://github.com/zinh88/talbaa#readme"
+}
