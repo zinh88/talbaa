@@ -13,7 +13,7 @@ const card = {
     rating: 4.3
 }
 
-const Home = () => {
+const MyCourses = () => {
     const [enrolled, setEnrolled] = useState([]);
     const [created, setCreated] = useState([]);
     
@@ -44,4 +44,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default MyCourses;
