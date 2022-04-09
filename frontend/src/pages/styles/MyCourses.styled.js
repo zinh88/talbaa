@@ -41,4 +41,11 @@ export const Plus = styled.div`
     align-items: center;
     font-size: 50px;
     font-weight: 500;
+    cursor: pointer;
+    border: ;
+    :hover {
+        background-color: white;
+        color: #007E8E;
+        border: 1px solid #007E8E;
+    }
 `
