@@ -1,5 +1,6 @@
 import React from "react";
-import { Author, CardFooter, CardPic, Description, StyledCard, Tags, Title, Info, Tag, Bottom, Rating, Stars} from "./styles/Card.styled";
+import Rating from "./Rating";
+import { Author, CardFooter, CardPic, Description, StyledCard, Tags, Title, Info, Tag, Bottom, RatingBar, Stars} from "./styles/Card.styled";
 
 const Card = ({card : { title, desc, pic, rating, tags, creator}}) => {
     return (
@@ -13,13 +14,17 @@ const Card = ({card : { title, desc, pic, rating, tags, creator}}) => {
                 </Info>
                 <Bottom>
                 <Tags>
-                    <Tag>tag #1</Tag>
-                    <Tag>tag #2</Tag>
-                    <Tag>tag #3</Tag>
+                    {
+                        tags.map((tag, index) => 
+                            <Tag index={index}>{tag}</Tag>
+                        )
+                    }
                 </Tags>
-                <Rating>
-                    <Stars>★★★★★</Stars>
-                </Rating>
+                <RatingBar>
+                    <Stars>
+                        <Rating rating={rating} />
+                    </Stars>
+                </RatingBar>
                 </Bottom>
 
             </CardFooter>
