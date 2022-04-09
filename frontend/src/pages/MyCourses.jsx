@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
-import { EnrolledBox, GlobalStyle, HomePage, Title, Plus } from "./styles/MyCourses.styled";
+import { EnrolledBox, HomePage, Title, Plus } from "./styles/MyCourses.styled";
 
 import samplepic from "../assets/mlpic.jpg"
 import Navbar from "../components/Navbar";
@@ -32,7 +32,7 @@ const Home = () => {
             </EnrolledBox>
             <div style={{ "display": "flex", "align-items": "center", "justify-content":"center", "width": "100%"}}>
             <div style={{ "padding-bottom": "10px", "font-size": "30px", "color": "#007E8E", "text-align": "center"}}>Created</div>
-            <Plus>+</Plus>
+            <a style={{"text-decoration": "none"}} href="/CreateCourse"><Plus>+</Plus></a>
             </div>
             <EnrolledBox>
                 <Card card={card}/>
