@@ -17,8 +17,8 @@ dotenv.config()
 // @desc Register user
 // @access Public
 router.post("/register", (req, res) => {
-    console.log('router')
-    console.log(req.body)
+    // console.log('router')
+    // console.log(req.body)
     // Form validation
     const { errors, isValid } = validateRegisterInput(req.body);
     // Check validation
@@ -36,6 +36,24 @@ router.post("/register", (req, res) => {
                 email: req.body.email,
                 password: req.body.password
             });
+            const payload = {
+                user_id: newUser.user_id,
+                username: newUser.username
+            };
+            // Sign token
+            jwt.sign(
+                payload,
+                process.env.secretOrKey,
+                {
+                    expiresIn: 31556926 // 1 year in seconds
+                },
+                (err, token) => {
+                    res.json({
+                        success: true,
+                        token: "Bearer " + token
+                    });
+                }
+            );
             // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -75,7 +93,7 @@ router.post("/login", (req, res) => {
                 // User matched
                 // Create JWT Payload
                 const payload = {
-                    id: user.id,
+                    user_id: user.user_id,
                     username: user.username
                 };
                 // Sign token

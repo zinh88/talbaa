@@ -1,3 +1,21 @@
+.app {
+  min-height: 100vh;
+  background: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: 'Raleway', sans-serif;
+}
+
+input[type="radio"]{
+  display:none;
+}
+
+.star{
+  cursor: pointer;
+  transition: color 200ms;
+}
+
 @import url(https://fonts.googleapis.com/css?family=Raleway);
 * {
   /* text-align: center; */
@@ -5,4 +23,9 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Raleway";
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+* {
+    font-family: Raleway;
 }

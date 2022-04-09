@@ -1,0 +1,56 @@
+.LP-heading{
+    font-size: 56px;
+    font-family: Raleway;
+    color: #0A093D;
+    font-weight: bold;
+  }
+  
+  .LP-caption{
+    font-size: 18px;
+    padding: 5% 0% 0% 0%;
+    color: #656464;
+    font-family: Raleway;
+  }
+  
+  .LogoText{
+    font-size: 24px;
+    font-family: Raleway;
+    padding: 15px;
+  }
+  
+  .row {
+    padding: 0px;
+    display: flex;
+  }
+  
+  .column {
+    flex: 33.33%;
+    padding: 5px;
+  }
+  
+  .button {
+    padding: 15px 35px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #007E8E;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px #999;
+  }
+  
+  .button:hover {background-color: #3daab8}
+  
+  .button:active {
+    background-color: #31a5b4;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+  .grad {
+    min-height: 753px;
+    background-color: #FFFFFF; /* For browsers that do not support gradients */
+    background-image: linear-gradient(to bottom right, #FFFFFF, #94D0D8);
+  }
