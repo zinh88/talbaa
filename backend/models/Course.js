@@ -22,6 +22,14 @@ const CourseSchema = new Schema({
     created_by: {
         type: String,
         required: true
+    },
+    tags: {
+        type: Array,
+        required: true
+    },
+    rating: {
+        type: Number,
+        required: false
     }
 });
 module.exports = User = mongoose.model("courses", CourseSchema);
