@@ -75,7 +75,7 @@ export const Tag = styled.div`
     justify-content: center;
 `
 
-export const Rating = styled.div`
+export const RatingBar = styled.div`
     display: flex;
     justify-content: right;
     height: 30px;

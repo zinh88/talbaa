@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { createGlobalStyle } from "styled-components";
-
-export const GlobalStyle = createGlobalStyle`
-    body {
-        background-color: blue;
-    }
-`
 
 export const HomePage = styled.div`
     display: flex;
@@ -48,4 +41,11 @@ export const Plus = styled.div`
     align-items: center;
     font-size: 50px;
     font-weight: 500;
+    cursor: pointer;
+    border: ;
+    :hover {
+        background-color: white;
+        color: #007E8E;
+        border: 1px solid #007E8E;
+    }
 `
