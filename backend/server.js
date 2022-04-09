@@ -3,10 +3,12 @@ const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const passport = require("passport");
-const users = require("./routes/api/users");
 const bodyParser = require("body-parser");
 
 dotenv.config();
+
+const users = require("./routes/api/users");
+const courses = require("./routes/api/courses")
 
 app.use(
     bodyParser.urlencoded({
@@ -29,6 +31,8 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 // Routes
 app.use("/api/users", users);
+app.use("/api/courses", courses);
+
 
 app.listen(8800, () => {
     console.log("Backend server is running!");
