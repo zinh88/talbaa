@@ -17,10 +17,12 @@ import CourseCatalogue from "./pages/CourseCatalogue";
 import CoursePage from "./pages/CoursePage";
 import ViewLecture from "./pages/ViewLecture";
 
+
 function App() {
   return (
     <div className="App">
-      <h1>hello</h1>
+      {/* <h1>hello</h1> */}
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
