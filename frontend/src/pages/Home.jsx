@@ -35,7 +35,9 @@ function Home() {
             </BigCirc>
             <HorBox>
               <Box2>
+              <a style={{"text-decoration": "none"}} href="/CourseCatalogue">
                 <Btn>Find Courses</ Btn>
+              </a>
               </Box2>
               <Text>
                 Contribute to our website by sharing lectures and notes
