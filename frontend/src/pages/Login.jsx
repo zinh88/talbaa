@@ -5,6 +5,7 @@ import LoginForm from "../components/LoginForm";
 
 function Login() {
   const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const login = (data) => {
     console.log(data);

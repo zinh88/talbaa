@@ -12,24 +12,21 @@
   text-align: center;
   margin-bottom: 0.75rem;
 }
-/* .form-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-} */
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
   margin: 0.25rem 1rem 0.25rem 1rem;
+  padding: 1rem;
   border-radius: 0.5rem;
-  width: 25vw;
-  height: 5vh;
+  width: 24rem;
+  height: 2.25rem;
   background-color: #fff;
   color: #000;
   border: 1px solid #000;
   font-weight: 600;
 }
 ::placeholder {
-  padding-left: 1vw;
+  /* padding-left: 1vw; */
   color: #000;
 }
 .forgot {
@@ -41,8 +38,8 @@ input[type="password"] {
 input[type="submit"] {
   margin: 1rem;
   border-radius: 0.5rem;
-  width: 25vw;
-  height: 4vh;
+  width: 24rem;
+  height: 2.25rem;
   background-color: #fff;
   color: #007e8e;
   border: 1px solid #007e8e;
