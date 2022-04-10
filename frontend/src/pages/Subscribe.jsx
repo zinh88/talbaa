@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import SubscribeForm from "../components/SubscribeForm";
 
 function Subscribe() {
   return (
-    <div>Subscribe</div>
-  )
+    <div className="login">
+      <SubscribeForm />
+    </div>
+  );
 }
 
-export default Subscribe
+export default Subscribe;

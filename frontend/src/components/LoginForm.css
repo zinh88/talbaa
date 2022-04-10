@@ -44,6 +44,7 @@ input[type="submit"] {
   color: #007e8e;
   border: 1px solid #007e8e;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .notmember {
