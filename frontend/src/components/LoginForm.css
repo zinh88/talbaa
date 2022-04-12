@@ -1,0 +1,59 @@
+.loginForm {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+.loginForm h1 {
+  color: #007e8e;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+.loginForm p {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  margin: 0.25rem 1rem 0.25rem 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 24rem;
+  height: 2.25rem;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  font-weight: 600;
+}
+::placeholder {
+  /* padding-left: 1vw; */
+  color: #000;
+}
+.forgot {
+  /* display: flex;
+  align-items: flex-end; */
+  text-align: right;
+  padding-right: 1vw;
+}
+input[type="submit"] {
+  margin: 1rem;
+  border-radius: 0.5rem;
+  width: 24rem;
+  height: 2.25rem;
+  background-color: #fff;
+  color: #007e8e;
+  border: 1px solid #007e8e;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notmember {
+  font-style: italic;
+  font-size: small;
+}
+
+.loginForm a {
+  text-decoration: none;
+  padding-left: 0.25vw;
+  color: #007e8e;
+}
