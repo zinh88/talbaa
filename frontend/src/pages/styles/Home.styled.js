@@ -5,6 +5,7 @@ export const HomePage = styled.div`
     display: flex;
     flex-direction: column;
     background-color: white;
+    padding-bottom: 150px;
     min-height: 700px;
 `
 
@@ -94,5 +95,6 @@ align items:center;
 text-align:center;
 justify-content:center;
 padding-top:20px;
+height: 20px;
 
 `
