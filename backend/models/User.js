@@ -18,6 +18,10 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    enrolledCourses: {
+        type: Array,
+        required: false
     }
 });
 module.exports = User = mongoose.model("users", UserSchema);
