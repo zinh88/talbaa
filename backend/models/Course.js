@@ -25,6 +25,7 @@ const CourseSchema = new Schema({
     },
     tags: {
         type: Array,
+        default: "",
         required: true
     },
     rating: {
