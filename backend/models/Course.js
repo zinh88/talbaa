@@ -24,4 +24,4 @@ const CourseSchema = new Schema({
         required: true
     }
 });
-module.exports = User = mongoose.model("courses", CourseSchema);
+module.exports = mongoose.model("courses", CourseSchema);

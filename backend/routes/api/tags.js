@@ -11,8 +11,7 @@ router.get("/get_tags", async(req, res) => {
 });
 
 router.post("/add_tag", (req, res) => {
-    const token = req.headers['authorization'].split(' ')[1];
-    const payload = jwt.verify(token, process.env.secretOrKey)
+    // not verifying this request
     const newTag = new Tags({
         name : req.body.name
     });
