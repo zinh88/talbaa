@@ -24,7 +24,7 @@ export function PageSubTitle({subTitle, padding}){
   )
 }
 
-function Tag({name ,style}){
+export function Tag({name ,style}){
   const [open, setOpen] = useState(false);
   const [option, setOption] = useState("Dropdown");
   return(
@@ -69,7 +69,7 @@ function DropDown({setOption, setOpen}){
   )
 }
 
-function CourseInfo({name, style, placeholderType, padding}){
+export function CourseInfo({name, style, placeholderType, padding}){
   return(
     <div>
       <PageSubTitle subTitle = {name} padding = {padding}/>
