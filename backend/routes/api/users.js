@@ -12,7 +12,6 @@ const crypto = require('crypto')
 const dotenv = require("dotenv");
 
 dotenv.config()
-
 // @route POST api/users/register
 // @desc Register user
 // @access Public

@@ -66,6 +66,7 @@ function LecturePage() {
   return (
     <div>
       <Navbar />
+
       <PageTitle title = "Add Lectures"/>
 
       <div class ="row" >
