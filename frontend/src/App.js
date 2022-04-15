@@ -16,6 +16,8 @@ import EditQuiz from "./pages/EditQuiz";
 import CourseCatalogue from "./pages/CourseCatalogue";
 import CoursePage from "./pages/CoursePage";
 import ViewLecture from "./pages/ViewLecture";
+import LecturePage from "./pages/LecturePage";
+
 
 
 function App() {
@@ -42,6 +44,7 @@ function App() {
           <Route path="/courseCatalogue" element={<CourseCatalogue />} />
           <Route path="/coursePage" element={<CoursePage />} />
           <Route path="/viewLecture" element={<ViewLecture />} />
+          <Route path="/lecturePage" element={<LecturePage />} />
         </Routes>
       </BrowserRouter>
     </div>

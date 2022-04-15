@@ -1,7 +1,15 @@
 import React from "react";
+import UploadButton from "../components/UploadButton";
+import Navbar from "./../components/Navbar";
 
 function EditLecture() {
-  return <div>EditLecture</div>;
+  return (
+    <div>
+      <Navbar />
+      Edit Lecture
+      <UploadButton />
+    </div>
+  );
 }
 
 export default EditLecture;
