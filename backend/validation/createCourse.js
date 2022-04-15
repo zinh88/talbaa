@@ -9,19 +9,23 @@ module.exports = function validateCreateCourse(data) {
     data.description = !isEmpty(data.description) ? data.description : "";
     data.title = !isEmpty(data.title) ? data.title : "";
     data.created_by = !isEmpty(data.created_by) ? data.created_by : "";
+    data.tags = !isEmpty(data.tags) ? data.tags : [];
+    data.rating = !isEmpty(data.rating) ? data.rating : 0;
 
     // title checks
     if (Validator.isEmpty(data.title)) {
         errors.title = "Title is a required field";
     }
 
-    // if (Validator.isEmpty(data.course_id)) {
-    //     errors.course_id = "Course ID is a required field"
-    // }
-
-    // if (Validator.isEmpty(data.created_by)) {
-    //     errors.created_by = "Course creator is a required field"
-    // }
+    let tagsCount = 0;
+    data.tags.forEach(element => {
+        if (element != "") {
+            tagsCount++;
+        }
+    });
+    if (tagsCount < 3) {
+        errors.tags = "Not enough tags, enter at least 3 tags";
+    }
 
     return {
         errors,

@@ -50,7 +50,7 @@
   }
 
   .grad {
-    min-height: 753px;
+    min-height: 1000px;
     background-color: #FFFFFF; /* For browsers that do not support gradients */
     background-image: linear-gradient(to bottom right, #FFFFFF, #94D0D8);
   }

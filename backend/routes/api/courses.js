@@ -22,9 +22,9 @@ router.post("/create_course", (req, res) => {
     const newCourse = new Course({
         course_id : crypto.randomUUID(),
         description : req.body.description,
-        // created_by : req.body.created_by,
         created_by : payload.user_id,
-        title : req.body.title 
+        title : req.body.title,
+        tags: req.body.tags
     });
 
     newCourse
