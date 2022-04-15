@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { Btn2, HomePage, Title, Title2, Btn, Box, Text, Box2, Text2 } from "./styles/CoursePage.styled";
+import StarRating from "./styles/CoursePageRating";
 import pic1 from "../assets/paintbrush.PNG";
 
 
@@ -66,6 +67,9 @@ function CoursePage() {
       <Text style={{"font-size":"25px", "font-weight":"400", "color":"#007E8E", "justify-content":"left","padding-left":"40px","padding-top":"50px"}}>
         Rate this course? UwU
       </Text>
+      <Box style={{"padding-left":"38px"}}>
+        <StarRating/>
+      </Box>
       
       {/* <Text style={{}}>
         {egString}
