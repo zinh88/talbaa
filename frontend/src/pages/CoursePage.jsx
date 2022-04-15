@@ -11,7 +11,7 @@ function CoursePage() {
   let egString = "Nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan";
   return <div>
     <Navbar></Navbar>
-    <HomePage style={{"font-size":"40px"}}>
+    <HomePage style={{"font-size":"40px","max-width":"3000px"}}>
       <Box style={{"align-items":"center", "justify-content": "center"}}>
         <Title style={{"color": "#656565"}}>
           Course:
