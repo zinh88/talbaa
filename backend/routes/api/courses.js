@@ -55,6 +55,7 @@ router.put("/add_lecture", (req, res) => {
     .catch(err => console.log(err));
 
     let courseId = req.body.course_id;
+
     
     // make update to course, include course in the request body
 })
