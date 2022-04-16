@@ -1,21 +1,22 @@
 import React from "react";
 
-function uploadButton() {
+function UploadButton() {
     return (
         <div>
             <button
                 id="upload_widget"
-                class="cloudinary-button">
+                class="cloudinary-button"
+            >
                 Upload files
             </button>
 
-            {/* <!-- cloudinary upload widget --> */}
+            {/* <ScriptTag */}
             <script
                 src="https://widget.cloudinary.com/v2.0/global/all.js"
                 type="text/javascript">
+            {/* </ScriptTag> */}
             </script>
 
-            {/* <!-- local upload instantiation --> */}
             <script
                 src="upload_widget.js"
                 type="text/javascript">
@@ -24,4 +25,4 @@ function uploadButton() {
     )
 }
 
-export default uploadButton;
+export default UploadButton;
