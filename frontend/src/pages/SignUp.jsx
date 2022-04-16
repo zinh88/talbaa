@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import SignUpForm from "../components/SignUpForm";
+import axios from "axios";
 
 function SignUp() {
   const [user, setUser] = useState("");
@@ -11,7 +12,13 @@ function SignUp() {
   const [error, setError] = useState("");
   const signup = (data) => {
     console.log(data);
-    //validate data give as input
+    axios.post('http://localhost:8800/api/users/register', data)
+    .then((resp) => {
+        console.log(resp)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
   };
   // const logout = () => {
   //   console.log("logout");

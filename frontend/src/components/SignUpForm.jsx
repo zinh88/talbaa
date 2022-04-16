@@ -6,6 +6,7 @@ function SignUpForm({ SignUp, error }) {
     email: "",
     username: "",
     password: "",
+    password2: ""
   });
   const submitHandler = (e) => {
     e.preventDefault();
@@ -67,6 +68,18 @@ function SignUpForm({ SignUp, error }) {
                 setDetails({ ...details, password: e.target.value });
               }}
               value={details.password}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              name="password"
+              id="password2"
+              placeholder="re-enter password"
+              onChange={(e) => {
+                setDetails({ ...details, password2: e.target.value });
+              }}
+              value={details.password2}
             />
           </div>
           {/* <div className="forgot">Forgot password?</div> */}

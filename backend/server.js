@@ -4,12 +4,17 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 dotenv.config();
 
 const users = require("./routes/api/users");
 const courses = require("./routes/api/courses")
 const tags = require("./routes/api/tags")
+
+app.use(cors({
+    origin: '*'
+}));
 
 app.use(
     bodyParser.urlencoded({

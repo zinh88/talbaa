@@ -21,6 +21,7 @@ import LecturePage from "./pages/LecturePage";
 
 
 function App() {
+    
   return (
     <div className="App">
       {/* <h1>hello</h1> */}
