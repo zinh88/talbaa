@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const PORT = process.env.PORT || 8800;
 
 dotenv.config();
 
@@ -42,6 +43,6 @@ app.use("/api/users", users);
 app.use("/api/courses", courses);
 app.use("/api/tags", tags);
 
-app.listen(8800, () => {
+app.listen(PORT, () => {
     console.log("Backend server is running!");
 });
