@@ -1,9 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
-import { WidgetLoader, Widget } from 'react-cloudinary-upload-widget'
-=======
 import { WidgetLoader, Widget } from "react-cloudinary-upload-widget";
->>>>>>> 775e5194a50c3516445ebf5388a4e4ece023c38b
 
 const cloudName = "dv5ig0sry"; // replace with your own cloud name
 const uploadPreset = "lf1ouek0"; // replace with your own upload preset

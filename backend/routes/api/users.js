@@ -118,4 +118,17 @@ router.post("/login", (req, res) => {
     });
 });
 
+router.get("/get_user", (req, res) => {
+    const token = req.headers['authorization'];
+    
+    try {
+        const payload = jwt.verify(token, process.env.secretOrKey);
+        res.username = payload.username;
+    } catch (err) {
+        console.log(err)
+        res.status(403).json({message: "Not authorized"})
+    }
+})
+
+
 module.exports = router;
