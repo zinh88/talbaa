@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const validateCreateCourse = require("../../validation/createCourse")
 // Load Course model
 const Course = require("../../models/Course")
+const Lecture = require("../../models/Lecture")
 const crypto = require('crypto')
 const dotenv = require("dotenv");
 dotenv.config()
@@ -20,7 +21,7 @@ router.post("/create_course", (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
     const payload = jwt.verify(token, process.env.secretOrKey)
     const newCourse = new Course({
-        course_id : crypto.randomUUID(),
+        // course_id : crypto.randomUUID(),
         description : req.body.description,
         created_by : payload.user_id,
         title : req.body.title,
@@ -32,5 +33,31 @@ router.post("/create_course", (req, res) => {
         .then(course => res.json(course))
         .catch(err => console.log(err));
 });
+
+router.put("/add_lecture", (req, res) => {
+    const {errors, isValid = validateAddLecture(req.body)}
+    const token = req.headers['authorization'].split(' ')[1];
+    const payload = jwt.verify(token, process.env.secretOrKey)
+
+    const newLecture = new Lecture({
+        title: req.body.title
+    })
+
+    var createdLecture
+
+    newLecture
+    .save()
+    .then(lecture => {
+        createdLecture = lecture
+        res.json(lecture)
+    }
+        )
+    .catch(err => console.log(err));
+
+    let courseId = req.body.course_id;
+
+    
+    // make update to course, include course in the request body
+})
 
 module.exports = router;

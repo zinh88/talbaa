@@ -40,6 +40,7 @@ function EditLecture() {
         />
       </Video>
     </div>
+
   );
 }
 export default EditLecture;
