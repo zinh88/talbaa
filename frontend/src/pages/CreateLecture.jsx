@@ -26,7 +26,7 @@ function CreateLecture() {
   const textBox = {
     padding: "1% 0% 0% 2%",
   }
-  
+
   return (
     <div >
       <Navbar />
@@ -35,7 +35,7 @@ function CreateLecture() {
       <CourseInfo name="Lecture Title*" style={textBox} 
                   placeholderType = "placeholderTitle" padding = "5% 0% 0% 3%" />
 
-      <Button text="Add Resources!"/>
+      <Button text="Add Resources!" link = "/editLecture"/>
     </div>
   )
 }
