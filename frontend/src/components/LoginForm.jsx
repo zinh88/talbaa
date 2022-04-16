@@ -40,7 +40,14 @@ function LoginForm({ Login, error }) {
               value={details.password}
             />
           </div>
-          <div className="forgot">Forgot password?</div>
+          <div className="forgot">
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              target="_blank"
+            >
+              Forgot password?
+            </a>
+          </div>
           <input type="submit" value="Login" />
         </div>
         <div>

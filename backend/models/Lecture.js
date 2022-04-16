@@ -12,6 +12,11 @@ const LectureSchema = new Schema({
         required: false
     },
 
+    comments: {
+        type: Array,
+        required: false
+    },
+
     videoCount: {
         type: Number,
         default: 0
@@ -26,12 +31,6 @@ const LectureSchema = new Schema({
         type: Number,
         default: 0
     }
-    
-    // not sure if I should keep courses here or if I should keep lecture reference in course
-    // course: {
-    //     type: String,
-    //     required: true
-    // }
 });
 
 module.exports = mongoose.model("lectures", LectureSchema);

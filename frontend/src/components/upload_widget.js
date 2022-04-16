@@ -1,12 +1,5 @@
-const cloudName = "dv5ig0sry"; // replace with your own cloud name
-const uploadPreset = "lf1ouek0"; // replace with your own upload preset
-
-// Remove the comments from the code below to add
-// additional functionality.
-// Note that these are only a few examples, to see
-// the full list of possible parameters that you
-// can add see:
-//   https://cloudinary.com/documentation/upload_widget_reference
+const cloudName = "dv5ig0sry"; 
+const uploadPreset = "lf1ouek0";
 
 const myWidget = cloudinary.createUploadWidget(
   {
