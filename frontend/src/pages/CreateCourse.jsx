@@ -29,9 +29,9 @@ export function PageSubTitle({ subTitle, padding }) {
   );
 }
 
-export function Tag({ name, style }) {
+export function Tag({ name, style, option, setOption }) {
   const [open, setOpen] = useState(false);
-  const [option, setOption] = useState("Dropdown");
+  // const [option, setOption] = useState("Dropdown");
   return (
     <div>
       <PageSubTitle subTitle={name} padding="2% 0% 0% 3%" />
@@ -56,6 +56,27 @@ function DropDown({ setOption, setOpen }) {
     padding: "0.5rem",
   };
 
+  const Tags = ['Maths',
+    'Physics',
+    'Chemistry',
+    'Biology',
+    'Computer Science',
+    'Machine Learning',
+    'Data Science',
+    'Philosophy',
+    'Economics',
+    'Econometrics',
+    'Finance',
+    'Business Administration',
+    'Law',
+    'Policy',
+    'Behavioural Sciences',
+    'Engineering',
+    'Psychology',
+    'Sociology',
+    'Anthropology',
+    'Astrology'];
+
   function DropdownItem(props) {
     return (
       <a>
@@ -73,11 +94,17 @@ function DropDown({ setOption, setOpen }) {
     );
   }
 
+  function GenerateDropdown({Tags}){
+    return Tags.map(
+      (item) => {
+        return <DropdownItem>{item}</DropdownItem>
+      }
+    )
+  }
+
   return (
     <div>
-      <DropdownItem>Machine Learning</DropdownItem>
-      <DropdownItem>Biology</DropdownItem>
-      <DropdownItem>Maths</DropdownItem>
+      <GenerateDropdown Tags = {Tags}/>
     </div>
   );
 }
@@ -115,6 +142,10 @@ function CreateCourse() {
     padding: "1% 0% 0% 2%",
   };
 
+  const [option1, setOption1] = useState("Dropdown");
+  const [option2, setOption2] = useState("Dropdown");
+  const [option3, setOption3] = useState("Dropdown");
+
   return (
     <div>
       <Navbar />
@@ -133,9 +164,9 @@ function CreateCourse() {
         padding="3% 0% 0% 3%"
       />
 
-      <Tag name="Tag 1*" style={textBox} />
-      <Tag name="Tag 2*" style={textBox} />
-      <Tag name="Tag 3*" style={textBox} />
+      <Tag name="Tag 1*" style={textBox} option = {option1} setOption={setOption1} />
+      <Tag name="Tag 2*" style={textBox} option = {option2} setOption={setOption2}/>
+      <Tag name="Tag 3*" style={textBox} option = {option3} setOption={setOption3}/>
 
       <Button text="Add Lectures!" />
     </div>
