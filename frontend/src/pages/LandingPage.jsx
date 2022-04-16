@@ -34,10 +34,13 @@ function LandingPage() {
     margin: "auto",
     padding: "6% 0% 0% 0%",
   };
+  
   let navigate = useNavigate();
+
   const handleClick = (route) => {
     navigate(route);
   };
+
   return (
     <div className="grad">
       {/* Logo */}

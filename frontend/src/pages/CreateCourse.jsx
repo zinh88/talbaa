@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {} from "./../CreateCourse.css";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 export function PageTitle({ title }) {
   const style = {

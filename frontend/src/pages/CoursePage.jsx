@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import { Btn2, HomePage, Title, Title2, Btn, Box, Text, Box2, Text2 } from "./styles/CoursePage.styled";
 import StarRating from "./styles/CoursePageRating";
-import pic1 from "../assets/paintbrush.PNG";
+// import pic1 from "../assets/paintbrush.PNG";
 
 
 

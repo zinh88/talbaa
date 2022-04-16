@@ -16,9 +16,7 @@ import EditQuiz from "./pages/EditQuiz";
 import CourseCatalogue from "./pages/CourseCatalogue";
 import CoursePage from "./pages/CoursePage";
 import ViewLecture from "./pages/ViewLecture";
-import LecturePage from "./pages/LecturePage";
-
-
+import CreateLecturePage from "./pages/CreateLecturePage";
 
 function App() {
   return (
@@ -37,14 +35,14 @@ function App() {
           <Route path="/createLecture" element={<CreateLecture />} />
           <Route path="/editCourse" element={<EditCourse />} />
           <Route path="/editLecture" element={<EditLecture />} />
-          <Route path="/editLecturePage" element={<EditLecturePage />} />
-          <Route path="/editLecturePage" element={<EditLecturePage />} />
           <Route path="/createQuiz" element={<CreateQuiz />} />
           <Route path="/editQuiz" element={<EditQuiz />} />
+          <Route path="/createLecturePage" element={<CreateLecturePage />} />
+          <Route path="/editLecturePage" element={<EditLecturePage />} />
           <Route path="/courseCatalogue" element={<CourseCatalogue />} />
           <Route path="/coursePage" element={<CoursePage />} />
           <Route path="/viewLecture" element={<ViewLecture />} />
-          <Route path="/lecturePage" element={<LecturePage />} />
+          
         </Routes>
       </BrowserRouter>
     </div>
