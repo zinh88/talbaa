@@ -25,11 +25,15 @@ const CourseSchema = new Schema({
     },
     tags: {
         type: Array,
-        default: "",
+        default: [],
         required: true
     },
     rating: {
         type: Number,
+        required: false
+    },
+    lectures: {
+        type: Array,
         required: false
     }
 });

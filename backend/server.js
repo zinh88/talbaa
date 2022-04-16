@@ -21,6 +21,11 @@ app.use(
         extended: false
     })
 );
+
+app.use(cors({
+    origin: '*'
+}));
+
 //middleware
 app.use(bodyParser.json());
 console.log(process.env.MONGO_URL)
