@@ -41,7 +41,10 @@ function LoginForm({ Login, error }) {
             />
           </div>
           <div className="forgot">
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              target="_blank"
+            >
               Forgot password?
             </a>
           </div>
