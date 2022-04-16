@@ -12,7 +12,7 @@ const crypto = require("crypto");
 const dotenv = require("dotenv");
 dotenv.config();
 
-router.post("/create_course", (req, res) => {
+router.post("/create_course", async (req, res) => {
   const { errors, isValid } = validateCreateCourse(req.body);
 
   if (!isValid) {
@@ -34,10 +34,14 @@ router.post("/create_course", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// router.put("/add_lecture", (req, res) => {
-//     const {errors, isValid = validateAddLecture(req.body)}
-//     const token = req.headers['authorization'].split(' ')[1];
-//     const payload = jwt.verify(token, process.env.secretOrKey)
+router.put("/add_lecture", async (req, res) => {
+    const {errors, isValid} = validateAddLecture(req.body)
+
+    if (!isValid) {
+        return res.status(400).json(errors)
+    }
+    const token = req.headers['authorization'].split(' ')[1];
+    const payload = jwt.verify(token, process.env.secretOrKey)
 
 //     const newLecture = new Lecture({
 //         title: req.body.title
@@ -56,7 +60,18 @@ router.post("/create_course", (req, res) => {
 
 //     let courseId = req.body.course_id;
 
-//     // make update to course, include course in the request body
-// })
+    // make update to course, include course in the request body
+    const course_doc = await Course.findOne({ _id: courseId });
+
+    let lecture_list = course_doc.lectures;
+    lecture_list.push(createdLecture)
+    let update = {lectures: lecture_list}
+    await course_doc.updateOne(update)
+
+    course_doc
+    .save()
+    .then(course => res.json(course))
+    .catch(err => console.log(err))
+})
 
 module.exports = router;
