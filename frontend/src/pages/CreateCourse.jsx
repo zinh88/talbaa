@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {} from "./../CreateCourse.css";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 export function PageTitle({title}){
   const style = {
@@ -80,16 +81,28 @@ export function CourseInfo({name, style, placeholderType, padding}){
   )
 }
 
-export function Button({text}){
+export function Button({text,link="#"}){
+
+  let navigate = useNavigate();
+
+  const handleClick = (route) => {
+    navigate(route);
+  };
 
   const button = {
-    padding: "1% 0% 0% 2%",
+    padding: "1% 10% 0% 0%",
+    "text-decoration": "none"
   }
 
   return(
-    <div class="column" style={button}>
-          <a style={{"text-decoration": "none"}} href="#"> 
-            <h1 class="addButton" >{text}</h1>
+    <div>
+          <a style={button} > 
+            <h1 class="addButton" 
+            onClick = {
+              () => handleClick(link)
+            }>
+              {text}
+            </h1>
           </a>
     </div>
   )
