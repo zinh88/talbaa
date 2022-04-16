@@ -12,7 +12,7 @@ const crypto = require("crypto");
 const dotenv = require("dotenv");
 dotenv.config();
 
-router.post("/create_course", (req, res) => {
+router.post("/create_course", async (req, res) => {
   const { errors, isValid } = validateCreateCourse(req.body);
 
   if (!isValid) {
@@ -34,7 +34,7 @@ router.post("/create_course", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.put("/add_lecture", (req, res) => {
+router.put("/add_lecture", async (req, res) => {
     const {errors, isValid} = validateAddLecture(req.body)
 
     if (!isValid) {
