@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./QuizForm.css";
 import {} from "./../CreateCourse.css";
-function QuizForm({ quiz, err, quizno }) {
+function QuizForm({ questionNumber, questionData }) {
   let [question, setQuestion] = useState({
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    correct: "",
+    question: questionData.question,
+    option1: questionData.option1,
+    option2: questionData.option2,
+    option3: questionData.option3,
+    option4: questionData.option4,
+    correct: questionData.correct,
   });
   const submitHandler = (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ function QuizForm({ quiz, err, quizno }) {
   };
   return (
     <div className="quiz-form">
-      <div className="quizQuestion">Question {quizno + 1}</div>
+      <div className="quizQuestion">Question {questionNumber}</div>
       <form onSubmit={submitHandler}>
         <textarea
           type="text"
@@ -124,4 +124,4 @@ function QuizForm({ quiz, err, quizno }) {
   );
 }
 
-export default QuizForm;
+export default ViewQuizForm;

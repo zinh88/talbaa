@@ -1,0 +1,21 @@
+Maths
+Physics
+Chemistry
+Biology
+Computer Science
+Machine Learning
+Data Science
+Philosophy
+Economics
+Econometrics
+Finance
+Business Administration
+Law
+Policy
+Behavioural Sciences
+Engineering
+Psychology
+Sociology
+Anthropology
+Astrology
+

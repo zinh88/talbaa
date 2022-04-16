@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -16,6 +17,11 @@ app.use(
         extended: false
     })
 );
+
+app.use(cors({
+    origin: '*'
+}));
+
 //middleware
 app.use(bodyParser.json());
 console.log(process.env.MONGO_URL)
