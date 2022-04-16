@@ -10,4 +10,8 @@ module.exports = function validateAddLecture(data) {
    if (Validator.isEmpty(data.title)) {
        errors.title = "Title is a required field"
    }
+   return {
+       errors,
+       isValid: isEmpty(errors)
+   }
 } 
