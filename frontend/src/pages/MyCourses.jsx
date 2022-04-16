@@ -41,7 +41,7 @@ const MyCourses = () => {
             </EnrolledBox>
         </HomePage>
         </>
-  )
+    )
 }
 
 export default MyCourses;

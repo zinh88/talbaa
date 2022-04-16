@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./LoginForm.css";
 function LoginForm({ Login, error }) {
-  const [details, setDetails] = useState({ username: "", password: "" });
+  const [details, setDetails] = useState({ email: "", password: "" });
   const submitHandler = (e) => {
     e.preventDefault();
-
+    
     Login(details);
   };
   return (
@@ -14,18 +14,18 @@ function LoginForm({ Login, error }) {
           <h1>Login</h1>
           {/*Error*/}
           <div>
-            <p>Please enter you Username and your Password</p>
+            <p>Please enter you Email and your Password</p>
           </div>
           <div className="form-group">
             <input
               type="text"
-              name="username"
-              id="username"
-              placeholder="username"
+              name="email"
+              id="email"
+              placeholder="email"
               onChange={(e) => {
-                setDetails({ ...details, username: e.target.value });
+                setDetails({ ...details, email: e.target.value });
               }}
-              value={details.username}
+              value={details.email}
             />
           </div>
           <div className="form-group">

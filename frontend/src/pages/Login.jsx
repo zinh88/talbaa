@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
+import axios from "axios";
 
 function Login() {
   const [user, setUser] = useState("");
@@ -10,6 +11,13 @@ function Login() {
   const login = (data) => {
     console.log(data);
     //validate data give as input
+    axios.post('api/users/login', data)
+        .then((resp) => {
+            console.log(resp)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
   };
   // const logout = () => {
   //   console.log("logout");

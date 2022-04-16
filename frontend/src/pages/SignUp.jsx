@@ -5,21 +5,22 @@ import SignUpForm from "../components/SignUpForm";
 import axios from "axios";
 
 function SignUp() {
-  const [user, setUser] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const signup = (data) => {
-    console.log(data);
-    axios.post('http://localhost:8800/api/users/register', data)
-    .then((resp) => {
-        console.log(resp)
-    })
-    .catch((err) => {
-        console.log(err)
-    })
-  };
+    const [user, setUser] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const signup = (data) => {
+        console.log(data);
+        axios.post('api/users/register', data)
+        .then((resp) => {
+            console.log(resp)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    };
+
   // const logout = () => {
   //   console.log("logout");
   // };

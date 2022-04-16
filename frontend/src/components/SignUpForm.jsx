@@ -88,7 +88,7 @@ function SignUpForm({ SignUp, error }) {
         <div>
           <p className="notmember">
             Already a member?
-            <a href="/signup">Login!</a>
+            <a href="/login">Login!</a>
           </p>
         </div>
       </form>
