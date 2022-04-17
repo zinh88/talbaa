@@ -12,6 +12,11 @@ const LectureSchema = new Schema({
         required: false
     },
 
+    quiz: {
+        type: Array,
+        required: false
+    },
+
     comments: {
         type: Array,
         required: false

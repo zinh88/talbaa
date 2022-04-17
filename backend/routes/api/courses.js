@@ -66,8 +66,7 @@ router.put("/add_lecture", async (req, res) => {
         .then(lecture => {
             createdLecture = lecture
             // res.json(lecture)
-        }
-        )
+        })
         .catch(err => console.log(err));
 
     // await newLecture;
@@ -76,7 +75,7 @@ router.put("/add_lecture", async (req, res) => {
     // make update to course, include course in the request body
     try {
         // updating the actual course document
-        const course_doc_final = await Course.findByIdAndUpdate( { _id: courseId }, { $push : { "lectures": createdLecture }} , {upsert : true})
+        const course_doc_final = await Course.findByIdAndUpdate( { _id: courseId }, { $push : { "lectures": createdLecture._id }} , {upsert : true})
 
         await course_doc_final
             .save()

@@ -5,7 +5,7 @@ const ContentSchema = new Schema ({
     title: {
         type: String,
         required: false,
-        default: ""
+        default: "Content-default name"
     },
 
     cld_reference: {
@@ -14,7 +14,8 @@ const ContentSchema = new Schema ({
         default: ""
     },
 
-    filetype: {
+    // types for this will be pdf, text, image, video
+    filetype: { 
         type: String,
         required: true,
         default: ""
