@@ -27,13 +27,8 @@ function UploadButton() {
         autoClose={false} 
         destroy={false} 
       />
-<<<<<<< HEAD
     </div>
   )
-=======
-    </>
-  );
->>>>>>> 55f370a31f23f7acf138186be4677e65e8062d4c
 }
 
 export default UploadButton;

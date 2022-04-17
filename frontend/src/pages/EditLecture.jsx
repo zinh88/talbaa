@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import UploadButton from "../components/UploadButton";
 import Navbar from "./../components/Navbar";
-<<<<<<< HEAD
 import { Image, Video} from "cloudinary-react";
 import {} from './../EditLecture.css'
-import { CourseInfo } from "./CreateCourse";
+import { CourseInfo, Button } from "./CreateCourse";
 import {} from "./../CreateCourse.css";
-import { blackwhite } from "@cloudinary/url-gen/actions/effect";
-import { border } from "@cloudinary/url-gen/qualifiers/background";
-
+import { useNavigate } from "react-router-dom";
 
 function InsertImage({id, cloudName}){
   return(
@@ -156,6 +153,12 @@ function DropDown({resources,setResources, textForm, setTextForm}) {
     "padding-top": "0.5rem"
   };
 
+  let navigate = useNavigate();
+
+    const handleClick = (route) => {
+      navigate(route);
+    };
+
   const textEvent = () => {
     // console.log("Enter Event here")
     return(
@@ -164,7 +167,9 @@ function DropDown({resources,setResources, textForm, setTextForm}) {
   }
 
   const quizEvent = () => {
-    console.log("Enter Event here")
+
+    // console.log("Enter Event here")
+    handleClick("/createQuiz")
   }
   
 
@@ -263,20 +268,30 @@ function ResButton({resources,setResources,textForm, setTextForm}){
     </div>  
   )
 }
-=======
-import { Image, Video, Transformation } from "cloudinary-react";
->>>>>>> 55f370a31f23f7acf138186be4677e65e8062d4c
 
-// const cld = new Cloudinary({
-//   cloud: {
-//     cloudName: "d5ig0sry",
-//   },
-// });
+export function LectureHeading({lectureName}){
+  const style = {
+    "display": "flex",
+    "align-items": "center",
+    "justify-content":"center",
+    "padding": "3% 0% 0% 0%",
+  }
+  const nameStyle = {
+    "color":"#007E8E"
+  }
+  return(
+  <p style={style} class="pageTitle">
+    <p>Lecture:</p>
+    <p style={nameStyle}>{lectureName}</p>
+  </p>
+  )
+}
+
+
 function EditLecture() {
   const id1 = "udzo4o03kwgwjl3d7zkj";
   const id2 = "k17pkba5cddfcpcth1dj";
   const id3 = "uxhqhj80uihwzkwm944t";
-<<<<<<< HEAD
   const id4 = "xr7qtsex5edb7dz9tvhl";
 
   let initialRes = [
@@ -297,7 +312,7 @@ function EditLecture() {
     <div>
       <Navbar />
 
-        Edit Lecture
+      <LectureHeading lectureName="Introduction to Machine Learning"/>
 
       <DisplayContent resources = {resources} 
                       cloudName = {cloudName} 
@@ -311,38 +326,11 @@ function EditLecture() {
                   setResources = {setResources}
                   textForm = {textForm}
                   setTextForm = {setTextForm}/>
-    
-=======
-  const id4 = "i5kmeg72wcsdyjq9fysl";
 
-  const cloudName = "dv5ig0sry";
-
-  return (
-    <div>
-      <Navbar />
-      Edit Lecture
-      <UploadButton />
-      {/* <Image cloudName={cloudName} publicId={id1} width="370" /> */}
-      {/* <a
-        href={`http://res.cloudinary.com/${cloudName}/image/upload/${id1}`}
-        target="_blank"
-      >
-        pdf link
-      </a> */}
-      <Video cloudName="demo" publicId="dog" controls="true">
-        <Transformation width="0.4" angle="20" />
-        <Transformation
-          overlay="cloudinary_icon_white"
-          width="60"
-          opacity="50"
-          gravity="south_east"
-          y="15"
-          x="60"
-        />
-      </Video>
->>>>>>> 55f370a31f23f7acf138186be4677e65e8062d4c
+      <Button text="Return" route="/editLecturePage"/>
     </div>
 
   );
 }
+
 export default EditLecture;
