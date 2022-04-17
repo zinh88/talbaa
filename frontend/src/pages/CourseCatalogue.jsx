@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Navbar from "../components/Navbar";
 import { Tag } from "./CreateCourse";
-import {HomePage, Title} from "./styles/CourseCatalogue.styled";
-import samplepic from "../assets/mlpic.jpg"
+import { HomePage, Title } from "./styles/CourseCatalogue.styled";
+import samplepic from "../assets/mlpic.jpg";
 import { EnrolledBox } from "./styles/MyCourses.styled";
 import axios from "axios";
 
