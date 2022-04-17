@@ -211,7 +211,7 @@ function CreateCourse({setAuth}) {
         setOption={setOption3}
       />
 
-      <Button text="Add Lectures!" createCourse={createCourse}/>
+      <Button text="Add Lectures!" event={createCourse}/>
     </div>
   );
 }
