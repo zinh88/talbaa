@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import {
   Btn2,
@@ -15,16 +15,16 @@ import StarRating from "./styles/CoursePageRating";
 // import pic1 from "../assets/paintbrush.PNG";
 
 function CoursePage({ setAuth }) {
-  let courseName = "Miqspanel";
-  let egString =
-    "Nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan";
+  const [title, setTitle] = useState('jk');
+  const [description, setDescription] = useState('');
+
   return (
     <div>
       <Navbar setAuth={setAuth} />
       <HomePage style={{ "font-size": "40px", "max-width": "3000px" }}>
         <Box style={{ "align-items": "center", "justify-content": "center" }}>
-          <Title style={{ color: "#656565" }}>Course:</Title>
-          <Title style={{ color: "#007E8E" }}>{courseName}</Title>
+          <Title style={{ color: "#656565" }}>Course :</Title>
+          <Title style={{ color: "#007E8E" }}>{title}</Title>
         </Box>
         <Box
           style={{
@@ -74,7 +74,7 @@ function CoursePage({ setAuth }) {
             "line-height": "40px",
           }}
         >
-          {egString}
+          {description}
         </Text>
         <Text
           style={{

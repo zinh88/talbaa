@@ -2,7 +2,7 @@ import React from "react";
 import Rating from "./Rating";
 import { Author, CardFooter, CardPic, Description, StyledCard, Tags, Title, Info, Tag, Bottom, RatingBar, Stars} from "./styles/Card.styled";
 
-const Card = ({card : { title, desc, pic, rating, tags, creator}}) => {
+const Card = ({card : { title, description, pic, rating, tags, creator}}) => {
     return (
         <StyledCard>
             <CardPic src={pic}/>
@@ -10,7 +10,7 @@ const Card = ({card : { title, desc, pic, rating, tags, creator}}) => {
                 <Info>
                     <Title>{title}</Title>
                     <Author>{creator}</Author>
-                    <Description>{desc}</Description>
+                    <Description>{description}</Description>
                 </Info>
                 <Bottom>
                 <Tags>
