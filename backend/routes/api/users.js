@@ -144,17 +144,19 @@ router.get("/get_user", async (req, res) => {
 router.put("/enroll", async (req, res) => {
     const token = req.headers['authorization'].split(" ")[1];
 
-    var username;
+    // var username;
+    var user_id
     try {
         const payload = jwt.verify(token, process.env.secretOrKey);
-        username = payload.username;
+        // username = payload.username;
+        user_id = payload.user_id;
     } catch (err) {
         console.log(err)
         res.status(403).json({ message: "Not authorized" })
     }
 
     try {
-        const user_doc = await User.findByIdAndUpdate({ _id: username },
+        const user_doc = await User.findByIdAndUpdate({ user_id: user_id },
             { $push: { "lectures": req.body.courseId }, }, { upsert: true })
 
         await user_doc
@@ -177,7 +179,7 @@ router.get("/get_enrolled_courses", async (req,  res) => {
     user_id = payload.user_id
 
     try {
-        let user = await User.findOne({ _id: user_id }).orFail();
+        let user = await User.findOne({ user_id: user_id }).orFail();
 
         await user;
     
