@@ -5,10 +5,10 @@ import pic1 from "../assets/Homepage2.png"
 import pic2 from "../assets/Homepage1.png"
 
 
-function Home() {
+function Home({setAuth}) {
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar setAuth={setAuth}></Navbar>
       <HomePage>
         <Title>
           Home

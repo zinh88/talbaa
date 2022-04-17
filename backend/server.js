@@ -5,12 +5,18 @@ const dotenv = require("dotenv");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const PORT = process.env.PORT || 8800;
 
 dotenv.config();
 
 const users = require("./routes/api/users");
 const courses = require("./routes/api/courses")
 const tags = require("./routes/api/tags")
+const lectures = require("./routes/api/lectures")
+
+app.use(cors({
+    origin: '*'
+}));
 
 app.use(
     bodyParser.urlencoded({
@@ -40,8 +46,9 @@ require("./config/passport")(passport);
 // Routes
 app.use("/api/users", users);
 app.use("/api/courses", courses);
+app.use("/api/lectures", lectures);
 app.use("/api/tags", tags);
 
-app.listen(8800, () => {
+app.listen(PORT, () => {
     console.log("Backend server is running!");
 });

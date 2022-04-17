@@ -13,13 +13,13 @@ const card = {
     rating: 4.3
 }
 
-const MyCourses = () => {
+const MyCourses = ({setAuth, name}) => {
     const [enrolled, setEnrolled] = useState([]);
     const [created, setCreated] = useState([]);
     
     return (
         <>
-        <Navbar></Navbar>
+        <Navbar setAuth={setAuth} name={name}></Navbar>
         <HomePage>
             <Title>
                 My Courses
@@ -41,7 +41,7 @@ const MyCourses = () => {
             </EnrolledBox>
         </HomePage>
         </>
-  )
+    )
 }
 
 export default MyCourses;

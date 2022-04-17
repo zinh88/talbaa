@@ -7,9 +7,13 @@ const CourseSchema = new Schema({
         type: String,
         default: Date.now
     },
-    course_id: {
-        type: String,
-        required: true
+    // course_id: {
+    //     type: String,
+    //     required: true
+    // },
+    num_enrollments: {
+        type: Number,
+        default: 0
     },
     description: {
         type: String,
@@ -34,7 +38,9 @@ const CourseSchema = new Schema({
     },
     lectures: {
         type: Array,
-        required: false
+        default: [],
+        required: true
     }
 });
+
 module.exports = mongoose.model("courses", CourseSchema);
