@@ -87,7 +87,7 @@ router.put("/add_lecture", async (req, res) => {
     }
 })
 
-router.get("/get_course", async (req, res) => {
+router.get("/get_course/:id", async (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
     try {
         const payload = jwt.verify(token, process.env.secretOrKey)
@@ -95,8 +95,8 @@ router.get("/get_course", async (req, res) => {
         res.json({ message: "Not authorized" })
     }
 
-    let courseId = req.body.courseId;
-
+    let courseId = req.params.id 
+    
     try {
         const course_doc = await Course.findOne({ _id: courseId});
         return res.json(course_doc)

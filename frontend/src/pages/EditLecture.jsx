@@ -299,7 +299,7 @@ function EditLecture() {
     {id: id3, name: "Stack of Books", type:"image"},
     {id: id2, name: "Unknown PDF", type:"pdf"},
     {id: id4, name: "Circuits Tutorial", type:"video"},
-    {id: "hello", name: "Circuits Tutorial", type:"textBox"},
+    // {id: "hello", name: "Circuits Tutorial", type:"textBox"},
   ]
 
   const [resources, setResources] = useState(initialRes);

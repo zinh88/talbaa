@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ViewQuizForm from "../components/ViewQuizForm";
 import Navbar from "../components/Navbar";
 import { PageTitle } from "./CreateCourse";
-function ViewQuiz() {
+function ViewQuiz({ setAuth }) {
   let [quiz, setQuiz] = useState([
     {
       question1: "haashim ka kitni dafa kata",
@@ -23,7 +23,7 @@ function ViewQuiz() {
   ]);
   return (
     <>
-      <Navbar />
+      <Navbar setAuth={setAuth} />
       <PageTitle title={"View Quiz"} />
       {quiz.map((question, ind) => {
         return (
