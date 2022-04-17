@@ -106,8 +106,10 @@ router.put("/add_lecture", async (req, res) => {
 
 router.get("/get_course/:id", async (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
+
+    var payload;
     try {
-        const payload = jwt.verify(token, process.env.secretOrKey)
+        payload = jwt.verify(token, process.env.secretOrKey)
     } catch (error) {
         res.json({ message: "Not authorized" })
     }
