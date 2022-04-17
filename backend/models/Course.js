@@ -38,7 +38,8 @@ const CourseSchema = new Schema({
     },
     lectures: {
         type: Array,
-        required: false
+        default: [],
+        required: true
     }
 });
 

@@ -2,17 +2,28 @@ import React, { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import SignUpForm from "../components/SignUpForm";
+import axios from "axios";
 
-function SignUp() {
-  const [user, setUser] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const signup = (data) => {
-    console.log(data);
-    //validate data give as input
-  };
+function SignUp({setAuth}) {
+    const [user, setUser] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const signup = (data) => {
+        console.log(data);
+        axios.post('api/users/register', data)
+        .then((resp) => {
+            console.log(resp);
+            const token = resp.data.token;
+            localStorage.setItem("authorization", token);
+            setAuth(true);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    };
+
   // const logout = () => {
   //   console.log("logout");
   // };

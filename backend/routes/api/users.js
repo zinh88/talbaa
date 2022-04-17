@@ -15,7 +15,7 @@ dotenv.config()
 // @route POST api/users/register
 // @desc Register user
 // @access Public
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
     // console.log('router')
     // console.log(req.body)
     // Form validation
@@ -71,7 +71,7 @@ router.post("/register", (req, res) => {
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
     // Form validation
     const { errors, isValid } = validateLoginInput(req.body);
     // Check validation
@@ -118,12 +118,14 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.get("/get_user", (req, res) => {
-    const token = req.headers['authorization'];
+router.get("/get_user", async (req, res) => {
+    const token = req.headers['authorization'].split(" ")[1];
     
     try {
         const payload = jwt.verify(token, process.env.secretOrKey);
         res.username = payload.username;
+        console.log(res.username);
+        res.json({username : res.username})
     } catch (err) {
         console.log(err)
         res.status(403).json({message: "Not authorized"})
