@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
     try {
         let user = await User.findOne({ email: req.body.email }).orFail();
 
-        console.log("GETTING HERE --------------- ")
+        // console.log("GETTING HERE --------------- ")
         if (user) {
             return res.status(400).json({ email: "Email already exists" });
         } else {
@@ -166,6 +166,28 @@ router.put("/enroll", async (req, res) => {
     }
 })
 
+router.get("/get_enrolled_courses", async (req,  res) => {
+    const token = req.headers['authorization'].split(' ')[1];
+    try {
+        const payload = jwt.verify(token, process.env.secretOrKey)
+    } catch (error) {
+        res.json({ message: "Not authorized" })
+    }
 
+    user_id = payload.user_id
+
+    try {
+        let user = await User.findOne({ _id: user_id }).orFail();
+
+        await user;
+    
+        let enrolledCourses = user.enrolledCourses
+        return (res.json(enrolledCourses))    
+    } catch (error) {
+        console.log(error)
+    }
+
+
+})
 
 module.exports = router;

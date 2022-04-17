@@ -78,4 +78,33 @@ router.get("/get_lecture", async (req, res) => {
 
 })
 
+router.put("/add_quiz", async (req, res) => {
+    const token = req.headers['authorization'].split(" ")[1];
+
+    var username;
+    try {
+        const payload = jwt.verify(token, process.env.secretOrKey);
+        username = payload.username;
+    } catch (err) {
+        console.log(err)
+        res.status(403).json({ message: "Not authorized" })
+    }
+    
+    let lectureId = req.body.lectureId;
+
+    try {
+        const lecture_doc_final = await Lectur.findByIdAndUpdate( {_id: lectureId} , {
+            $push: { "quiz" : req.body.quiz }
+        } , {upsert : true})
+
+        await lecture_doc_final
+            .save()
+            .then(lecture => res.json(lecture))
+            .catch(err => console.log(err))
+
+    } catch (error) {
+        res.json( { message: error} )
+    }
+})
+
 module.exports = router;
