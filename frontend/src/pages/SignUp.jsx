@@ -11,7 +11,6 @@ function SignUp({setAuth}) {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const signup = (data) => {
-        console.log(data);
         axios.post('api/users/register', data)
         .then((resp) => {
             console.log(resp);

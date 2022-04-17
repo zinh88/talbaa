@@ -31,7 +31,7 @@ router.post("/create_course", async (req, res) => {
     const newCourse = new Course({
         // course_id : crypto.randomUUID(),
         description: req.body.description,
-        created_by: payload.user_id,
+        created_by: payload.username,
         title: req.body.title,
         tags: req.body.tags,
     });
@@ -95,8 +95,8 @@ router.get("/get_course/:id", async (req, res) => {
         res.json({ message: "Not authorized" })
     }
 
-    let courseId = req.params.id 
-    
+    let courseId = req.params.id;
+
     try {
         const course_doc = await Course.findOne({ _id: courseId});
         return res.json(course_doc)
@@ -125,5 +125,22 @@ router.get("/get_lectures", async (req, res) => {
         return res.json({ error: "Some error, cannot find course" })
     }
 })
+
+router.get("/get_all_courses", async (req, res) => {
+    const token = req.headers['authorization'].split(' ')[1];
+
+    try {
+        const payload = jwt.verify(token, process.env.secretOrKey)
+    } catch (error) {
+        res.json( {message: "Not authorized" })
+    }
+
+    let courses_doc = Course.find({})
+
+    await courses_doc
+    .then(courses => res.json(courses))
+    .catch(err => console.log(err));
+})
+
 
 module.exports = router;

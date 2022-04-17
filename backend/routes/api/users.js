@@ -8,6 +8,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
+const Course = require("../../models/Course");
 const crypto = require('crypto')
 const dotenv = require("dotenv");
 
@@ -22,7 +23,7 @@ router.post("/register", async (req, res) => {
 
     try {
         let user = await User.findOne({ email: req.body.email }).orFail();
-        
+
         console.log("GETTING HERE --------------- ")
         if (user) {
             return res.status(400).json({ email: "Email already exists" });
@@ -121,23 +122,50 @@ router.post("/login", async (req, res) => {
                 .status(400)
                 .json({ passwordincorrect: "Password incorrect" });
         }
-        })
+    })
         .catch(err => console.log(err));
     // });
 });
 
 router.get("/get_user", async (req, res) => {
     const token = req.headers['authorization'].split(" ")[1];
-    
+
     try {
         const payload = jwt.verify(token, process.env.secretOrKey);
         res.username = payload.username;
         console.log(res.username);
-        res.json({username : res.username})
+        res.json({ username: res.username })
     } catch (err) {
         console.log(err)
         res.status(403).json({ message: "Not authorized" })
     }
 })
+
+router.put("/enroll", async (req, res) => {
+    const token = req.headers['authorization'].split(" ")[1];
+
+    var username;
+    try {
+        const payload = jwt.verify(token, process.env.secretOrKey);
+        username = payload.username;
+    } catch (err) {
+        console.log(err)
+        res.status(403).json({ message: "Not authorized" })
+    }
+
+    try {
+        const user_doc = await User.findByIdAndUpdate({ _id: username },
+            { $push: { "lectures": req.body.courseId }, }, { upsert: true })
+
+        await user_doc
+            .save()
+            .then(user => res.json(user))
+            .catch(err => console.log(err))
+    } catch (error) {
+        res.json({ message: error })
+    }
+})
+
+
 
 module.exports = router;
