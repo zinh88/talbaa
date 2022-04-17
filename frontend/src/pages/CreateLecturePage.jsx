@@ -1,15 +1,13 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import {Button, PageSubTitle} from "./CreateCourse"
+import { Button, PageSubTitle } from "./CreateCourse";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import {Heading} from "./CreateLecture";
+import { Heading } from "./CreateLecture";
 import deleteIcon from "./../icons/delete.png";
-import {} from "./../Buttons.css"
+import {} from "./../Buttons.css";
 import axios from "axios";
 
-export function Lectures(){
-
-
+export function Lectures() {
   const style = {
     padding: "3% 5% 0% 4%",
   };
@@ -96,9 +94,9 @@ export function AddButton({ event, text }) {
 
 function CreateLecturePage({ setAuth }) {
   const [id, setID] = useState(0);
-  const [data, setData] =useState([]);
+  const [data, setData] = useState([]);
   const [searchParams] = useSearchParams();
-  const course_id = searchParams.get('id'); // 'name'
+  const course_id = searchParams.get("id"); // 'name'
 
   function addData() {
     let currID = id;
@@ -114,19 +112,20 @@ function CreateLecturePage({ setAuth }) {
   //   navigate(route);
   // };
   useEffect(() => {
-      console.log(course_id);
-      axios.get(`api/courses/get_course/${course_id}`, {
+    console.log(course_id);
+    axios
+      .get(`api/courses/get_course/${course_id}`, {
         headers: {
-            'authorization': localStorage.authorization
-        }
-    })
-    .then((resp) => {
-        console.log(resp)
-    })
-    .catch((err) => {
-        console.log(err)
-    })
-  },[])
+          authorization: localStorage.authorization,
+        },
+      })
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div>
