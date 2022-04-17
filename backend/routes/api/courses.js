@@ -137,11 +137,15 @@ router.get("/get_course/:id", async (req, res) => {
         enrolled = true;
     }
 
-    res.json({"enrolled": enrolled})
+    // res.json({"enrolled": enrolled})
+    var enrolledJson = {"enrolled": enrolled}
 
     try {
         const course_doc = await Course.findOne({ _id: courseId});
-        return res.json(course_doc)
+        res.json(course_doc)
+        res = {...res, ...enrolledJson}
+        // return res.json(course_doc)
+        return res
     } catch (error) {
         return res.json({ error: "Some error"} )
     }

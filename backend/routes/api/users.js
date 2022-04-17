@@ -188,8 +188,6 @@ router.get("/get_enrolled_courses", async (req,  res) => {
     } catch (error) {
         console.log(error)
     }
-
-
 })
 
 module.exports = router;

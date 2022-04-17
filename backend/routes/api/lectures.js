@@ -107,4 +107,19 @@ router.put("/add_quiz", async (req, res) => {
     }
 })
 
+router.get("/get_quiz/:id", async (req, res) => {
+    const token = req.headers['authorization'].split(' ')[1];
+
+    var payload;
+    try {
+        payload = jwt.verify(token, process.env.secretOrKey)
+    } catch (error) {
+        res.json({ message: "Not authorized" })
+    }
+
+    let quizId = req.params.id;
+
+    
+})
+
 module.exports = router;
