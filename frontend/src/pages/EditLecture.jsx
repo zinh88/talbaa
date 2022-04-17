@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import UploadButton from "../components/UploadButton";
 import Navbar from "./../components/Navbar";
-<<<<<<< HEAD
 import { Image, Video} from "cloudinary-react";
 import {} from './../EditLecture.css'
 import { CourseInfo } from "./CreateCourse";
@@ -263,9 +262,6 @@ function ResButton({resources,setResources,textForm, setTextForm}){
     </div>  
   )
 }
-=======
-import { Image, Video, Transformation } from "cloudinary-react";
->>>>>>> 55f370a31f23f7acf138186be4677e65e8062d4c
 
 // const cld = new Cloudinary({
 //   cloud: {
@@ -276,43 +272,6 @@ function EditLecture() {
   const id1 = "udzo4o03kwgwjl3d7zkj";
   const id2 = "k17pkba5cddfcpcth1dj";
   const id3 = "uxhqhj80uihwzkwm944t";
-<<<<<<< HEAD
-  const id4 = "xr7qtsex5edb7dz9tvhl";
-
-  let initialRes = [
-    {id: id1, name: "Edge Computing", type:"pdf"},
-    {id: id3, name: "Stack of Books", type:"image"},
-    {id: id2, name: "Unknown PDF", type:"pdf"},
-    {id: id4, name: "Circuits Tutorial", type:"video"},
-    {id: "hello", name: "Circuits Tutorial", type:"textBox"},
-  ]
-
-  const [resources, setResources] = useState(initialRes);
-
-  const cloudName = "dv5ig0sry";
-
-  const [textForm, setTextForm] = useState(false);
-
-  return (
-    <div>
-      <Navbar />
-
-        Edit Lecture
-
-      <DisplayContent resources = {resources} 
-                      cloudName = {cloudName} 
-                      setResources={setResources}/>    
-
-      {textForm && <InsertTextBox  resources = {resources}
-                      setResources = {setResources}/>}
-
-
-      <ResButton  resources = {resources}
-                  setResources = {setResources}
-                  textForm = {textForm}
-                  setTextForm = {setTextForm}/>
-    
-=======
   const id4 = "i5kmeg72wcsdyjq9fysl";
 
   const cloudName = "dv5ig0sry";
@@ -340,7 +299,6 @@ function EditLecture() {
           x="60"
         />
       </Video>
->>>>>>> 55f370a31f23f7acf138186be4677e65e8062d4c
     </div>
 
   );
