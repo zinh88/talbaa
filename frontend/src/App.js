@@ -66,7 +66,7 @@ const App = () => {
               !isAuthenticated ? (
                 <SignUp setAuth={setAuthenticated} />
               ) : (
-                <Navigate replace to="/home" />
+                <Navigate replace to="/subscribe" />
               )
             }
           />
@@ -76,7 +76,7 @@ const App = () => {
               isAuthenticated ? (
                 <Subscribe setAuth={setAuthenticated} />
               ) : (
-                <Navigate replace to="/" />
+                <Navigate replace to="/home" />
               )
             }
           />

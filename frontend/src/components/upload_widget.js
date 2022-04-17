@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // const cloudName = "dv5ig0sry"; 
 // const uploadPreset = "lf1ouek0"; 
 
@@ -16,10 +15,6 @@
 //     }
 //   }
 // );
-=======
-const cloudName = "dv5ig0sry"; 
-const uploadPreset = "lf1ouek0";
->>>>>>> 55f370a31f23f7acf138186be4677e65e8062d4c
 
 // document.getElementById("upload_widget").addEventListener(
 //   "click",

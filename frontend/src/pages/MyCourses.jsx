@@ -13,13 +13,13 @@ const card = {
     rating: 4.3
 }
 
-const MyCourses = ({setAuth, name}) => {
+const MyCourses = ({setAuth}) => {
     const [enrolled, setEnrolled] = useState([]);
     const [created, setCreated] = useState([]);
     
     return (
         <>
-        <Navbar setAuth={setAuth} name={name}></Navbar>
+        <Navbar setAuth={setAuth}></Navbar>
         <HomePage>
             <Title>
                 My Courses

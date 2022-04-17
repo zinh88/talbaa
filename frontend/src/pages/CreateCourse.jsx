@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {} from "./../CreateCourse.css";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export function PageTitle({ title }) {
   const style = {
@@ -30,7 +31,6 @@ export function PageSubTitle({ subTitle, padding }) {
 }
 
 export function Tag({ name, style, option, setOption }) {
-<<<<<<< HEAD
   
   const Tags = ['Maths',
     'Physics',
@@ -52,56 +52,6 @@ export function Tag({ name, style, option, setOption }) {
     'Sociology',
     'Anthropology',
     'Astrology'];
-=======
-  const [open, setOpen] = useState(false);
-  // const [option, setOption] = useState("Dropdown");
-  return (
-    <div>
-      <PageSubTitle subTitle={name} padding="2% 0% 0% 3%" />
-      <div style={style}>
-        <h1
-          class="dropdown"
-          onClick={() => {
-            setOpen(!open);
-          }}
-        >
-          {option}
-        </h1>
-
-        {open && <DropDown setOption={setOption} setOpen={setOpen} />}
-      </div>
-    </div>
-  );
-}
-
-function DropDown({ setOption, setOpen }) {
-  const itemStyle = {
-    padding: "0.5rem",
-  };
-
-  const Tags = [
-    "Maths",
-    "Physics",
-    "Chemistry",
-    "Biology",
-    "Computer Science",
-    "Machine Learning",
-    "Data Science",
-    "Philosophy",
-    "Economics",
-    "Econometrics",
-    "Finance",
-    "Business Administration",
-    "Law",
-    "Policy",
-    "Behavioural Sciences",
-    "Engineering",
-    "Psychology",
-    "Sociology",
-    "Anthropology",
-    "Astrology",
-  ];
->>>>>>> 55f370a31f23f7acf138186be4677e65e8062d4c
 
   const [open, setOpen] = useState(false);
   return (
@@ -158,10 +108,7 @@ export function DropDown({ setOption, setOpen, Tags }) {
   );
 }
 
-export function CourseInfo({ name, style, placeholderType, padding, state, setState }) {
-  
-  // const [text, setText] = useState("");
-  
+export function CourseInfo({ name, style, placeholderType, padding, setText }) {
   return (
     <div>
       <PageSubTitle subTitle={name} padding={padding} />
@@ -169,27 +116,23 @@ export function CourseInfo({ name, style, placeholderType, padding, state, setSt
         <textarea
           placeholder="Placeholder..."
           class={placeholderType}
-          onChange = {
-            (e) => {
-              setState(e.target.value)
-            }
-          }
+          onChange={(e) => {setText(e.target.value);}}
         ></textarea>
       </div>
     </div>
   );
 }
 
-export function Button({ text }) {
+export function Button({ text , event }) {
   const button = {
-    padding: "1% 0% 0% 2%",
+    padding: "1% 0% 2% 2%",
   };
 
   return (
     <div class="column" style={button}>
-      <a style={{ "text-decoration": "none" }} href="#">
+      <div onClick={event} style={{ "text-decoration": "none" }}>
         <h1 class="addButton">{text}</h1>
-      </a>
+      </div>
     </div>
   );
 }
@@ -198,11 +141,37 @@ function CreateCourse({setAuth}) {
   const textBox = {
     padding: "1% 0% 0% 2%",
   };
-
+  const [title , setTitle] = useState('');
+  const [desc, setDesc] = useState('');
   const [option1, setOption1] = useState("Dropdown");
   const [option2, setOption2] = useState("Dropdown");
   const [option3, setOption3] = useState("Dropdown");
 
+
+  const navigate = useNavigate();
+  const createCourse = () => {
+    const data = {
+        title: title,
+        description: desc,
+        tags: [option1, option2, option3]
+    }
+    console.log(data);
+    axios.post('api/courses/create_course',data, {
+        headers: {
+            'authorization': localStorage.authorization
+        }
+    })
+    .then((resp) => {
+        const id = resp.data._id;
+        console.log(resp.data._id);
+        navigate(`/CreateLecturePage?id=${id}`, { replace: true })
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+
+  }
   return (
     <div>
       <Navbar setAuth={setAuth}/>
@@ -213,12 +182,14 @@ function CreateCourse({setAuth}) {
         style={textBox}
         placeholderType="placeholderTitle"
         padding="5% 0% 0% 3%"
+        setText={setTitle}
       />
       <CourseInfo
         name="Course Description*"
         style={textBox}
         placeholderType="placeholderDescription"
         padding="3% 0% 0% 3%"
+        setText={setDesc}
       />
 
       <Tag
@@ -240,7 +211,7 @@ function CreateCourse({setAuth}) {
         setOption={setOption3}
       />
 
-      <Button text="Add Lectures!" />
+      <Button text="Add Lectures!" event={createCourse}/>
     </div>
   );
 }

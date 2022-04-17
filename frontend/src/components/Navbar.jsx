@@ -29,9 +29,9 @@ const Navbar = ({ setAuth }) => {
       });
   };
 
-  useEffect(() => {
-    getName();
-  });
+    useEffect(()=>{
+        getName();
+    },[])
 
   return (
     <div>
