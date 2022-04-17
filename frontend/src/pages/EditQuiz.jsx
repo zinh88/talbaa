@@ -10,18 +10,20 @@ function EditQuiz({ setAuth }) {
   let [quiz, setQuiz] = useState([]);
   let [questions, setQuestions] = useState([]);
   const [error, setError] = useState("");
+
+
   let Quiz = (data) => {
     setQuestions((curr) => [...curr, data]);
   };
+
   return (
     <>
       <Navbar setAuth={setAuth} />
       <div className="edit-quiz">
+        
         <PageTitle title={"Create Quiz"} />
         <Heading courseName={"Machine Learning"} />
-        {/* <div className="pageSubTitle" style={{ margin: "auto", width: "15%" }}>
-          <h1>Course: {courseName}</h1>
-        </div> */}
+        
         <div style={{ padding: "0.5rem" }}>
           <h3 style={{ padding: "0.5rem 0.5rem 0.5rem 1.5rem" }}>
             Quiz Title*
@@ -32,6 +34,7 @@ function EditQuiz({ setAuth }) {
             className="placeholderTitle"
           ></input>
         </div>
+        
         <div style={{ padding: "0.5rem" }}>
           <h3 style={{ padding: "0.5rem 0.5rem 0.5rem 1.5rem" }}>
             Quiz Description
@@ -42,7 +45,11 @@ function EditQuiz({ setAuth }) {
             placeholder="Enter Quiz Description"
           ></textarea>
         </div>
-        <div>{quiz}</div>
+        
+        <div>
+          {quiz}
+        </div>
+        
         <div
           style={{
             display: "flex",
@@ -74,6 +81,7 @@ function EditQuiz({ setAuth }) {
             +
           </button>
         </div>
+
         <div>
           <button
             className="addButton"
