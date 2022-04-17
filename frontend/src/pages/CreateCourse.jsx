@@ -56,26 +56,28 @@ function DropDown({ setOption, setOpen }) {
     padding: "0.5rem",
   };
 
-  const Tags = ['Maths',
-    'Physics',
-    'Chemistry',
-    'Biology',
-    'Computer Science',
-    'Machine Learning',
-    'Data Science',
-    'Philosophy',
-    'Economics',
-    'Econometrics',
-    'Finance',
-    'Business Administration',
-    'Law',
-    'Policy',
-    'Behavioural Sciences',
-    'Engineering',
-    'Psychology',
-    'Sociology',
-    'Anthropology',
-    'Astrology'];
+  const Tags = [
+    "Maths",
+    "Physics",
+    "Chemistry",
+    "Biology",
+    "Computer Science",
+    "Machine Learning",
+    "Data Science",
+    "Philosophy",
+    "Economics",
+    "Econometrics",
+    "Finance",
+    "Business Administration",
+    "Law",
+    "Policy",
+    "Behavioural Sciences",
+    "Engineering",
+    "Psychology",
+    "Sociology",
+    "Anthropology",
+    "Astrology",
+  ];
 
   function DropdownItem(props) {
     return (
@@ -94,17 +96,15 @@ function DropDown({ setOption, setOpen }) {
     );
   }
 
-  function GenerateDropdown({Tags}){
-    return Tags.map(
-      (item) => {
-        return <DropdownItem>{item}</DropdownItem>
-      }
-    )
+  function GenerateDropdown({ Tags }) {
+    return Tags.map((item) => {
+      return <DropdownItem>{item}</DropdownItem>;
+    });
   }
 
   return (
     <div>
-      <GenerateDropdown Tags = {Tags}/>
+      <GenerateDropdown Tags={Tags} />
     </div>
   );
 }
@@ -164,9 +164,24 @@ function CreateCourse({setAuth}) {
         padding="3% 0% 0% 3%"
       />
 
-      <Tag name="Tag 1*" style={textBox} option = {option1} setOption={setOption1} />
-      <Tag name="Tag 2*" style={textBox} option = {option2} setOption={setOption2}/>
-      <Tag name="Tag 3*" style={textBox} option = {option3} setOption={setOption3}/>
+      <Tag
+        name="Tag 1*"
+        style={textBox}
+        option={option1}
+        setOption={setOption1}
+      />
+      <Tag
+        name="Tag 2*"
+        style={textBox}
+        option={option2}
+        setOption={setOption2}
+      />
+      <Tag
+        name="Tag 3*"
+        style={textBox}
+        option={option3}
+        setOption={setOption3}
+      />
 
       <Button text="Add Lectures!" />
     </div>
