@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 import axios from "axios";
 
-function Login() {
+function Login({setAuth}) {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,14 +16,13 @@ function Login() {
             console.log(resp);
             const token = resp.data.token;
             localStorage.setItem("authorization", token);
+            setAuth(true);
         })
         .catch((err) => {
             console.log(err);
         })
   };
-  // const logout = () => {
-  //   console.log("logout");
-  // };
+
   return (
     <>
       <div className="login">

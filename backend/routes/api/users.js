@@ -119,11 +119,13 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/get_user", async (req, res) => {
-    const token = req.headers['authorization'];
+    const token = req.headers['authorization'].split(" ")[1];
     
     try {
         const payload = jwt.verify(token, process.env.secretOrKey);
         res.username = payload.username;
+        console.log(res.username);
+        res.json({username : res.username})
     } catch (err) {
         console.log(err)
         res.status(403).json({message: "Not authorized"})

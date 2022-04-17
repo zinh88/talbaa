@@ -137,7 +137,7 @@ export function Button({ text }) {
   );
 }
 
-function CreateCourse() {
+function CreateCourse({setAuth}) {
   const textBox = {
     padding: "1% 0% 0% 2%",
   };
@@ -148,7 +148,7 @@ function CreateCourse() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar setAuth={setAuth}/>
       <PageTitle title="New Course" />
 
       <CourseInfo

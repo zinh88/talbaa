@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SignUpForm from "../components/SignUpForm";
 import axios from "axios";
 
-function SignUp() {
+function SignUp({setAuth}) {
     const [user, setUser] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -17,6 +17,7 @@ function SignUp() {
             console.log(resp);
             const token = resp.data.token;
             localStorage.setItem("authorization", token);
+            setAuth(true);
         })
         .catch((err) => {
             console.log(err);

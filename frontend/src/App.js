@@ -21,50 +21,30 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const App = () => {
-    const [isAuthenticated, setAuthenticated] = useState(false);
-    const [user, setUser] = useState('');
-
-    const getName = async () => {
-        axios.get('/api/user/name', {
-            headers: {
-                'authorization': localStorage.authorization
-            }
-        })
-        .then((resp) => {
-            setAuthenticated(true);
-            setUser(resp.data.name)
-        })
-        .catch((err) => {
-            setAuthenticated(false);
-            console.log(err)
-        })
-      }
-      useEffect(() => {
-            getName();
-      });
+    const [isAuthenticated, setAuthenticated] = useState(localStorage.authorization);
 
     return (
         <div className="App">
         <BrowserRouter>
             <Routes>
             {/* <Route path="/" element={<LandingPage />}></Route> */}
-            <Route path="/" element={!isAuthenticated? <LandingPage setAuth={setAuthenticated}/> : <Navigate replace to='/home' setAuth={setAuthenticated}/>} />
-            <Route path="/home" element={isAuthenticated? <Home setAuth={setAuthenticated}/> : <Navigate replace to='/' setAuth={setAuthenticated}/>}></Route>
-            <Route path="/login" element={!isAuthenticated? <Login /> : <Navigate replace to='/home' setAuth={setAuthenticated}/>} />
-            <Route path="/signup" element={!isAuthenticated? <SignUp /> : <Navigate replace to='/home' setAuth={setAuthenticated}/>} />
-            <Route path="/subscribe" element={<Subscribe />} />
-            <Route path="/myCourses" element={<MyCourses />} />
-            <Route path="/createCourse" element={<CreateCourse />} />
-            <Route path="/createLecture" element={<CreateLecture />} />
-            <Route path="/editCourse" element={<EditCourse />} />
-            <Route path="/editLecture" element={<EditLecture />} />
-            <Route path="/createQuiz" element={<CreateQuiz />} />
-            <Route path="/editQuiz" element={<EditQuiz />} />
-            <Route path="/createLecturePage" element={<CreateLecturePage />} />
-            <Route path="/editLecturePage" element={<EditLecturePage />} />
-            <Route path="/courseCatalogue" element={<CourseCatalogue />} />
-            <Route path="/coursePage" element={<CoursePage />} />
-            <Route path="/viewLecture" element={<ViewLecture />} />
+            <Route path="/" element={!isAuthenticated? <LandingPage setAuth={setAuthenticated}/> : <Navigate replace to='/home'/>} />
+            <Route path="/home" element={isAuthenticated? <Home setAuth={setAuthenticated}/> : <Navigate replace to='/'/>}></Route>
+            <Route path="/login" element={!isAuthenticated? <Login setAuth={setAuthenticated} /> : <Navigate replace to='/home'/>} />
+            <Route path="/signup" element={!isAuthenticated? <SignUp setAuth={setAuthenticated}/> : <Navigate replace to='/home'/>} />
+            <Route path="/subscribe" element={isAuthenticated? <Subscribe setAuth={setAuthenticated}/> : <Navigate replace to='/' />} />
+            <Route path="/myCourses" element={isAuthenticated? <MyCourses setAuth={setAuthenticated}/>: <Navigate replace to='/login' />} />
+            <Route path="/createCourse" element={isAuthenticated? <CreateCourse setAuth={setAuthenticated} />: <Navigate replace to='/' />} />
+            <Route path="/createLecture" element={isAuthenticated? <CreateLecture setAuth={setAuthenticated}/>:   <Navigate replace to='/' />} />
+            <Route path="/editCourse" element={isAuthenticated? <EditCourse setAuth={setAuthenticated}/>: <Navigate replace to='/' />} />
+            <Route path="/editLecture" element={isAuthenticated? <EditLecture setAuth={setAuthenticated}/>: <Navigate replace to='/' />} />
+            <Route path="/createQuiz" element={isAuthenticated? <CreateQuiz setAuth={setAuthenticated}/>: <Navigate replace to='/' />} />
+            <Route path="/editQuiz" element={isAuthenticated? <EditQuiz setAuth={setAuthenticated}/> : <Navigate replace to='/' />} />
+            <Route path="/createLecturePage" element={isAuthenticated? <CreateLecturePage setAuth={setAuthenticated}/> : <Navigate replace to='/' />} />
+            <Route path="/editLecturePage" element={isAuthenticated? <EditLecturePage setAuth={setAuthenticated}/>: <Navigate replace to='/' />} />
+            <Route path="/courseCatalogue" element={isAuthenticated? <CourseCatalogue setAuth={setAuthenticated}/>: <Navigate replace to='/' />} />
+            <Route path="/coursePage" element={isAuthenticated? <CoursePage setAuth={setAuthenticated}/> : <Navigate replace to='/' />} />
+            <Route path="/viewLecture" element={isAuthenticated? <ViewLecture setAuth={setAuthenticated}/> : <Navigate replace to='/' />} />
             </Routes>
         </BrowserRouter>
         </div>
