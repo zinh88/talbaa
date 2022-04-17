@@ -1,4 +1,6 @@
-import React,{useState} from "react";
+import axios from "axios";
+import React,{useEffect, useState} from "react";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import {} from "./../CreateCourse.css";
 import {Button} from "./CreateCourse";
@@ -9,6 +11,8 @@ function EditLecturePage() {
 
   const [id, setID] = useState(0);
   const [data, setData] =useState([]);
+
+
 
   function addData(){
     let currID = id;
@@ -26,6 +30,7 @@ function EditLecturePage() {
 
   // const [lectures, setLectures] = useState(lectureData);
 
+  
   return (
     <div>
       <Navbar />

@@ -30,7 +30,7 @@ const Navbar = ({setAuth}) => {
 
     useEffect(()=>{
         getName();
-    })
+    },[])
 
     return (
     <div>
