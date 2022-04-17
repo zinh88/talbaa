@@ -36,7 +36,8 @@ function InsertVideo({ id, cloudName }) {
   );
 }
 
-function InsertTextBox({ resources, setResources }) {
+export function InsertTextBox({resources,setResources}){
+
   const [title, setTitle] = useState("");
   const [note, setNote] = useState("");
 
@@ -45,93 +46,190 @@ function InsertTextBox({ resources, setResources }) {
   };
 
   const borderBox = {
-    border: "1px solid black",
-    "margin-top": "5%",
-    "margin-left": "5%",
-    "padding-bottom": "3%",
-    width: "900px",
-  };
-
-  function SubmitButton({ title, note, resources, setResources }) {
-    const buttonStyle = {
-      "padding-top": "0.35rem",
-      "font-size": "15px",
-      "margin-top": "3%",
-      "margin-left": "4%",
-    };
-
-    return (
-      <div
-        class="style"
-        style={buttonStyle}
-        onClick={() => {
-          let JSONobj = { id: { note }, name: { title }, type: "textBox" };
-          setResources([...resources, JSONobj]);
-        }}
-      >
-        Submit
-      </div>
-    );
+    "border" : "1px solid black",
+    "margin-top":"5%",
+    "margin-left":"5%",
+    "padding-bottom":"3%",
+    "width": "900px"
   }
 
-  return (
-    <div style={borderBox}>
-      <CourseInfo
-        name="Title*"
-        style={textBox}
-        placeholderType="placeholderTitle"
-        padding="5% 0% 0% 3%"
-        state={title}
-        setState={setTitle}
+  function SubmitButton({title, note, resources, setResources}){
+    const buttonStyle = {
+      "padding-top":"0.35rem",
+      "font-size":"15px",
+      "margin-top":"3%",
+      "margin-left":"4%"
+    }
+    
+    return(
+      <div  class = "style" style = {buttonStyle}
+            onClick = {() => {
+              let JSONobj = { id: {note},
+                              name: {title},
+                              type: "textBox"}
+              setResources([...resources,JSONobj])
+              console.log(resources)
+            }}>
+        Submit
+      </div>
+    )
+  }
+
+
+  return(
+    <div style = {borderBox}>
+
+      <CourseInfo  
+      name = "Title*"
+      style = {textBox}
+      placeholderType = "placeholderTitle"
+      padding = "5% 0% 0% 3%"
+      // state = {title}
+      setText = {setTitle}
       />
-      <CourseInfo
-        name="Text*"
-        style={textBox}
-        placeholderType="placeholderDescription"
-        padding="5% 0% 0% 3%"
-        state={note}
-        setState={setNote}
+      <CourseInfo  
+      name = "Text*"
+      style = {textBox}
+      placeholderType = "placeholderDescription"
+      padding = "5% 0% 0% 3%"
+      // state = {note}
+      setText= {setNote}
       />
 
       <SubmitButton
-        title={title}
-        note={note}
-        resources={resources}
-        setResources={setResources}
+        title = {title}
+        note = {note}
+        resources = {resources}
+        setResources = {setResources}
       />
     </div>
-  );
+  )
 }
 
-function DisplayContent({ resources, cloudName, setResources }) {
+export function DisplayContent({resources, cloudName, setResources}){
+  
   const textStyle = {
-    "margin-left": "5%",
-    "margin-top": "4%",
-  };
-
-  return (
+    "margin-left":"5%",
+    "margin-top":"4%"
+  }
+  
+  return(
     <div>
-      {resources.map((value) => {
-        if (value.type == "image") {
-          return <InsertImage id={value.id} cloudName={cloudName} />;
-        } else if (value.type == "pdf") {
-          return (
-            <InsertPDF id={value.id} cloudName={cloudName} name={value.name} />
-          );
-        } else if (value.type == "textBox") {
-          return (
-            <div style={textStyle}>
-              <h1>{value.name.title}</h1>
-              <h3>{value.id.note}</h3>
-            </div>
-          );
-        } else if (value.type == "video") {
-          return <InsertVideo id={value.id} cloudName={cloudName} />;
-        }
-      })}
+      {
+        resources.map((value) => {
+          if (value.type == "image"){
+            return <InsertImage 
+                    id={value.id} 
+                    cloudName={cloudName}/>
+          } else if (value.type == "pdf"){
+            return <InsertPDF 
+                    id={value.id} 
+                    cloudName={cloudName} 
+                    name={value.name}/>
+          } else if (value.type == "textBox"){
+            return (
+              <div style = {textStyle}>
+                <h1>{value.name.title}</h1>
+                <h3>{value.id.note}</h3>
+              </div>
+            )
+          } else if (value.type == "video"){
+            return <InsertVideo 
+                    id={value.id} 
+                    cloudName={cloudName}/>
+          } 
+        })
+      }
     </div>
-  );
+  )
 }
+
+// function DropDown({resources,setResources, textForm, setTextForm}) {
+//   const itemStyle = {
+//     "font-size" : "13px",
+//     "padding-top": "0.5rem"
+//   };
+
+//   function SubmitButton({ title, note, resources, setResources }) {
+//     const buttonStyle = {
+//       "padding-top": "0.35rem",
+//       "font-size": "15px",
+//       "margin-top": "3%",
+//       "margin-left": "4%",
+//     };
+
+//     return (
+//       <div
+//         class="style"
+//         style={buttonStyle}
+//         onClick={() => {
+//           let JSONobj = { id: { note }, name: { title }, type: "textBox" };
+//           setResources([...resources, JSONobj]);
+//         }}
+//       >
+//         Submit
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div style={borderBox}>
+//       <CourseInfo
+//         name="Title*"
+//         style={textBox}
+//         placeholderType="placeholderTitle"
+//         padding="5% 0% 0% 3%"
+//         state={title}
+//         setState={setTitle}
+//       />
+//       <CourseInfo
+//         name="Text*"
+//         style={textBox}
+//         placeholderType="placeholderDescription"
+//         padding="5% 0% 0% 3%"
+//         state={note}
+//         setState={setNote}
+//       />
+
+//       <SubmitButton
+//         title={title}
+//         note={note}
+//         resources={resources}
+//         setResources={setResources}
+//       />
+//     </div>
+//   );
+// }
+
+// function DisplayContent({ resources, cloudName, setResources }) {
+//   const textStyle = {
+//     "margin-left": "5%",
+//     "margin-top": "4%",
+//   };
+
+//   return (
+//     <div>
+//       {resources.map((value) => {
+//         if (value.type == "image") {
+//           return <InsertImage id={value.id} cloudName={cloudName} />;
+//         } else if (value.type == "pdf") {
+//           return (
+//             <InsertPDF id={value.id} cloudName={cloudName} name={value.name} />
+//           );
+//         } else if (value.type == "textBox") {
+//           return (
+//             <div style={textStyle}>
+//               <h1>{value.name.title}</h1>
+//               <h3>{value.id.note}</h3>
+//             </div>
+//           );
+//         } else if (value.type == "video") {
+//           return <InsertVideo id={value.id} cloudName={cloudName} />;
+//         }
+//       })}
+//     </div>
+//   );
+// }
 
 function DropDown({ resources, setResources, textForm, setTextForm }) {
   const itemStyle = {
@@ -201,7 +299,8 @@ function AddButton({ event, text }) {
   );
 }
 
-function ResButton({ resources, setResources, textForm, setTextForm }) {
+export function ResButton({resources,setResources,textForm, setTextForm}){
+
   const textStyle = {
     "padding-top": "clamp(4%,4%,4%)",
     "font-size": "100%",
@@ -270,12 +369,11 @@ function EditLecture() {
   const id4 = "xr7qtsex5edb7dz9tvhl";
 
   let initialRes = [
-    { id: id1, name: "Edge Computing", type: "pdf" },
-    { id: id3, name: "Stack of Books", type: "image" },
-    { id: id2, name: "Unknown PDF", type: "pdf" },
-    { id: id4, name: "Circuits Tutorial", type: "video" },
-    // {id: "hello", name: "Circuits Tutorial", type:"textBox"},
-  ];
+    {id: id1, name: "Edge Computing", type:"pdf"},
+    {id: id3, name: "Stack of Books", type:"image"},
+    {id: id2, name: "Unknown PDF", type:"pdf"},
+    {id: id4, name: "Circuits Tutorial", type:"video"},
+  ]
 
   const [resources, setResources] = useState(initialRes);
 
