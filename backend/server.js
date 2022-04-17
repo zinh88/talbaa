@@ -13,6 +13,10 @@ const users = require("./routes/api/users");
 const courses = require("./routes/api/courses")
 const tags = require("./routes/api/tags")
 
+app.use(cors({
+    origin: '*'
+}));
+
 app.use(
     bodyParser.urlencoded({
         extended: false
