@@ -57,26 +57,53 @@ function DropDown({ setOption, setOpen }) {
     padding: "0.5rem",
   };
 
-  const Tags = ['Maths',
-    'Physics',
-    'Chemistry',
-    'Biology',
-    'Computer Science',
-    'Machine Learning',
-    'Data Science',
-    'Philosophy',
-    'Economics',
-    'Econometrics',
-    'Finance',
-    'Business Administration',
-    'Law',
-    'Policy',
-    'Behavioural Sciences',
-    'Engineering',
-    'Psychology',
-    'Sociology',
-    'Anthropology',
-    'Astrology'];
+  const Tags = [
+    "Maths",
+    "Physics",
+    "Chemistry",
+    "Biology",
+    "Computer Science",
+    "Machine Learning",
+    "Data Science",
+    "Philosophy",
+    "Economics",
+    "Econometrics",
+    "Finance",
+    "Business Administration",
+    "Law",
+    "Policy",
+    "Behavioural Sciences",
+    "Engineering",
+    "Psychology",
+    "Sociology",
+    "Anthropology",
+    "Astrology",
+  ];
+
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <PageSubTitle subTitle={name} padding="2% 0% 0% 3%" />
+      <div style={style}>
+        <h1
+          class="dropdown"
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          {option}
+        </h1>
+
+        {open && <DropDown setOption={setOption} setOpen={setOpen} Tags = {Tags} />}
+      </div>
+    </div>
+  );
+}
+
+export function DropDown({ setOption, setOpen, Tags }) {
+  const itemStyle = {
+    padding: "0.5rem",
+  };
 
   function DropdownItem(props) {
     return (
@@ -95,17 +122,15 @@ function DropDown({ setOption, setOpen }) {
     );
   }
 
-  function GenerateDropdown({Tags}){
-    return Tags.map(
-      (item) => {
-        return <DropdownItem>{item}</DropdownItem>
-      }
-    )
+  function GenerateDropdown({ Tags }) {
+    return Tags.map((item) => {
+      return <DropdownItem>{item}</DropdownItem>;
+    });
   }
 
   return (
     <div>
-      <GenerateDropdown Tags = {Tags}/>
+      <GenerateDropdown Tags={Tags} />
     </div>
   );
 }
@@ -125,14 +150,14 @@ export function CourseInfo({ name, style, placeholderType, padding, setText }) {
   );
 }
 
-export function Button({ text , createCourse }) {
+export function Button({ text , event }) {
   const button = {
     padding: "1% 0% 0% 2%",
   };
 
   return (
     <div class="column" style={button}>
-      <div onClick={() => createCourse()} style={{ "text-decoration": "none" }}>
+      <div onClick={event} style={{ "text-decoration": "none" }}>
         <h1 class="addButton">{text}</h1>
       </div>
     </div>
@@ -194,9 +219,24 @@ function CreateCourse({setAuth}) {
         setText={setDesc}
       />
 
-      <Tag name="Tag 1*" style={textBox} option = {option1} setOption={setOption1} />
-      <Tag name="Tag 2*" style={textBox} option = {option2} setOption={setOption2}/>
-      <Tag name="Tag 3*" style={textBox} option = {option3} setOption={setOption3}/>
+      <Tag
+        name="Tag 1*"
+        style={textBox}
+        option={option1}
+        setOption={setOption1}
+      />
+      <Tag
+        name="Tag 2*"
+        style={textBox}
+        option={option2}
+        setOption={setOption2}
+      />
+      <Tag
+        name="Tag 3*"
+        style={textBox}
+        option={option3}
+        setOption={setOption3}
+      />
 
       <Button text="Add Lectures!" createCourse={createCourse}/>
     </div>

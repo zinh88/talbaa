@@ -21,7 +21,13 @@ const UserSchema = new Schema({
     },
     enrolledCourses: {
         type: Array,
-        required: false
+        required: false,
+        default: []
+    },
+    createdCourses: {
+        type: Array,
+        required: false,
+        default: []
     }
 });
 module.exports = User = mongoose.model("users", UserSchema);

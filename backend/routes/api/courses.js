@@ -66,8 +66,7 @@ router.put("/add_lecture", async (req, res) => {
         .then(lecture => {
             createdLecture = lecture
             // res.json(lecture)
-        }
-        )
+        })
         .catch(err => console.log(err));
 
     // await newLecture;
@@ -76,7 +75,7 @@ router.put("/add_lecture", async (req, res) => {
     // make update to course, include course in the request body
     try {
         // updating the actual course document
-        const course_doc_final = await Course.findByIdAndUpdate( { _id: courseId }, { $push : { "lectures": createdLecture }} , {upsert : true})
+        const course_doc_final = await Course.findByIdAndUpdate( { _id: courseId }, { $push : { "lectures": createdLecture._id }} , {upsert : true})
 
         await course_doc_final
             .save()
@@ -88,7 +87,7 @@ router.put("/add_lecture", async (req, res) => {
     }
 })
 
-router.get("/get_course", async (req, res) => {
+router.get("/get_course/:id", async (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
     try {
         const payload = jwt.verify(token, process.env.secretOrKey)
@@ -96,8 +95,8 @@ router.get("/get_course", async (req, res) => {
         res.json({ message: "Not authorized" })
     }
 
-    let courseId = req.body.courseId;
-
+    let courseId = req.params.id 
+    
     try {
         const course_doc = await Course.findOne({ _id: courseId});
         return res.json(course_doc)
