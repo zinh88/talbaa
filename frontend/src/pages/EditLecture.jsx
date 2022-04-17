@@ -40,7 +40,7 @@ function InsertVideo({id, cloudName}){
   )
 }
 
-function InsertTextBox({resources,setResources}){
+export function InsertTextBox({resources,setResources}){
 
   const [title, setTitle] = useState("");
   const [note, setNote] = useState("");
@@ -109,7 +109,7 @@ function InsertTextBox({resources,setResources}){
   )
 }
 
-function DisplayContent({resources, cloudName, setResources}){
+export function DisplayContent({resources, cloudName, setResources}){
   
   const textStyle = {
     "margin-left":"5%",
@@ -225,7 +225,7 @@ function AddButton({event,text}){
   )
 }
 
-function ResButton({resources,setResources,textForm, setTextForm}){
+export function ResButton({resources,setResources,textForm, setTextForm}){
 
   const textStyle = {
     "padding-top": "clamp(4%,4%,4%)",
@@ -299,7 +299,6 @@ function EditLecture() {
     {id: id3, name: "Stack of Books", type:"image"},
     {id: id2, name: "Unknown PDF", type:"pdf"},
     {id: id4, name: "Circuits Tutorial", type:"video"},
-    // {id: "hello", name: "Circuits Tutorial", type:"textBox"},
   ]
 
   const [resources, setResources] = useState(initialRes);

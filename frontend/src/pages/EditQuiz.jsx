@@ -5,23 +5,27 @@ import "./EditQuiz.css";
 import {} from "./../CreateCourse.css";
 import { Heading } from "./CreateLecture";
 import { PageTitle } from "./CreateCourse";
+
+
 function EditQuiz() {
   let [courseName, setCourseName] = useState("");
   let [quiz, setQuiz] = useState([]);
   let [questions, setQuestions] = useState([]);
   const [error, setError] = useState("");
+
+
   let Quiz = (data) => {
     setQuestions((curr) => [...curr, data]);
   };
+
   return (
     <>
       <Navbar />
       <div className="edit-quiz">
+        
         <PageTitle title={"Create Quiz"} />
         <Heading courseName={"Machine Learning"} />
-        {/* <div className="pageSubTitle" style={{ margin: "auto", width: "15%" }}>
-          <h1>Course: {courseName}</h1>
-        </div> */}
+        
         <div style={{ padding: "0.5rem" }}>
           <h3 style={{ padding: "0.5rem 0.5rem 0.5rem 1.5rem" }}>
             Quiz Title*
@@ -32,6 +36,7 @@ function EditQuiz() {
             className="placeholderTitle"
           ></input>
         </div>
+        
         <div style={{ padding: "0.5rem" }}>
           <h3 style={{ padding: "0.5rem 0.5rem 0.5rem 1.5rem" }}>
             Quiz Description
@@ -42,7 +47,11 @@ function EditQuiz() {
             placeholder="Enter Quiz Description"
           ></textarea>
         </div>
-        <div>{quiz}</div>
+        
+        <div>
+          {quiz}
+        </div>
+        
         <div
           style={{
             display: "flex",
@@ -74,6 +83,7 @@ function EditQuiz() {
             +
           </button>
         </div>
+        
         <div>
           <button
             className="addButton"
