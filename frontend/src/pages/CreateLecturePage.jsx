@@ -22,19 +22,6 @@ export function Lectures(){
 }
 
 
-
-// function DeleteLecture({id, data, setData}){
-//   console.log(id);
-//   var newData = data.filter(function(data){
-//     return data.id != id
-//   })
-//   return (
-//     <div class="LecturesText">
-//       <PageSubTitle subTitle="Lectures" padding="5% 0% 0% 5%" />
-//     </div>
-//   );
-// }
-
 function DeleteLecture({ id, data, setData }) {
   console.log(id);
   var newData = data.filter(function (data) {

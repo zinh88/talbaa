@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Navbar from "../components/Navbar";
-import { Tag } from "./CreateCourse";
 import { HomePage, Title } from "./styles/CourseCatalogue.styled";
-import samplepic from "../assets/mlpic.jpg";
 import { EnrolledBox } from "./styles/MyCourses.styled";
 import axios from "axios";
 
@@ -11,15 +9,6 @@ import axios from "axios";
 
 const CourseCatalogue = () => {
     const [courses, setCourses] = useState([]);
-
-    const card = {
-        title: "Machine Learning",
-        desc: "Machine learning (ML) studies the design and development of algorithms that learn from the data and improve their performance through experience. ML refers to a set of methods and that help computers to learn, optimize and adapt on their own.",
-        pic: samplepic,
-        creator: "Hareem Raza",
-        tags: ["ML", "CS", "AI"],
-        rating: 4.3
-    }  
 
     useEffect(() => {
         axios.get('api/courses/get_all_courses', {
