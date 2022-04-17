@@ -30,29 +30,6 @@ export function PageSubTitle({ subTitle, padding }) {
 }
 
 export function Tag({ name, style, option, setOption }) {
-<<<<<<< HEAD
-  
-  const Tags = ['Maths',
-    'Physics',
-    'Chemistry',
-    'Biology',
-    'Computer Science',
-    'Machine Learning',
-    'Data Science',
-    'Philosophy',
-    'Economics',
-    'Econometrics',
-    'Finance',
-    'Business Administration',
-    'Law',
-    'Policy',
-    'Behavioural Sciences',
-    'Engineering',
-    'Psychology',
-    'Sociology',
-    'Anthropology',
-    'Astrology'];
-=======
   const [open, setOpen] = useState(false);
   // const [option, setOption] = useState("Dropdown");
   return (
@@ -101,7 +78,6 @@ function DropDown({ setOption, setOpen }) {
     "Anthropology",
     "Astrology",
   ];
->>>>>>> 211f850bc8f6494639ddc93d9233bb37add113dc
 
   const [open, setOpen] = useState(false);
   return (
