@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import Card from "../components/Card";
 import Navbar from "../components/Navbar";
 import { Tag } from "./CreateCourse";
-import {HomePage, Title} from "./styles/CourseCatalogue.styled";
-import samplepic from "../assets/mlpic.jpg"
+import { HomePage, Title } from "./styles/CourseCatalogue.styled";
+import samplepic from "../assets/mlpic.jpg";
 import { EnrolledBox } from "./styles/MyCourses.styled";
 
-
-
-function CourseCatalogue() {
+function CourseCatalogue({ setAuth }) {
   const textBox = {
     padding: "1% 0% 0% 20%",
     height: "clamp(10px, 50px, 70px)",
@@ -20,25 +18,39 @@ function CourseCatalogue() {
     pic: samplepic,
     creator: "Hareem Raza",
     tags: ["ML", "CS", "AI"],
-    rating: 4.3
-}
+    rating: 4.3,
+  };
 
   const [option1, setOption1] = useState("Search...");
-  return <div>
-    <Navbar/>
-    <HomePage>
-      <Title style={{"height":"60px", "width":"350", "font-size":"40px", "line-height":"47px", "color":"#656565","font-weight":"400px", "padding-top":"4%"}}>
-        Course Catalogue
-      </Title>
-      <Tag name="" style={textBox} option = {option1} setOption={setOption1}></Tag>
-      <EnrolledBox style={{"margin-top":"20px"}}>
-        <Card card = {card}></Card>
-      </EnrolledBox>
-      
-    </HomePage>
-
-
-    </div>;
+  return (
+    <div>
+      <Navbar setAuth={setAuth} />
+      <HomePage>
+        <Title
+          style={{
+            height: "60px",
+            width: "350",
+            "font-size": "40px",
+            "line-height": "47px",
+            color: "#656565",
+            "font-weight": "400px",
+            "padding-top": "4%",
+          }}
+        >
+          Course Catalogue
+        </Title>
+        <Tag
+          name=""
+          style={textBox}
+          option={option1}
+          setOption={setOption1}
+        ></Tag>
+        <EnrolledBox style={{ "margin-top": "20px" }}>
+          <Card card={card}></Card>
+        </EnrolledBox>
+      </HomePage>
+    </div>
+  );
 }
 
 export default CourseCatalogue;

@@ -5,9 +5,7 @@ import "./EditQuiz.css";
 import {} from "./../CreateCourse.css";
 import { Heading } from "./CreateLecture";
 import { PageTitle } from "./CreateCourse";
-
-
-function EditQuiz() {
+function EditQuiz({ setAuth }) {
   let [courseName, setCourseName] = useState("");
   let [quiz, setQuiz] = useState([]);
   let [questions, setQuestions] = useState([]);
@@ -20,7 +18,7 @@ function EditQuiz() {
 
   return (
     <>
-      <Navbar />
+      <Navbar setAuth={setAuth} />
       <div className="edit-quiz">
         
         <PageTitle title={"Create Quiz"} />
@@ -83,7 +81,7 @@ function EditQuiz() {
             +
           </button>
         </div>
-        
+
         <div>
           <button
             className="addButton"

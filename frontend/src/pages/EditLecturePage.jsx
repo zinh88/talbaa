@@ -3,22 +3,21 @@ import React,{useEffect, useState} from "react";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import {} from "./../CreateCourse.css";
-import {Button} from "./CreateCourse";
-import {Heading} from "./CreateLecture";
-import {Lectures,LectureComponenet,AddButton} from "./CreateLecturePage"
+import { Button } from "./CreateCourse";
+import { Heading } from "./CreateLecture";
+import { Lectures, LectureComponenet, AddButton } from "./CreateLecturePage";
 
-function EditLecturePage() {
-
+function EditLecturePage({ setAuth }) {
   const [id, setID] = useState(0);
-  const [data, setData] =useState([]);
+  const [data, setData] = useState([]);
 
 
 
   function addData(){
     let currID = id;
-    setID (id+1);
-    let currName = "Lecture "+ id;
-    let JSONobj = {id: currID, name: currName};
+    setID(id + 1);
+    let currName = "Lecture " + id;
+    let JSONobj = { id: currID, name: currName };
     return JSONobj;
   }
 
@@ -33,54 +32,61 @@ function EditLecturePage() {
   
   return (
     <div>
-      <Navbar />
+      <Navbar setAuth={setAuth} />
 
       {/* <PageTitle title = "Edit Lectures"/> */}
-      <Heading courseName={"Machine Learning"}/>
+      <Heading courseName={"Machine Learning"} />
 
-      <div class ="row" >
-        <Lectures/>
-        <AddButton 
-        event = {
-          // () => {
-          //   setLectures([...lectures,{id:3, name:"Lecture"}])
-          //   console.log(lectures);
-          //   {lectures.map((values) => {
-          //     return <LectureComponenet name={values.name}/>
-          //   })}
-          // }
-          () => {
-            let newLec = addData();
-            console.log(newLec);
-            setData([...data,newLec]);
-            {data.map((values) => {
-              return <LectureComponenet 
-                      name={values.name} 
-                      id={values.id} 
-                      setData = {setData} 
-                      data={data}/>
-            })}
+      <div class="row">
+        <Lectures />
+        <AddButton
+          event={
+            // () => {
+            //   setLectures([...lectures,{id:3, name:"Lecture"}])
+            //   console.log(lectures);
+            //   {lectures.map((values) => {
+            //     return <LectureComponenet name={values.name}/>
+            //   })}
+            // }
+            () => {
+              let newLec = addData();
+              console.log(newLec);
+              setData([...data, newLec]);
+              {
+                data.map((values) => {
+                  return (
+                    <LectureComponenet
+                      name={values.name}
+                      id={values.id}
+                      setData={setData}
+                      data={data}
+                    />
+                  );
+                });
+              }
+            }
           }
-        }
-        lectures = {data} 
-        setLectures={setData} 
-        text="+"
+          lectures={data}
+          setLectures={setData}
+          text="+"
         />
-      </div> 
-      <div >
-          {data.map((values) => {
-            return <LectureComponenet 
-                    name={values.name}
-                    id={values.id} 
-                    setData = {setData} 
-                    data={data}/>
-          })}
+      </div>
+      <div>
+        {data.map((values) => {
+          return (
+            <LectureComponenet
+              name={values.name}
+              id={values.id}
+              setData={setData}
+              data={data}
+            />
+          );
+        })}
       </div>
 
-      <Button text="Save Changes!"/>
-
+      <Button text="Save Changes!" />
     </div>
-  )
+  );
 }
 
 export default EditLecturePage;
