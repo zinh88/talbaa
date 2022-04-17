@@ -34,8 +34,16 @@ const CourseSchema = new Schema({
     },
     rating: {
         type: Number,
-        required: false
+        required: false,
+        default: 5
     },
+
+    pic: {
+        type: String,
+        required: false,
+        default: "https://res.cloudinary.com/dv5ig0sry/image/upload/v1650225490/photo-1519389950473-47ba0277781c_qd5ucq.jpg"
+    },
+
     lectures: {
         type: Array,
         default: [],
