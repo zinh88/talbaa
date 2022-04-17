@@ -11,6 +11,7 @@ const Course = require("../../models/Course");
 const Lecture = require("../../models/Lecture");
 const crypto = require("crypto");
 const dotenv = require("dotenv");
+const User = require("../../models/User");
 dotenv.config();
 
 router.post("/create_course", async (req, res) => {
@@ -36,10 +37,26 @@ router.post("/create_course", async (req, res) => {
         tags: req.body.tags,
     });
 
-    newCourse
+    await newCourse
         .save()
         .then((course) => res.json(course))
         .catch((err) => console.log(err));
+    
+        user_id = payload.user_id;
+
+    try {
+        const user_doc = await User.findByIdAndUpdate( {_id: user_id}, {
+            $push: { "createdCourses" : newCourse._id}
+        })
+
+        await user_doc
+            .save()
+            .then(user => console.log(user))
+            .catch(err => console.log(err))
+    } catch (err) {
+        res.json({ message: err })
+    }
+
 });
 
 router.put("/add_lecture", async (req, res) => {
@@ -105,7 +122,7 @@ router.get("/get_course/:id", async (req, res) => {
     }
 })
 
-router.get("/get_lectures", async (req, res) => {
+router.get("/get_lectures/:id", async (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
 
     try {
@@ -114,7 +131,8 @@ router.get("/get_lectures", async (req, res) => {
         res.json( {message: "Not authorized" })
     }
 
-    let courseId = req.body.courseId;
+    // let courseId = req.body.courseId;
+    let courseId = req.params.id
 
     try {
         const course_doc = await Course.findOne({ _id: courseId });
