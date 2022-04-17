@@ -26,7 +26,7 @@ function UploadButton() {
         destroy={false}
       />
     </div>
-  );
+  )
 }
 
 export default UploadButton;

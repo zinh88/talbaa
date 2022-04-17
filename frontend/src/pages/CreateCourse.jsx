@@ -152,7 +152,7 @@ export function CourseInfo({ name, style, placeholderType, padding, setText }) {
 
 export function Button({ text , event }) {
   const button = {
-    padding: "1% 0% 0% 2%",
+    padding: "1% 0% 2% 2%",
   };
 
   return (
