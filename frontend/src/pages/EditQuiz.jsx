@@ -5,25 +5,37 @@ import "./EditQuiz.css";
 import {} from "./../CreateCourse.css";
 import { Heading } from "./CreateLecture";
 import { PageTitle } from "./CreateCourse";
+import axios from "axios";
+
 function EditQuiz({ setAuth }) {
   let [courseName, setCourseName] = useState("");
   let [quiz, setQuiz] = useState([]);
   let [questions, setQuestions] = useState([]);
   const [error, setError] = useState("");
 
-
   let Quiz = (data) => {
     setQuestions((curr) => [...curr, data]);
   };
-
+  // let submitQuiz = (data) => {
+  //   axios
+  //     .post("api/lectures/add_quiz", data)
+  //     .then((resp) => {
+  //       console.log(resp.data);
+  //       const token = resp.data.token;
+  //       localStorage.setItem("authorization", token);
+  //       setAuth(true);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   return (
     <>
       <Navbar setAuth={setAuth} />
       <div className="edit-quiz">
-        
         <PageTitle title={"Create Quiz"} />
         <Heading courseName={"Machine Learning"} />
-        
+
         <div style={{ padding: "0.5rem" }}>
           <h3 style={{ padding: "0.5rem 0.5rem 0.5rem 1.5rem" }}>
             Quiz Title*
@@ -34,7 +46,7 @@ function EditQuiz({ setAuth }) {
             className="placeholderTitle"
           ></input>
         </div>
-        
+
         <div style={{ padding: "0.5rem" }}>
           <h3 style={{ padding: "0.5rem 0.5rem 0.5rem 1.5rem" }}>
             Quiz Description
@@ -45,11 +57,9 @@ function EditQuiz({ setAuth }) {
             placeholder="Enter Quiz Description"
           ></textarea>
         </div>
-        
-        <div>
-          {quiz}
-        </div>
-        
+
+        <div>{quiz}</div>
+
         <div
           style={{
             display: "flex",
@@ -88,9 +98,10 @@ function EditQuiz({ setAuth }) {
             onClick={() => {
               // console.log(quiz);
               console.log(questions);
-              quiz.map((elem) => {
-                elem.submitHandler();
-              });
+              submitQuiz(questions);
+              // quiz.map((elem) => {
+              //   elem.submitHandler();
+              // });
             }}
           >
             Publish Quiz
