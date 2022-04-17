@@ -98,7 +98,7 @@ function EditQuiz({ setAuth }) {
             onClick={() => {
               // console.log(quiz);
               console.log(questions);
-              submitQuiz(questions);
+              // submitQuiz(questions);
               // quiz.map((elem) => {
               //   elem.submitHandler();
               // });
