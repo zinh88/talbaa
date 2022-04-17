@@ -114,12 +114,36 @@ router.get("/get_course/:id", async (req, res) => {
 
     let courseId = req.params.id;
 
+    // check if enrolled
+    user_id = payload.user_id;
+
+    // get all enrolled courses for current user
+
+    var enrolledCourses = []
+    try {
+        let user = await User.findOne({ _id: user_id }).orFail();
+
+        await user;
+    
+        enrolledCourses = user.enrolledCourses 
+    } catch (error) {
+        console.log(error)
+    }
+
+    var enrolled = false;
+    if (enrolledCourses.includes(courseId)) {
+        enrolled = true;
+    }
+
+    res.json({"enrolled": enrolled})
+
     try {
         const course_doc = await Course.findOne({ _id: courseId});
         return res.json(course_doc)
     } catch (error) {
         return res.json({ error: "Some error"} )
     }
+
 })
 
 router.get("/get_lectures/:id", async (req, res) => {
