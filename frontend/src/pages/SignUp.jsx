@@ -14,10 +14,12 @@ function SignUp() {
         console.log(data);
         axios.post('api/users/register', data)
         .then((resp) => {
-            console.log(resp)
+            console.log(resp);
+            const token = resp.data.token;
+            localStorage.setItem("authorization", token);
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err);
         })
     };
 

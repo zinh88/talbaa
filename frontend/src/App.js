@@ -27,7 +27,7 @@ const App = () => {
     const getName = async () => {
         axios.get('/api/user/name', {
             headers: {
-                'authorization': localStorage.Authorization
+                'authorization': localStorage.authorization
             }
         })
         .then((resp) => {
@@ -40,7 +40,7 @@ const App = () => {
         })
       }
       useEffect(() => {
-            // getName();
+            getName();
       });
 
     return (

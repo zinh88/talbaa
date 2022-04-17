@@ -13,10 +13,12 @@ function Login() {
     //validate data give as input
     axios.post('api/users/login', data)
         .then((resp) => {
-            console.log(resp)
+            console.log(resp);
+            const token = resp.data.token;
+            localStorage.setItem("authorization", token);
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err);
         })
   };
   // const logout = () => {
