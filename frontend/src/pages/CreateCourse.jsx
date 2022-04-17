@@ -30,32 +30,7 @@ export function PageSubTitle({ subTitle, padding }) {
 }
 
 export function Tag({ name, style, option, setOption }) {
-  const [open, setOpen] = useState(false);
-  // const [option, setOption] = useState("Dropdown");
-  return (
-    <div>
-      <PageSubTitle subTitle={name} padding="2% 0% 0% 3%" />
-      <div style={style}>
-        <h1
-          class="dropdown"
-          onClick={() => {
-            setOpen(!open);
-          }}
-        >
-          {option}
-        </h1>
-
-        {open && <DropDown setOption={setOption} setOpen={setOpen} />}
-      </div>
-    </div>
-  );
-}
-
-function DropDown({ setOption, setOpen }) {
-  const itemStyle = {
-    padding: "0.5rem",
-  };
-
+  
   const Tags = ['Maths',
     'Physics',
     'Chemistry',
@@ -76,6 +51,31 @@ function DropDown({ setOption, setOpen }) {
     'Sociology',
     'Anthropology',
     'Astrology'];
+
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <PageSubTitle subTitle={name} padding="2% 0% 0% 3%" />
+      <div style={style}>
+        <h1
+          class="dropdown"
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          {option}
+        </h1>
+
+        {open && <DropDown setOption={setOption} setOpen={setOpen} Tags = {Tags} />}
+      </div>
+    </div>
+  );
+}
+
+export function DropDown({ setOption, setOpen, Tags }) {
+  const itemStyle = {
+    padding: "0.5rem",
+  };
 
   function DropdownItem(props) {
     return (
@@ -109,7 +109,10 @@ function DropDown({ setOption, setOpen }) {
   );
 }
 
-export function CourseInfo({ name, style, placeholderType, padding }) {
+export function CourseInfo({ name, style, placeholderType, padding, state, setState }) {
+  
+  // const [text, setText] = useState("");
+  
   return (
     <div>
       <PageSubTitle subTitle={name} padding={padding} />
@@ -117,6 +120,11 @@ export function CourseInfo({ name, style, placeholderType, padding }) {
         <textarea
           placeholder="Placeholder..."
           class={placeholderType}
+          onChange = {
+            (e) => {
+              setState(e.target.value)
+            }
+          }
         ></textarea>
       </div>
     </div>
