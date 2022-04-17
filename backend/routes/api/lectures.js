@@ -55,7 +55,7 @@ router.put("/add_lec_content", async (req, res) => {
     }
 });
 
-router.get("/get_lecture", async (req, res) => {
+router.get("/get_lecture/:id", async (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
 
     try {
@@ -64,7 +64,8 @@ router.get("/get_lecture", async (req, res) => {
         res.json( {message: "Not authorized" })
     }
 
-    let lectureId = req.body.lectureId;
+    // let lectureId = req.body.lectureId;
+    let lectureId = req.params.id
 
     try {
         const lec_doc = await Lecture.findOne( {
