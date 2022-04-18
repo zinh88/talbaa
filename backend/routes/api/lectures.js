@@ -55,7 +55,7 @@ router.put("/add_lec_content", async (req, res) => {
     }
 });
 
-router.get("/get_lecture", async (req, res) => {
+router.get("/get_lecture/:id", async (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
 
     try {
@@ -64,7 +64,8 @@ router.get("/get_lecture", async (req, res) => {
         res.json( {message: "Not authorized" })
     }
 
-    let lectureId = req.body.lectureId;
+    // let lectureId = req.body.lectureId;
+    let lectureId = req.params.id
 
     try {
         const lec_doc = await Lecture.findOne( {
@@ -76,6 +77,50 @@ router.get("/get_lecture", async (req, res) => {
         return res.json( {error: error || "Some error, cannot find lecture"})
     }
 
+})
+
+router.put("/add_quiz", async (req, res) => {
+    const token = req.headers['authorization'].split(" ")[1];
+
+    var username;
+    try {
+        const payload = jwt.verify(token, process.env.secretOrKey);
+        username = payload.username;
+    } catch (err) {
+        console.log(err)
+        res.status(403).json({ message: "Not authorized" })
+    }
+    
+    let lectureId = req.body.lectureId;
+
+    try {
+        const lecture_doc_final = await Lectur.findByIdAndUpdate( {_id: lectureId} , {
+            $push: { "quiz" : req.body.quiz }
+        } , {upsert : true})
+
+        await lecture_doc_final
+            .save()
+            .then(lecture => res.json(lecture))
+            .catch(err => console.log(err))
+
+    } catch (error) {
+        res.json( { message: error} )
+    }
+})
+
+router.get("/get_quiz/:id", async (req, res) => {
+    const token = req.headers['authorization'].split(' ')[1];
+
+    var payload;
+    try {
+        payload = jwt.verify(token, process.env.secretOrKey)
+    } catch (error) {
+        res.json({ message: "Not authorized" })
+    }
+
+    let quizId = req.params.id;
+
+    
 })
 
 module.exports = router;

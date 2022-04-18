@@ -5,20 +5,20 @@ import { PageTitle } from "./CreateCourse";
 function ViewQuiz({ setAuth }) {
   let [quiz, setQuiz] = useState([
     {
-      question1: "haashim ka kitni dafa kata",
+      question1: "How many chromosomes are there in a human cell",
       option1: "0",
       option2: "1",
       option3: "2",
-      option4: "3",
-      correct: "3",
+      option4: "46",
+      correct: "46",
     },
     {
-      question1: "haashim kya kar raha hai",
-      option1: "nothing",
-      option2: "nothing at all",
-      option3: "entirely nothing",
-      option4: "all of the above",
-      correct: "all of the above",
+      question1: "Which language was this application built on",
+      option1: "python",
+      option2: "javascript",
+      option3: "c++",
+      option4: "ruby",
+      correct: "javascript",
     },
   ]);
   return (

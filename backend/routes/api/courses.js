@@ -82,7 +82,7 @@ router.put("/add_lecture", async (req, res) => {
         .save()
         .then(lecture => {
             createdLecture = lecture
-            // res.json(lecture)
+            res.json(lecture)
         })
         .catch(err => console.log(err));
 
@@ -96,7 +96,8 @@ router.put("/add_lecture", async (req, res) => {
 
         await course_doc_final
             .save()
-            .then(course => res.json(course))
+            // .then(course => res.json(course))
+            .then(course => console.log(course))
             .catch(err => console.log(err))
     } catch (error) {
         // console.log(error)
@@ -106,20 +107,52 @@ router.put("/add_lecture", async (req, res) => {
 
 router.get("/get_course/:id", async (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
+
+    var payload;
     try {
-        const payload = jwt.verify(token, process.env.secretOrKey)
+        payload = jwt.verify(token, process.env.secretOrKey)
     } catch (error) {
         res.json({ message: "Not authorized" })
     }
 
     let courseId = req.params.id;
 
+    // check if enrolled
+    user_id = payload.user_id;
+
+    // get all enrolled courses for current user
+
+    var enrolledCourses = []
+    try {
+        let user = await User.findOne({ _id: user_id }).orFail();
+
+        await user;
+    
+        enrolledCourses = user.enrolledCourses 
+    } catch (error) {
+        console.log(error)
+    }
+
+    var enrolled = false;
+    if (enrolledCourses.includes(courseId)) {
+        enrolled = true;
+    }
+
+    // res.json({"enrolled": enrolled})
+    var enrolledJson = {"enrolled": enrolled}
+
     try {
         const course_doc = await Course.findOne({ _id: courseId});
-        return res.json(course_doc)
+        res.json({
+            course: course_doc,
+            enroll: enrolled
+        });
+        // res.json(course_doc)
+        return res
     } catch (error) {
         return res.json({ error: "Some error"} )
     }
+
 })
 
 router.get("/get_lectures/:id", async (req, res) => {

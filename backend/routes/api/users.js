@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
     try {
         let user = await User.findOne({ email: req.body.email }).orFail();
 
-        console.log("GETTING HERE --------------- ")
+        // console.log("GETTING HERE --------------- ")
         if (user) {
             return res.status(400).json({ email: "Email already exists" });
         } else {
@@ -144,17 +144,19 @@ router.get("/get_user", async (req, res) => {
 router.put("/enroll", async (req, res) => {
     const token = req.headers['authorization'].split(" ")[1];
 
-    var username;
+    // var username;
+    var user_id
     try {
         const payload = jwt.verify(token, process.env.secretOrKey);
-        username = payload.username;
+        // username = payload.username;
+        user_id = payload.user_id;
     } catch (err) {
         console.log(err)
         res.status(403).json({ message: "Not authorized" })
     }
 
     try {
-        const user_doc = await User.findByIdAndUpdate({ _id: username },
+        const user_doc = await User.findByIdAndUpdate({ user_id: user_id },
             { $push: { "lectures": req.body.courseId }, }, { upsert: true })
 
         await user_doc
@@ -166,6 +168,26 @@ router.put("/enroll", async (req, res) => {
     }
 })
 
+router.get("/get_enrolled_courses", async (req,  res) => {
+    const token = req.headers['authorization'].split(' ')[1];
+    try {
+        const payload = jwt.verify(token, process.env.secretOrKey)
+    } catch (error) {
+        res.json({ message: "Not authorized" })
+    }
 
+    user_id = payload.user_id
+
+    try {
+        let user = await User.findOne({ user_id: user_id }).orFail();
+
+        await user;
+    
+        let enrolledCourses = user.enrolledCourses
+        return (res.json(enrolledCourses))    
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 module.exports = router;
