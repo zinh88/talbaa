@@ -5,7 +5,9 @@ import {} from "./../EditLecture.css";
 const cloudName = "dv5ig0sry"; // replace with your own cloud name
 const uploadPreset = "lf1ouek0"; // replace with your own upload preset
 
-function UploadButton() {
+
+function UploadButton({func}) {
+  
   const style = {
     "background-color": "transparent",
     border: "1px solid transparent",
@@ -24,6 +26,8 @@ function UploadButton() {
         cropping={false}
         autoClose={false}
         destroy={false}
+        onSuccess={(res)=> func(res)}
+        // onFailure={failureCallBack}
       />
     </div>
   )

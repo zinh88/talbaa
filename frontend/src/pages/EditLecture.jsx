@@ -261,7 +261,7 @@ export function DisplayContent({resources, cloudName, setResources}){
 //   );
 // }
 
-function DropDown({ resources, setResources, textForm, setTextForm }) {
+function DropDown({ resources, setResources, textForm, setTextForm, lectureId }) {
   const itemStyle = {
     "font-size": "13px",
     "padding-top": "0.5rem",
@@ -294,9 +294,50 @@ function DropDown({ resources, setResources, textForm, setTextForm }) {
   }
 
   function GenerateDropdown() {
+    const random_fun = (data)=>{
+      let public_id = data.info.public_id;
+      // console.log(data.info)
+      let extension = data.info.path.split(".")[1]
+
+      console.log(extension)
+
+      var type = ""
+      if (extension == "pdf") {
+        type = "pdf";
+      } else if (extension == "png" || extension == "jpg" || extension == "jpeg") {
+        type = "image" 
+      } else if (extension == "mp4") {
+        type = "video"
+      }
+
+      let name = data.info.original_filename;
+
+      let object = {
+        "title": name,
+        "cld_reference": public_id,
+        "filetype": type,
+        lectureId: lectureId
+      }
+
+      axios.put("api/lectures/add_lec_content", object, {
+        headers: {
+          'authorization': localStorage.authorization
+        }
+      })
+      .then((resp) => {
+        const lecture = resp.data
+        console.log(lecture)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+
+      console.log(name)
+    }
     return (
       <div>
-        <UploadButton />
+        <UploadButton func={random_fun}/>
         <AddResourceButton text="Add Text Box" event={textEvent} />
         <AddResourceButton text="Add Quiz" event={quizEvent} />
       </div>
@@ -329,7 +370,7 @@ function AddButton({ event, text }) {
   );
 }
 
-export function ResButton({resources,setResources,textForm, setTextForm}){
+export function ResButton({resources,setResources,textForm, setTextForm, lectureId}){
 
   const textStyle = {
     "padding-top": "clamp(4%,4%,4%)",
@@ -366,6 +407,7 @@ export function ResButton({resources,setResources,textForm, setTextForm}){
               setResources={setResources}
               textForm={textForm}
               setTextForm={setTextForm}
+              lectureId={lectureId}
             />
           )}
         </div>
@@ -470,13 +512,14 @@ function EditLecture() {
      
       {textForm && (
         <InsertTextBox resources={resources} setResources={setResources} lectureId={lectureId} />
-      )}``
-       <button onClick={()  => console.log(resources)}>click</ button>
+      )}
+       {/* <button onClick={()  => console.log(resources)}>click</ button> */}
       <ResButton
         resources={resources}
         setResources={setResources}
         textForm={textForm}
         setTextForm={setTextForm}
+        lectureId={lectureId}
       />
 
       <Button text="Return" route="/editLecturePage" />
