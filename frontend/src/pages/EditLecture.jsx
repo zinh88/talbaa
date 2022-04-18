@@ -38,7 +38,7 @@ function InsertVideo({ id, cloudName }) {
   );
 }
 
-export function InsertTextBox({resources,setResources}, lectureId){
+export function InsertTextBox({resources,setResources, lectureId}){
 
   const [title, setTitle] = useState("");
   const [note, setNote] = useState("");
