@@ -82,7 +82,7 @@ router.put("/add_lecture", async (req, res) => {
         .save()
         .then(lecture => {
             createdLecture = lecture
-            // res.json(lecture)
+            res.json(lecture)
         })
         .catch(err => console.log(err));
 
@@ -96,7 +96,8 @@ router.put("/add_lecture", async (req, res) => {
 
         await course_doc_final
             .save()
-            .then(course => res.json(course))
+            // .then(course => res.json(course))
+            .then(course => console.log(course))
             .catch(err => console.log(err))
     } catch (error) {
         // console.log(error)
