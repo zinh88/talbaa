@@ -20,15 +20,25 @@ export function Lectures() {
 }
 
 
-function DeleteLecture({ id, data, setData }) {
+function DeleteLecture({ id, data, setData , cid, name, lid}) {
   console.log(id);
   var newData = data.filter(function (data) {
-    return data.id != id;
+    return data.id !== id;
   });
+  axios.delete(`api/courses/lecture/${cid}/${lid}/${name}`, {
+    headers: {
+        'authorization': localStorage.authorization
+    }})
+    .then((resp) => {
+        console.log(resp)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
   return setData(newData);
 }
 
-export function DeleteButton({ name, id, setData, data }) {
+export function DeleteButton({ name, id, setData, data , cid, lid}) {
   const size = 15;
 
   return (
@@ -39,14 +49,14 @@ export function DeleteButton({ name, id, setData, data }) {
         height={size}
         onClick={() => {
           alert(name + " was deleted!");
-          DeleteLecture({ id, data, setData });
+          DeleteLecture({ id, data, setData , cid, name ,lid});
         }}
       />
     </div>
   );
 }
 
-export function LectureComponenet({ name, id, setData, data }) {
+export function LectureComponenet({ name, id, setData, data, link, cid, lid}) {
   const fontstyle = {
     "font-weight": "400",
     "text-decoration": "none",
@@ -59,11 +69,15 @@ export function LectureComponenet({ name, id, setData, data }) {
   return (
     <div class="row" style={style}>
       <p class="DeleteButton">
-        <DeleteButton name={name} id={id} setData={setData} data={data} />
+        <DeleteButton name={name} id={id} setData={setData} data={data} cid={cid} lid={lid} />
       </p>
-      <h1 style={fontstyle} href="#" class="lectureText">
+      
+        <a style={{"text-decoration": "none"}}href={link} >
+        <h1 style={fontstyle} href="#" class="lectureText">
         {name}
-      </h1>
+        </h1>
+        </a>
+      
     </div>
   );
 }

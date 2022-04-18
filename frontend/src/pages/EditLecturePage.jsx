@@ -24,10 +24,10 @@ function EditLecturePage({ setAuth }) {
     })
     .then((resp) => {
         console.log(resp.data)
-        // setTitle(resp.data.course.title);
+        setTitle(resp.data.course.title);
         const lecture_names = resp.data.course.lecture_names;
         const lecture_ids = resp.data.course.lectures;
-        const newData = lecture_ids.map((lec_id, key) => addData(key, lecture_names[key], `/EditLecture?id=${lec_id}&course=${courseId}`))
+        const newData = lecture_ids.map((lec_id, key) => addData(key, lecture_names[key], `/EditLecture?id=${lec_id}&course=${courseId}`, lec_id))
         console.log(newData);
         setData([...[...newData]]);
     })
@@ -48,8 +48,8 @@ function EditLecturePage({ setAuth }) {
   }
 
 
-  function addData(currID,currName, link) {
-    let JSONobj = { id: currID, name: currName, link: link };
+  function addData(currID,currName, link, lid) {
+    let JSONobj = { id: currID, name: currName, link: link, lid: lid };
     return JSONobj;
   }
 
@@ -92,7 +92,7 @@ function EditLecturePage({ setAuth }) {
               lecID = resp.data._id
               let link = `/EditLecture?id=${lecID}&course=${courseId}`
 
-              let newLec = addData(ID, name, link);
+              let newLec = addData(ID, name, link, lecID);
               
               console.log(newLec);
               setData([...data, newLec]);
@@ -105,15 +105,16 @@ function EditLecturePage({ setAuth }) {
       </div>
       <div>
         {data.map((values, key) => 
-        
-            <a key={key} href= {values.link}>
             <LectureComponenet
               name={values.name}
               id={values.id}
               setData={setData}
               data={data}
+              link={values.link}
+              key={key}
+              cid={courseId}
+              lid={values.lid}
             />
-            </a>
         )}
       </div>
       <Button text="Save Changes!" />
