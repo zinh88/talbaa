@@ -6,18 +6,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 function ViewLecture({setAuth}) {
-
-  // const id1 = "udzo4o03kwgwjl3d7zkj";
-  // const id2 = "k17pkba5cddfcpcth1dj";
-  // const id3 = "uxhqhj80uihwzkwm944t";
-  // const id4 = "xr7qtsex5edb7dz9tvhl";
-
-  // let initialRes = [
-  //   {id: id1, name: "Edge Computing", type:"pdf"},
-  //   {id: id3, name: "Stack of Books", type:"image"},
-  //   {id: id2, name: "Unknown PDF", type:"pdf"},
-  //   {id: id4, name: "Circuits Tutorial", type:"video"},
-  // ]
   const [searchParams] = useSearchParams();
   const lectureId = searchParams.get('id');
   const courseId = searchParams.get('course');

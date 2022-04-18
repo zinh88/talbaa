@@ -2,7 +2,7 @@ import React from "react";
 import Rating from "./Rating";
 import { Author, CardFooter, CardPic, Description, StyledCard, Tags, Title, Info, Tag, Bottom, RatingBar, Stars} from "./styles/Card.styled";
 
-const Card = ({card : { _id, title, description, pic, rating, tags, creator}}) => {
+const Card = ({card : { _id, title, description, pic, rating, tags, created_by}}) => {
     return (
         <a style={{ "text-decoration" : "none", "color" : "black"}} href={`/coursePage/${_id}`}>
         <StyledCard>
@@ -10,14 +10,14 @@ const Card = ({card : { _id, title, description, pic, rating, tags, creator}}) =
             <CardFooter>
                 <Info>
                     <Title>{title}</Title>
-                    <Author>{creator}</Author>
+                    <Author>Created By: {created_by}</Author>
                     <Description>{description}</Description>
                 </Info>
                 <Bottom>
                 <Tags>
                     {
                         tags.map((tag, index) => 
-                            <Tag index={index}>{tag}</Tag>
+                            <Tag key={index}>{tag}</Tag>
                         )
                     }
                 </Tags>
