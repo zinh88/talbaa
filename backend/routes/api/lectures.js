@@ -42,7 +42,7 @@ router.put("/add_lec_content", async (req, res) => {
     try {
         const lecture_doc = await Lecture.findByIdAndUpdate( 
             {_id: lectureId },
-            { $push : { "content": createdContentEntry._id } }, 
+            { $push : { "content": createdContentEntry } }, 
             {upsert : true } )
         
             await lecture_doc
