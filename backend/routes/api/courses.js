@@ -45,7 +45,7 @@ router.post("/create_course", async (req, res) => {
     user_id = payload.user_id;
 
     try {
-        const user_doc = await User.findByIdAndUpdate( {_id: user_id}, {
+        const user_doc = await User.findOneAndUpdate( {user_id: user_id}, {
             $push: { "createdCourses" : newCourse._id}
         })
 
@@ -116,15 +116,18 @@ router.get("/get_course/:id", async (req, res) => {
     }
 
     let courseId = req.params.id;
+    console.log(courseId)
 
     // check if enrolled
     user_id = payload.user_id;
+
+    console.log(user_id);
 
     // get all enrolled courses for current user
 
     var enrolledCourses = []
     try {
-        let user = await User.findOne({ _id: user_id }).orFail();
+        let user = await User.findOne({ user_id: user_id }).orFail();
 
         await user;
     
@@ -142,7 +145,8 @@ router.get("/get_course/:id", async (req, res) => {
     // var enrolledJson = {"enrolled": enrolled}
 
     try {
-        const course_doc = await Course.findOne({ _id: courseId});
+        const course_doc = await Course.findById(courseId);
+        console.log(course_doc);
         res.json({
             course: course_doc,
             enroll: enrolled
@@ -192,6 +196,5 @@ router.get("/get_all_courses", async (req, res) => {
     .then(courses => res.json(courses))
     .catch(err => console.log(err));
 })
-
 
 module.exports = router;

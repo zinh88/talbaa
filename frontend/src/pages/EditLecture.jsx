@@ -94,6 +94,8 @@ export function InsertTextBox({resources,setResources, lectureId}){
               .catch((err) => {
                 console.log(err)
               })
+              setResources([...resources, {id :sendData.cld_reference, name: sendData.title, type: sendData.filetype}]);
+
 
               console.log(resources)
             }}>
@@ -145,17 +147,17 @@ export function DisplayContent({resources, cloudName, setResources}){
     <div>
       {
         resources.map((value) => {
-          if (value.type == "image"){
+          if (value.type === "image"){
             return <InsertImage 
                     id={value.id} 
                     cloudName={cloudName}/>
-          } else if (value.type == "pdf"){
+          } else if (value.type === "pdf"){
             return <InsertPDF 
                     id={value.id} 
                     cloudName={cloudName} 
                     name={value.name}/>
           // } else if (value.type == "textBox"){
-          } else if (value.type == "text") {
+          } else if (value.type === "text") {
             return (
               <div style = {textStyle}>
                 {/* <h1>{value.name.title}</h1>
@@ -164,7 +166,7 @@ export function DisplayContent({resources, cloudName, setResources}){
                 <h3>{value.id}</h3>
               </div>
             )
-          } else if (value.type == "video"){
+          } else if (value.type === "video"){
             return <InsertVideo 
                     id={value.id} 
                     cloudName={cloudName}/>
@@ -303,11 +305,11 @@ function DropDown({ resources, setResources, textForm, setTextForm, lectureId })
       console.log(extension)
 
       var type = ""
-      if (extension == "pdf") {
+      if (extension === "pdf") {
         type = "pdf";
-      } else if (extension == "png" || extension == "jpg" || extension == "jpeg") {
+      } else if (extension === "png" || extension === "jpg" || extension === "jpeg") {
         type = "image" 
-      } else if (extension == "mp4") {
+      } else if (extension === "mp4") {
         type = "video"
       }
 
@@ -332,6 +334,7 @@ function DropDown({ resources, setResources, textForm, setTextForm, lectureId })
       .catch((err) => {
         console.log(err)
       })
+      setResources([...resources, {id :object.cld_reference, name: object.title, type: object.filetype}]);
 
 
       console.log(name)
@@ -449,6 +452,8 @@ function EditLecture() {
   // ]
   const [searchParams] = useSearchParams();
   const lectureId = searchParams.get('id');
+  const courseId = searchParams.get('course');
+  const [title, setTitle] = useState('');
   var initialRes = []
   const searchQuery = 'api/lectures/get_lecture/' + lectureId
 
@@ -464,7 +469,8 @@ function EditLecture() {
     .then((resp) => {
       // console.log(resp.data.content)
       // initialRes = []
-      resp.data.content.forEach( (content_piece) => {
+        setTitle(resp.data.title);
+        resp.data.content.forEach( (content_piece) => {
         let dataPiece = { id: content_piece.cld_reference, name: content_piece.title, type: content_piece.filetype }
 
         initialRes.push(dataPiece)
@@ -486,12 +492,17 @@ function EditLecture() {
   const cloudName = "dv5ig0sry";
 
   const [textForm, setTextForm] = useState(false);
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(`/EditLecturePage?id=${courseId}`, { replace: true })
+  }
 
   return (
     <div>
       <Navbar />
 
-      <LectureHeading lectureName="Introduction to Machine Learning" />
+      <LectureHeading lectureName={title} />
 
       <DisplayContent
         resources={resources}
@@ -511,7 +522,7 @@ function EditLecture() {
         lectureId={lectureId}
       />
 
-      <Button text="Return" route="/editLecturePage" />
+      <Button text="Return" event={goBack}/>
     </div>
   );
 }

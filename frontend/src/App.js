@@ -181,7 +181,7 @@ const App = () => {
             }
           />
           <Route
-            path="/coursePage"
+            path="/coursePage/:id"
             element={
               isAuthenticated ? (
                 <CoursePage setAuth={setAuthenticated} />

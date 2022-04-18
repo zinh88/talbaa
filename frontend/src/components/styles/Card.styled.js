@@ -13,6 +13,7 @@ export const CardPic = styled.img`
     display: flex;
     height: 50%;
 `
+
 export const CardFooter = styled.div`
     display: flex;
     padding: 10px;
