@@ -7,10 +7,6 @@ import { CourseInfo, Button } from "./CreateCourse";
 import {} from "./../CreateCourse.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
-<<<<<<< HEAD
-=======
-
->>>>>>> ce6704292b49adf359522d9d33cb9aaa5567a3ef
 
 function InsertImage({ id, cloudName }) {
   return (
