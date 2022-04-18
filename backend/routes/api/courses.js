@@ -139,7 +139,7 @@ router.get("/get_course/:id", async (req, res) => {
     }
 
     // res.json({"enrolled": enrolled})
-    var enrolledJson = {"enrolled": enrolled}
+    // var enrolledJson = {"enrolled": enrolled}
 
     try {
         const course_doc = await Course.findOne({ _id: courseId});

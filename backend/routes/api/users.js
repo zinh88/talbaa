@@ -124,7 +124,6 @@ router.post("/login", async (req, res) => {
         }
     })
         .catch(err => console.log(err));
-    // });
 });
 
 router.get("/get_user", async (req, res) => {
@@ -157,7 +156,7 @@ router.put("/enroll", async (req, res) => {
 
     try {
         const user_doc = await User.findByIdAndUpdate({ user_id: user_id },
-            { $push: { "lectures": req.body.courseId }, }, { upsert: true })
+            { $push: { "enrolledCourses": req.body.courseId }, }, { upsert: true })
 
         await user_doc
             .save()
