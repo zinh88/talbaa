@@ -7,6 +7,10 @@ import { CourseInfo, Button } from "./CreateCourse";
 import {} from "./../CreateCourse.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
+<<<<<<< HEAD
+=======
+
+>>>>>>> ce6704292b49adf359522d9d33cb9aaa5567a3ef
 
 function InsertImage({ id, cloudName }) {
   return (
@@ -37,7 +41,7 @@ function InsertVideo({ id, cloudName }) {
   );
 }
 
-export function InsertTextBox({resources,setResources}){
+export function InsertTextBox({resources,setResources}, lectureId){
 
   const [title, setTitle] = useState("");
   const [note, setNote] = useState("");
@@ -54,7 +58,7 @@ export function InsertTextBox({resources,setResources}){
     "width": "900px"
   }
 
-  function SubmitButton({title, note, resources, setResources}){
+  function SubmitButton({title, note, resources, setResources, lectureId}){
     const buttonStyle = {
       "padding-top":"0.35rem",
       "font-size":"15px",
@@ -68,7 +72,32 @@ export function InsertTextBox({resources,setResources}){
               let JSONobj = { id: {note},
                               name: {title},
                               type: "textBox"}
-              setResources([...resources,JSONobj])
+                              // type: "text"}
+              // setResources([...resources,JSONobj])
+
+              let sendData = {
+                title: title,
+                filetype: "text",
+                cld_reference: note,
+                lectureId: lectureId
+              }
+
+              console.log("PRINTING LCTURE ID")
+              console.log(sendData.lectureId)
+
+              axios.put("api/lectures/add_lec_content", sendData, {
+                headers: {
+                  'authorization': localStorage.authorization
+                }
+              })
+              .then((resp) => {
+                const lecture = resp.data
+                // console.log(lecture)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+
               console.log(resources)
             }}>
         Submit
@@ -102,6 +131,7 @@ export function InsertTextBox({resources,setResources}){
         note = {note}
         resources = {resources}
         setResources = {setResources}
+        lectureId = {lectureId}
       />
     </div>
   )
@@ -127,11 +157,14 @@ export function DisplayContent({resources, cloudName, setResources}){
                     id={value.id} 
                     cloudName={cloudName} 
                     name={value.name}/>
-          } else if (value.type == "textBox"){
+          // } else if (value.type == "textBox"){
+          } else if (value.type == "text") {
             return (
               <div style = {textStyle}>
-                <h1>{value.name.title}</h1>
-                <h3>{value.id.note}</h3>
+                {/* <h1>{value.name.title}</h1>
+                <h3>{value.id.note}</h3> */}
+                <h1>{value.name}</h1>
+                <h3>{value.id}</h3>
               </div>
             )
           } else if (value.type == "video"){
@@ -364,22 +397,52 @@ export function LectureHeading({ lectureName }) {
 }
 
 function EditLecture() {
-  const [title, setTitle] = useState('');
-  const id1 = "udzo4o03kwgwjl3d7zkj";
-  const id2 = "k17pkba5cddfcpcth1dj";
-  const id3 = "uxhqhj80uihwzkwm944t";
-  const id4 = "xr7qtsex5edb7dz9tvhl";
+  // const id1 = "udzo4o03kwgwjl3d7zkj";
+  // const id2 = "k17pkba5cddfcpcth1dj";
+  // const id3 = "uxhqhj80uihwzkwm944t";
+  // const id4 = "xr7qtsex5edb7dz9tvhl";
+
+  // let initialRes = [
+  //   {id: id1, name: "Edge Computing", type:"pdf"},
+  //   {id: id3, name: "Stack of Books", type:"image"},
+  //   {id: id2, name: "Unknown PDF", type:"pdf"},
+  //   {id: id4, name: "Circuits Tutorial", type:"video"},
+  // ]
   const [searchParams] = useSearchParams();
-  const lec_id = searchParams.get('id');
+  const lectureId = searchParams.get('id');
+  var initialRes = []
+  const searchQuery = 'api/lectures/get_lecture/' + lectureId
 
-  let initialRes = [
-    {id: id1, name: "Edge Computing", type:"pdf"},
-    {id: id3, name: "Stack of Books", type:"image"},
-    {id: id2, name: "Unknown PDF", type:"pdf"},
-    {id: id4, name: "Circuits Tutorial", type:"video"},
-  ]
+  
 
-  const [resources, setResources] = useState(initialRes);
+  useEffect( () => {
+    // console.log(searchQuery)
+    axios.get(searchQuery, {
+      headers: {
+        'authorization' : localStorage.authorization
+      }
+    })
+    .then((resp) => {
+      // console.log(resp.data.content)
+      // initialRes = []
+      resp.data.content.forEach( (content_piece) => {
+        let dataPiece = { id: content_piece.cld_reference, name: content_piece.title, type: content_piece.filetype }
+
+        initialRes.push(dataPiece)
+      }
+      
+      )
+      console.log(initialRes)
+      setResources(initialRes);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    console.log(initialRes)
+  },[])
+
+  // console.log(initialRes)
+  const [resources, setResources] = useState([]);
 
   const cloudName = "dv5ig0sry";
 
@@ -408,11 +471,11 @@ function EditLecture() {
         cloudName={cloudName}
         setResources={setResources}
       />
-
+     
       {textForm && (
-        <InsertTextBox resources={resources} setResources={setResources} />
-      )}
-
+        <InsertTextBox resources={resources} setResources={setResources} lectureId={lectureId} />
+      )}``
+       <button onClick={()  => console.log(resources)}>click</ button>
       <ResButton
         resources={resources}
         setResources={setResources}

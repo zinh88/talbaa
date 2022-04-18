@@ -48,6 +48,12 @@ const CourseSchema = new Schema({
         type: Array,
         default: [],
         required: true
+    },
+
+    lecture_names: {
+        type: Array,
+        default: [],
+        required: true
     }
 });
 

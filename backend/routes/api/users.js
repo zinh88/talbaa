@@ -22,9 +22,8 @@ router.post("/register", async (req, res) => {
     }
 
     try {
-        let user = await User.findOne({ email: req.body.email }).orFail();
+        let user = await User.findOne({ email: req.body.email });
 
-        // console.log("GETTING HERE --------------- ")
         if (user) {
             return res.status(400).json({ email: "Email already exists" });
         } else {
@@ -124,7 +123,6 @@ router.post("/login", async (req, res) => {
         }
     })
         .catch(err => console.log(err));
-    // });
 });
 
 router.get("/get_user", async (req, res) => {
@@ -157,7 +155,7 @@ router.put("/enroll", async (req, res) => {
 
     try {
         const user_doc = await User.findByIdAndUpdate({ user_id: user_id },
-            { $push: { "lectures": req.body.courseId }, }, { upsert: true })
+            { $push: { "enrolledCourses": req.body.courseId }, }, { upsert: true })
 
         await user_doc
             .save()

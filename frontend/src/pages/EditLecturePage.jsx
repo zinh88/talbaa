@@ -79,16 +79,9 @@ function EditLecturePage({ setAuth }) {
                     {
                       headers: { 'authorization': localStorage.authorization }
                     })
-                    // .then((res) => {
-                    //   lecID = res.data._id;
-                    //   console.log(lecID);
-                    // })
-                    // .catch((err) => {
-                    //   console.log(err)
-                    // })
+
                     return response;
-                    // lecID = response.data._id
-                    // console.log(lecID);
+                    
                 } catch (error) {
                   console.log(error)
                 }

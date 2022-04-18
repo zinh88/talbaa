@@ -42,7 +42,7 @@ router.post("/create_course", async (req, res) => {
         .then((course) => res.json(course))
         .catch((err) => console.log(err));
     
-        user_id = payload.user_id;
+    user_id = payload.user_id;
 
     try {
         const user_doc = await User.findByIdAndUpdate( {_id: user_id}, {
@@ -92,7 +92,7 @@ router.put("/add_lecture", async (req, res) => {
     // make update to course, include course in the request body
     try {
         // updating the actual course document
-        const course_doc_final = await Course.findByIdAndUpdate( { _id: courseId }, { $push : { "lectures": createdLecture._id }} , {upsert : true})
+        const course_doc_final = await Course.findByIdAndUpdate( { _id: courseId }, { $push : { "lectures": createdLecture._id, "lecture_names": createdLecture.title }} , {upsert : true})
 
         await course_doc_final
             .save()
@@ -139,7 +139,7 @@ router.get("/get_course/:id", async (req, res) => {
     }
 
     // res.json({"enrolled": enrolled})
-    var enrolledJson = {"enrolled": enrolled}
+    // var enrolledJson = {"enrolled": enrolled}
 
     try {
         const course_doc = await Course.findOne({ _id: courseId});
