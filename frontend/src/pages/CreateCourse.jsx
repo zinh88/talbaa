@@ -164,7 +164,7 @@ function CreateCourse({setAuth}) {
     .then((resp) => {
         const id = resp.data._id;
         console.log(resp.data._id);
-        navigate(`/CreateLecturePage?id=${id}`, { replace: true })
+        navigate(`/EditLecturePage?id=${id}`, { replace: true })
     })
     .catch((err) => {
         console.log(err);

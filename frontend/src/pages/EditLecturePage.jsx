@@ -11,7 +11,29 @@ function EditLecturePage({ setAuth }) {
   const [id, setID] = useState(0);
   const [data, setData] = useState([]);
   const [searchParams] = useSearchParams();
-  const courseId = searchParams.get('id')
+  const [title, setTitle] = useState('Course');
+  const courseId = searchParams.get('id');
+
+  useEffect(() => {
+    console.log(courseId);
+    axios
+      .get(`api/courses/get_course/${courseId}`, {
+        headers: {
+            'authorization': localStorage.authorization
+        }
+    })
+    .then((resp) => {
+        setTitle(resp.data.course.title);
+        const lecture_names = resp.data.course.lecture_names;
+        const lecture_ids = resp.data.course.lectures;
+        const newData = lecture_ids.map((lec_id, key) => addData(key, lecture_names[key], `/EditLecture?id=${lec_id}`))
+        console.log(newData);
+        setData([...[...newData]]);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+  },[])
 
   function lectureID(){
     let currID = id;
@@ -26,27 +48,16 @@ function EditLecturePage({ setAuth }) {
 
 
   function addData(currID,currName, link) {
-    // let currID = id;
-    // setID(id + 1);
-    // let currName = "Lecture " + id;
     let JSONobj = { id: currID, name: currName, link: link };
     return JSONobj;
   }
-
-  // const lectureData = [
-  //   {id: 0, name: "Lecture 1"},
-  //   {id: 1, name: "Lecture 2"},
-  //   {id: 2, name: "Lecture 3"}
-  // ]
-
-  // const [lectures, setLectures] = useState(lectureData);
 
 
   return (
     <div>
       <Navbar setAuth={setAuth} />
 
-      <Heading courseName={"Machine Learning"} />
+      <Heading courseName={title} />
 
       <div class="row">
         <Lectures />
@@ -91,20 +102,6 @@ function EditLecturePage({ setAuth }) {
               
               console.log(newLec);
               setData([...data, newLec]);
-              {
-                data.map((values) => {
-                  return (
-                    <a href= {values.link}>
-                    <LectureComponenet
-                      name={values.name}
-                      id={values.id}
-                      setData={setData}
-                      data={data}
-                    />
-                    </a>
-                  );
-                });
-              }
             }
           }
           lectures={data}
@@ -113,9 +110,9 @@ function EditLecturePage({ setAuth }) {
         />
       </div>
       <div>
-        {data.map((values) => {
-          return (
-            <a href= {values.link}>
+        {data.map((values, key) => 
+        
+            <a key={key} href= {values.link}>
             <LectureComponenet
               name={values.name}
               id={values.id}
@@ -123,10 +120,8 @@ function EditLecturePage({ setAuth }) {
               data={data}
             />
             </a>
-          );
-        })}
+        )}
       </div>
-
       <Button text="Save Changes!" />
     </div>
   );

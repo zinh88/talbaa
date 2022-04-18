@@ -6,20 +6,20 @@ import {
   Btn2,
   HomePage,
   Title,
-  Title2,
   Btn,
   Box,
   Text,
   Box2,
-  Text2,
 } from "./styles/CoursePage.styled";
 import StarRating from "./styles/CoursePageRating";
 // import pic1 from "../assets/paintbrush.PNG";
 
 function CoursePage({ setAuth }) {
-  const [title, setTitle] = useState('jk');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [enrolled, setEnrolled] = useState(false);
+  const [lectures, setLectures] = useState([]);
+  const [lecnames, setLecnames] = useState([])
   const { id } = useParams();
 
   useEffect(() => {
@@ -36,6 +36,8 @@ function CoursePage({ setAuth }) {
         setTitle(course.title);
         setDescription(course.description);
         setEnrolled(resp.data.enroll);
+        setLectures([...course.lectures]);
+        setLecnames([...course.lecture_names]);
     })
     .then((err) => {
         console.log(err)
@@ -45,7 +47,7 @@ function CoursePage({ setAuth }) {
 
   const enroll = () => {
     setEnrolled(!enrolled);
-    axios.put('api/users/enroll', { courseId : id}, {
+    axios.put('api/users/enroll', { courseId : id }, {
         headers: {
             'authorization': localStorage.authorization
         }
@@ -135,16 +137,14 @@ function CoursePage({ setAuth }) {
         >
           <Box2>
             <Text style={{ "font-size": "20px" }}>Title</Text>
-            <Btn2 style={{ "padding-top": "10px" }}>Introduction</Btn2>
-          </Box2>
-          <Box2>
-            <Text style={{ "font-size": "20px" }}>Videos</Text>
-          </Box2>
-          <Box2>
-            <Text style={{ "font-size": "20px" }}>Notes</Text>
-          </Box2>
-          <Box2>
-            <Text style={{ "font-size": "20px" }}>Quizzes</Text>
+            
+            {
+                lectures.map((id, key) => 
+                    <a style={{ "text-decoration": "none"}} href={`/ViewLecture?id=${id}`} key={key}>
+                        <Btn2 style={{ "padding-top": "10px" }}>{lecnames[key]}</Btn2>
+                    </a>
+                )
+            }
           </Box2>
         </Box>
         <Text
