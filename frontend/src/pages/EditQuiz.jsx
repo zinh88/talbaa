@@ -6,7 +6,7 @@ import {} from "./../CreateCourse.css";
 import { Heading } from "./CreateLecture";
 import { PageTitle } from "./CreateCourse";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function EditQuiz({ setAuth }) {
   let [courseName, setCourseName] = useState("");
@@ -18,6 +18,8 @@ function EditQuiz({ setAuth }) {
   const courseId = searchParams.get('course');
   let [title, setTitle] = useState("");
   let [desc, setDesc] = useState("");
+
+  let navigate = useNavigate();
 
   let Quiz = (data) => {
     setQuestions((curr) => [...curr, data]);
@@ -139,6 +141,8 @@ function EditQuiz({ setAuth }) {
               .catch((err) => {
                 console.log(err)
               })
+           
+              navigate(`/EditLecture/?id=${lectureId}&course=${courseId}`)
             }}
           >
             Publish Quiz

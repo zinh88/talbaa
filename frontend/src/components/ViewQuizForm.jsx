@@ -20,7 +20,7 @@ function ViewQuizForm({ questionNumber, questionData }) {
       style={{ margin: "2rem", marginLeft: "1.75rem" }}
     >
       <div className="quizQuestion">Question {questionNumber}</div>
-      <p className="placeholderTitle">{questionData.question1}</p>
+      <p className="placeholderTitle">{questionData.question}</p>
       <div className="quizOption">
         <input
           type="radio"
