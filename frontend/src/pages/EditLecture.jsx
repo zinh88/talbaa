@@ -438,7 +438,7 @@ export function LectureHeading({ lectureName }) {
   );
 }
 
-function EditLecture() {
+function EditLecture({setAuth}) {
   // const id1 = "udzo4o03kwgwjl3d7zkj";
   // const id2 = "k17pkba5cddfcpcth1dj";
   // const id3 = "uxhqhj80uihwzkwm944t";
@@ -454,6 +454,7 @@ function EditLecture() {
   const lectureId = searchParams.get('id');
   const courseId = searchParams.get('course');
   const [title, setTitle] = useState('');
+  const [resources, setResources] = useState([]);
   var initialRes = []
   const searchQuery = 'api/lectures/get_lecture/' + lectureId
 
@@ -487,7 +488,6 @@ function EditLecture() {
   },[])
 
   // console.log(initialRes)
-  const [resources, setResources] = useState([]);
 
   const cloudName = "dv5ig0sry";
 
@@ -500,7 +500,7 @@ function EditLecture() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar setAuth={setAuth}/>
 
       <LectureHeading lectureName={title} />
 

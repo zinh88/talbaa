@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import {LectureHeading, DisplayContent, InsertTextBox, ResButton} from "./EditLecture";
 import {Button} from './CreateCourse';
 import Navbar from "./../components/Navbar";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
-function ViewLecture() {
+function ViewLecture({setAuth}) {
 
   // const id1 = "udzo4o03kwgwjl3d7zkj";
   // const id2 = "k17pkba5cddfcpcth1dj";
@@ -20,8 +20,11 @@ function ViewLecture() {
   // ]
   const [searchParams] = useSearchParams();
   const lectureId = searchParams.get('id');
+  const courseId = searchParams.get('course');
+  const [resources, setResources] = useState([]);
+  const [title, setTitle] = useState('');
   var initialRes = []
-  const searchQuery = 'api/courses/get_lecture/' + lectureId
+  const searchQuery = 'api/lectures/get_lecture/' + lectureId
   useEffect( () => {
     axios.get(searchQuery, {
       headers: {
@@ -30,20 +33,22 @@ function ViewLecture() {
     })
     .then((resp) => {
       console.log(resp.data)
+      setTitle(resp.data.title);
       // initialRes = []
       resp.data.content.forEach( (content_piece) => {
         let dataPiece = { id: content_piece.cld_reference, name: content_piece.title, type: content_piece.filetype }
 
-        initialRes.append(dataPiece)
+        initialRes.push(dataPiece)
       }
       )
+      setResources(initialRes);
     })
     .catch((err) => {
       console.log(err)
     })
-  })
+  },[])
 
-  const [resources, setResources] = useState(initialRes);
+  const navigate = useNavigate();
 
   const cloudName = "dv5ig0sry";
 
@@ -51,9 +56,9 @@ function ViewLecture() {
 
   return(
     <div>
-      <Navbar />
+      <Navbar setAuth={setAuth}/>
 
-      <LectureHeading lectureName="Introduction to Machine Learning"/>
+      <LectureHeading lectureName={title}/>
 
       <DisplayContent resources = {resources} 
                       cloudName = {cloudName} 
@@ -68,7 +73,7 @@ function ViewLecture() {
                   textForm = {textForm}
                   setTextForm = {setTextForm}/> */}
 
-      <Button text="Return" route="/editLecturePage"/>
+      <Button text="Return" event={() => navigate(`/coursePage/${courseId}`, { replace: true })} />
     </div>
   )
 }

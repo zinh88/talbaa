@@ -43,11 +43,13 @@ router.post("/create_course", async (req, res) => {
         .catch((err) => console.log(err));
     
     user_id = payload.user_id;
+    console.log(newCourse);
 
     try {
         const user_doc = await User.findOneAndUpdate( {user_id: user_id}, {
-            $push: { "createdCourses" : newCourse._id}
-        })
+            $addToSet: { createdCourses : newCourse._id.toString()}
+        }, {new: true} )
+
 
         await user_doc
             .save()
@@ -92,7 +94,7 @@ router.put("/add_lecture", async (req, res) => {
     // make update to course, include course in the request body
     try {
         // updating the actual course document
-        const course_doc_final = await Course.findByIdAndUpdate( { _id: courseId }, { $push : { "lectures": createdLecture._id, "lecture_names": createdLecture.title }} , {upsert : true})
+        const course_doc_final = await Course.findByIdAndUpdate( { _id: courseId }, { $push : { "lectures": createdLecture._id.toString(), "lecture_names": createdLecture.title }} , {upsert : true})
 
         await course_doc_final
             .save()
@@ -103,6 +105,28 @@ router.put("/add_lecture", async (req, res) => {
         // console.log(error)
         res.json({message: error})
     }
+})
+
+router.delete("/lecture/:cid/:lid/:name", async (req, res)=> {
+    console.log("DELETELTELTET");
+    // const { errors, isValid } = validateAddLecture(req.body)
+    const token = req.headers['authorization'].split(' ')[1];
+    try {
+        const payload = jwt.verify(token, process.env.secretOrKey)
+    } catch (error) {
+        return res.json({message: "Not authorized"})
+    }
+    const lec_id = req.params.lid;
+    const course_id = req.params.cid;
+    const lec_name = req.params.name;
+    console.log(lec_id);
+    const course_doc = await Course.findByIdAndUpdate( course_id, 
+        { $pull : { "lectures": lec_id, "lecture_names": lec_name }},
+        {new :true}
+    )
+    console.log(course_doc)
+    res.json(course_doc)
+
 })
 
 router.get("/get_course/:id", async (req, res) => {
@@ -126,19 +150,25 @@ router.get("/get_course/:id", async (req, res) => {
     // get all enrolled courses for current user
 
     var enrolledCourses = []
+    var createdCourses = []
     try {
         let user = await User.findOne({ user_id: user_id }).orFail();
 
         await user;
-    
+        console.log(user);
         enrolledCourses = user.enrolledCourses 
+        createdCourses = user.createdCourses
     } catch (error) {
         console.log(error)
     }
 
     var enrolled = false;
+    var creator = false;
     if (enrolledCourses.includes(courseId)) {
         enrolled = true;
+    }
+    if (createdCourses.includes(courseId)) {
+        creator = true;
     }
 
     // res.json({"enrolled": enrolled})
@@ -149,7 +179,8 @@ router.get("/get_course/:id", async (req, res) => {
         console.log(course_doc);
         res.json({
             course: course_doc,
-            enroll: enrolled
+            enroll: enrolled,
+            creator: creator
         });
         // res.json(course_doc)
         return res

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import {
   Btn2,
@@ -18,9 +18,11 @@ function CoursePage({ setAuth }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [enrolled, setEnrolled] = useState(false);
+  const [creator, setCreator] = useState(false);
   const [lectures, setLectures] = useState([]);
-  const [lecnames, setLecnames] = useState([])
+  const [lecnames, setLecnames] = useState([]);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(id);
@@ -30,12 +32,14 @@ function CoursePage({ setAuth }) {
         }
     })
     .then((resp) => {
+        console.log(resp.data);
         const course = resp.data.course;
         console.log(resp.data.course);
         console.log(resp.data.enroll);
         setTitle(course.title);
         setDescription(course.description);
         setEnrolled(resp.data.enroll);
+        setCreator(resp.data.creator);
         setLectures([...course.lectures]);
         setLecnames([...course.lecture_names]);
     })
@@ -59,6 +63,10 @@ function CoursePage({ setAuth }) {
         console.log(err);
     })
   }
+
+  const goToEdit = () => {
+    navigate(`/EditLecturePage?id=${id}`, { replace: true })
+  }
   return (
     <div>
       <Navbar setAuth={setAuth} />
@@ -75,6 +83,7 @@ function CoursePage({ setAuth }) {
             height: "60px",
           }}
         >
+          {!creator? 
           <Btn 
             onClick={enroll}
             style={{
@@ -90,6 +99,23 @@ function CoursePage({ setAuth }) {
           >
             {enrolled? "Enrolled" : "Enroll"}
           </Btn>
+          :
+          <Btn 
+            onClick={goToEdit}
+            style={{
+              height: "100%",
+              width: "12.92%",
+              "align-items": "center",
+              "justify-content": "center",
+              font: "Raleway",
+              "font-size": "25px",
+              "font-weight": "600",
+              "cursor": "pointer"
+            }}
+          >
+            Edit Course
+          </Btn>
+        }
         </Box>
         <Text
           style={{
@@ -139,8 +165,8 @@ function CoursePage({ setAuth }) {
             <Text style={{ "font-size": "20px" }}>Title</Text>
             
             {
-                lectures.map((id, key) => 
-                    <a style={{ "text-decoration": "none"}} href={`/ViewLecture?id=${id}`} key={key}>
+                lectures.map((lecid, key) => 
+                    <a style={{ "text-decoration": "none"}} href={`/ViewLecture?id=${lecid}&course=${id}`} key={key}>
                         <Btn2 style={{ "padding-top": "10px" }}>{lecnames[key]}</Btn2>
                     </a>
                 )
