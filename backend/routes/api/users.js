@@ -22,9 +22,8 @@ router.post("/register", async (req, res) => {
     }
 
     try {
-        let user = await User.findOne({ email: req.body.email }).orFail();
+        let user = await User.findOne({ email: req.body.email });
 
-        // console.log("GETTING HERE --------------- ")
         if (user) {
             return res.status(400).json({ email: "Email already exists" });
         } else {
