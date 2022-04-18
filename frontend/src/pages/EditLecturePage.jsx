@@ -56,14 +56,15 @@ function EditLecturePage({ setAuth }) {
               let ID = lectureID();
               let name = lectureName();
               
-              let lectureBody = { "title": name, "courseId":courseId }
+              let lectureBody = { "title": name, "courseId": courseId }
               let apiQuery = "api/courses/add_lecture"
               var lecID;
               
               
               async function putLecture() {
                 try {
-                  const response = await axios.put(apiQuery, { lectureBody },
+                  console.log(lectureBody)
+                  const response = await axios.put(apiQuery, lectureBody,
                     {
                       headers: { 'authorization': localStorage.authorization }
                     })
