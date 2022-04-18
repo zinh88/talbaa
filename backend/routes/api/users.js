@@ -158,40 +158,31 @@ router.put("/enroll", async (req, res) => {
   }
 
   try {
-    const user_doc = await User.findByIdAndUpdate(
-      { user_id: user_id },
-      { $push: { lectures: req.body.courseId } },
-      { upsert: true }
+    console.log(req.body)
+    const user_doc = await User.findOneAndUpdate(
+      {user_id : user_id},
+      { $addToSet: { enrolledCourses: req.body.courseId } },
+      { new: true }
     );
-
-    await user_doc
-      .save()
-      .then((user) => res.json(user))
-      .catch((err) => console.log(err));
+    res.json(user_doc);
   } catch (error) {
-    res.json({ message: error });
+    
+    res.json({ message: "whoopes" });
   }
 });
 
 router.get("/get_enrolled_courses", async (req, res) => {
+  console.log("/get_enrolled_courses");
   const token = req.headers["authorization"].split(" ")[1];
   try {
     const payload = jwt.verify(token, process.env.secretOrKey);
-  } catch (error) {
-    res.json({ message: "Not authorized" });
-  }
-
-  user_id = payload.user_id;
-
-  try {
-    let user = await User.findOne({ user_id: user_id }).orFail();
-
-    await user;
-
-    let enrolledCourses = user.enrolledCourses;
+    const user_id = payload.user_id;
+    const user = await User.findOne({ user_id: user_id }).orFail();
+    const enrolledCourses = user.enrolledCourses;
     return res.json(enrolledCourses);
   } catch (error) {
-    console.log(error);
+    console.log
+    res.json({ message: "Server Error" });
   }
 });
 

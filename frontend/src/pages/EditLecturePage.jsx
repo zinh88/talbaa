@@ -23,10 +23,11 @@ function EditLecturePage({ setAuth }) {
         }
     })
     .then((resp) => {
-        setTitle(resp.data.course.title);
+        console.log(resp.data)
+        // setTitle(resp.data.course.title);
         const lecture_names = resp.data.course.lecture_names;
         const lecture_ids = resp.data.course.lectures;
-        const newData = lecture_ids.map((lec_id, key) => addData(key, lecture_names[key], `/EditLecture?id=${lec_id}`))
+        const newData = lecture_ids.map((lec_id, key) => addData(key, lecture_names[key], `/EditLecture?id=${lec_id}&course=${courseId}`))
         console.log(newData);
         setData([...[...newData]]);
     })
@@ -89,7 +90,7 @@ function EditLecturePage({ setAuth }) {
 
               const resp = await putLecture();
               lecID = resp.data._id
-              let link = `/EditLecture?id=${lecID}`
+              let link = `/EditLecture?id=${lecID}&course=${courseId}`
 
               let newLec = addData(ID, name, link);
               

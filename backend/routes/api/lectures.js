@@ -71,6 +71,7 @@ router.get("/get_lecture/:id", async (req, res) => {
         const lec_doc = await Lecture.findOne( {
             _id: lectureId
         });
+        console.log(lec_doc)
         // let contentList = lec_doc.content;
         return res.json(lec_doc)
     } catch (error) {
