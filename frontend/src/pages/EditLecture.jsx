@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import UploadButton from "../components/UploadButton";
 import Navbar from "./../components/Navbar";
 import { Image, Video } from "cloudinary-react";
-import {} from "./../EditLecture.css";
+import { } from "./../EditLecture.css";
 import { CourseInfo, Button } from "./CreateCourse";
-import {} from "./../CreateCourse.css";
+import { } from "./../CreateCourse.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
@@ -38,7 +38,21 @@ function InsertVideo({ id, cloudName }) {
   );
 }
 
-export function InsertTextBox({resources,setResources, lectureId}){
+export function InsertQuiz({ title, quizId, courseId, lectureId }) {
+  let navigate = useNavigate();
+  return (
+    <div class="quizzes"
+      onClick={
+        () => {
+          navigate(`/ViewQuiz/?lid=${lectureId}&cId=${courseId}&qId=${quizId}`)
+        }
+      }>
+      {title}
+    </div>
+  );
+}
+
+export function InsertTextBox({ resources, setResources, lectureId }) {
 
   const [title, setTitle] = useState("");
   const [note, setNote] = useState("");
@@ -48,221 +62,158 @@ export function InsertTextBox({resources,setResources, lectureId}){
   };
 
   const borderBox = {
-    "border" : "1px solid black",
-    "margin-top":"5%",
-    "margin-left":"5%",
-    "padding-bottom":"3%",
+    "border": "1px solid black",
+    "margin-top": "5%",
+    "margin-left": "5%",
+    "padding-bottom": "3%",
     "width": "900px"
   }
 
-  function SubmitButton({title, note, resources, setResources, lectureId}){
+  function SubmitButton({ title, note, resources, setResources, lectureId }) {
     const buttonStyle = {
-      "padding-top":"0.35rem",
-      "font-size":"15px",
-      "margin-top":"3%",
-      "margin-left":"4%"
+      "padding-top": "0.35rem",
+      "font-size": "15px",
+      "margin-top": "3%",
+      "margin-left": "4%"
     }
-    
-    return(
-      <div  class = "style" style = {buttonStyle}
-            onClick = {() => {
-              let JSONobj = { id: {note},
-                              name: {title},
-                              type: "textBox"}
-                              // type: "text"}
-              // setResources([...resources,JSONobj])
 
-              let sendData = {
-                title: title,
-                filetype: "text",
-                cld_reference: note,
-                lectureId: lectureId
-              }
+    return (
+      <div class="style" style={buttonStyle}
+        onClick={() => {
+          let JSONobj = {
+            id: { note },
+            name: { title },
+            type: "textBox"
+          }
+          // type: "text"}
+          // setResources([...resources,JSONobj])
 
-              console.log("PRINTING LCTURE ID")
-              console.log(sendData.lectureId)
+          let sendData = {
+            title: title,
+            filetype: "text",
+            cld_reference: note,
+            lectureId: lectureId
+          }
 
-              axios.put("api/lectures/add_lec_content", sendData, {
-                headers: {
-                  'authorization': localStorage.authorization
-                }
-              })
-              .then((resp) => {
-                const lecture = resp.data
-                // console.log(lecture)
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-              setResources([...resources, {id :sendData.cld_reference, name: sendData.title, type: sendData.filetype}]);
+          console.log("PRINTING LCTURE ID")
+          console.log(sendData.lectureId)
+
+          axios.put("api/lectures/add_lec_content", sendData, {
+            headers: {
+              'authorization': localStorage.authorization
+            }
+          })
+            .then((resp) => {
+              const lecture = resp.data
+              // console.log(lecture)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+          setResources([...resources, { id: sendData.cld_reference, name: sendData.title, type: sendData.filetype }]);
 
 
-              console.log(resources)
-            }}>
+          console.log(resources)
+        }}>
         Submit
       </div>
     )
   }
 
 
-  return(
-    <div style = {borderBox}>
+  return (
+    <div style={borderBox}>
 
-      <CourseInfo  
-      name = "Title*"
-      style = {textBox}
-      placeholderType = "placeholderTitle"
-      padding = "5% 0% 0% 3%"
-      // state = {title}
-      setText = {setTitle}
+      <CourseInfo
+        name="Title*"
+        style={textBox}
+        placeholderType="placeholderTitle"
+        padding="5% 0% 0% 3%"
+        // state = {title}
+        setText={setTitle}
       />
-      <CourseInfo  
-      name = "Text*"
-      style = {textBox}
-      placeholderType = "placeholderDescription"
-      padding = "5% 0% 0% 3%"
-      // state = {note}
-      setText= {setNote}
+      <CourseInfo
+        name="Text*"
+        style={textBox}
+        placeholderType="placeholderDescription"
+        padding="5% 0% 0% 3%"
+        // state = {note}
+        setText={setNote}
       />
 
       <SubmitButton
-        title = {title}
-        note = {note}
-        resources = {resources}
-        setResources = {setResources}
-        lectureId = {lectureId}
+        title={title}
+        note={note}
+        resources={resources}
+        setResources={setResources}
+        lectureId={lectureId}
       />
     </div>
   )
 }
 
-export function DisplayContent({resources, cloudName, setResources}){
-  
+export function DisplayQuizzes({ quizzes, lectureId, courseId }) {
   const textStyle = {
-    "margin-left":"5%",
-    "margin-top":"4%"
+    "margin-left": "5%",
+    "margin-top": "4%"
   }
-  
-  return(
+
+  return (
     <div>
       {
-        resources.map((value) => {
-          if (value.type === "image"){
-            return <InsertImage 
-                    id={value.id} 
-                    cloudName={cloudName}/>
-          } else if (value.type === "pdf"){
-            return <InsertPDF 
-                    id={value.id} 
-                    cloudName={cloudName} 
-                    name={value.name}/>
-          // } else if (value.type == "textBox"){
-          } else if (value.type === "text") {
-            return (
-              <div style = {textStyle}>
-                {/* <h1>{value.name.title}</h1>
-                <h3>{value.id.note}</h3> */}
-                <h1>{value.name}</h1>
-                <h3>{value.id}</h3>
-              </div>
-            )
-          } else if (value.type === "video"){
-            return <InsertVideo 
-                    id={value.id} 
-                    cloudName={cloudName}/>
-          } 
+        quizzes.map((value) => {
+          return <InsertQuiz
+          title = {"Quiz"}
+          quizId = {value}
+          courseId = {courseId}
+          lectureId = {lectureId}
+            />
         })
       }
     </div>
   )
 }
 
-// function DropDown({resources,setResources, textForm, setTextForm}) {
-//   const itemStyle = {
-//     "font-size" : "13px",
-//     "padding-top": "0.5rem"
-//   };
+export function DisplayContent({ resources, cloudName, setResources }) {
 
-//   function SubmitButton({ title, note, resources, setResources }) {
-//     const buttonStyle = {
-//       "padding-top": "0.35rem",
-//       "font-size": "15px",
-//       "margin-top": "3%",
-//       "margin-left": "4%",
-//     };
+  const textStyle = {
+    "margin-left": "5%",
+    "margin-top": "4%"
+  }
 
-//     return (
-//       <div
-//         class="style"
-//         style={buttonStyle}
-//         onClick={() => {
-//           let JSONobj = { id: { note }, name: { title }, type: "textBox" };
-//           setResources([...resources, JSONobj]);
-//         }}
-//       >
-//         Submit
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div style={borderBox}>
-//       <CourseInfo
-//         name="Title*"
-//         style={textBox}
-//         placeholderType="placeholderTitle"
-//         padding="5% 0% 0% 3%"
-//         state={title}
-//         setState={setTitle}
-//       />
-//       <CourseInfo
-//         name="Text*"
-//         style={textBox}
-//         placeholderType="placeholderDescription"
-//         padding="5% 0% 0% 3%"
-//         state={note}
-//         setState={setNote}
-//       />
-
-//       <SubmitButton
-//         title={title}
-//         note={note}
-//         resources={resources}
-//         setResources={setResources}
-//       />
-//     </div>
-//   );
-// }
-
-// function DisplayContent({ resources, cloudName, setResources }) {
-//   const textStyle = {
-//     "margin-left": "5%",
-//     "margin-top": "4%",
-//   };
-
-//   return (
-//     <div>
-//       {resources.map((value) => {
-//         if (value.type == "image") {
-//           return <InsertImage id={value.id} cloudName={cloudName} />;
-//         } else if (value.type == "pdf") {
-//           return (
-//             <InsertPDF id={value.id} cloudName={cloudName} name={value.name} />
-//           );
-//         } else if (value.type == "textBox") {
-//           return (
-//             <div style={textStyle}>
-//               <h1>{value.name.title}</h1>
-//               <h3>{value.id.note}</h3>
-//             </div>
-//           );
-//         } else if (value.type == "video") {
-//           return <InsertVideo id={value.id} cloudName={cloudName} />;
-//         }
-//       })}
-//     </div>
-//   );
-// }
+  return (
+    <div>
+      {
+        resources.map((value) => {
+          if (value.type === "image") {
+            return <InsertImage
+              id={value.id}
+              cloudName={cloudName} />
+          } else if (value.type === "pdf") {
+            return <InsertPDF
+              id={value.id}
+              cloudName={cloudName}
+              name={value.name} />
+            // } else if (value.type == "textBox"){
+          } else if (value.type === "text") {
+            return (
+              <div style={textStyle}>
+                {/* <h1>{value.name.title}</h1>
+                <h3>{value.id.note}</h3> */}
+                <h1>{value.name}</h1>
+                <h3>{value.id}</h3>
+              </div>
+            )
+          } else if (value.type === "video") {
+            return <InsertVideo
+              id={value.id}
+              cloudName={cloudName} />
+          }
+        })
+      }
+    </div>
+  )
+}
 
 function DropDown({ resources, setResources, textForm, setTextForm, lectureId, courseId }) {
   const itemStyle = {
@@ -298,7 +249,7 @@ function DropDown({ resources, setResources, textForm, setTextForm, lectureId, c
   }
 
   function GenerateDropdown() {
-    const random_fun = (data)=>{
+    const random_fun = (data) => {
       let public_id = data.info.public_id;
       // console.log(data.info)
       let extension = data.info.path.split(".")[1]
@@ -309,7 +260,7 @@ function DropDown({ resources, setResources, textForm, setTextForm, lectureId, c
       if (extension === "pdf") {
         type = "pdf";
       } else if (extension === "png" || extension === "jpg" || extension === "jpeg") {
-        type = "image" 
+        type = "image"
       } else if (extension === "mp4") {
         type = "video"
       }
@@ -328,21 +279,21 @@ function DropDown({ resources, setResources, textForm, setTextForm, lectureId, c
           'authorization': localStorage.authorization
         }
       })
-      .then((resp) => {
-        const lecture = resp.data
-        console.log(lecture)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      setResources([...resources, {id :object.cld_reference, name: object.title, type: object.filetype}]);
+        .then((resp) => {
+          const lecture = resp.data
+          console.log(lecture)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      setResources([...resources, { id: object.cld_reference, name: object.title, type: object.filetype }]);
 
 
       console.log(name)
     }
     return (
       <div>
-        <UploadButton func={random_fun}/>
+        <UploadButton func={random_fun} />
         <AddResourceButton text="Add Text Box" event={textEvent} />
         <AddResourceButton text="Add Quiz" event={quizEvent} />
       </div>
@@ -375,7 +326,7 @@ function AddButton({ event, text }) {
   );
 }
 
-export function ResButton({resources,setResources,textForm, setTextForm, lectureId, courseId}){
+export function ResButton({ resources, setResources, textForm, setTextForm, lectureId, courseId }) {
 
   const textStyle = {
     "padding-top": "clamp(4%,4%,4%)",
@@ -440,53 +391,45 @@ export function LectureHeading({ lectureName }) {
   );
 }
 
-function EditLecture({setAuth}) {
-  // const id1 = "udzo4o03kwgwjl3d7zkj";
-  // const id2 = "k17pkba5cddfcpcth1dj";
-  // const id3 = "uxhqhj80uihwzkwm944t";
-  // const id4 = "xr7qtsex5edb7dz9tvhl";
-
-  // let initialRes = [
-  //   {id: id1, name: "Edge Computing", type:"pdf"},
-  //   {id: id3, name: "Stack of Books", type:"image"},
-  //   {id: id2, name: "Unknown PDF", type:"pdf"},
-  //   {id: id4, name: "Circuits Tutorial", type:"video"},
-  // ]
+function EditLecture({ setAuth }) {
+  
   const [searchParams] = useSearchParams();
   const lectureId = searchParams.get('id');
   const courseId = searchParams.get('course');
   const [title, setTitle] = useState('');
   const [resources, setResources] = useState([]);
+  const [quizzes, setQuizzes] = useState([]);
   var initialRes = []
   const searchQuery = 'api/lectures/get_lecture/' + lectureId
+  let quiz_list = []
 
-  useEffect( () => {
+  useEffect(() => {
     // console.log(searchQuery)
     axios.get(searchQuery, {
       headers: {
-        'authorization' : localStorage.authorization
+        'authorization': localStorage.authorization
       }
     })
-    .then((resp) => {
-      // console.log(resp.data.content)
-      // initialRes = []
+      .then((resp) => {
+        // console.log(resp.data.content)
+        // initialRes = []
         setTitle(resp.data.title);
-        resp.data.content.forEach( (content_piece) => {
-        let dataPiece = { id: content_piece.cld_reference, name: content_piece.title, type: content_piece.filetype }
-
-        initialRes.push(dataPiece)
-      }
-      
-      )
-      console.log(initialRes)
-      setResources(initialRes);
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+        quiz_list = resp.data.quiz
+        resp.data.content.forEach((content_piece) => {
+          let dataPiece = { id: content_piece.cld_reference, name: content_piece.title, type: content_piece.filetype }
+          initialRes.push(dataPiece)
+        }
+        )
+        setResources(initialRes);
+        setQuizzes(quiz_list)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     console.log(initialRes)
-  },[])
+  }, [])
 
+  // const navigate = useNavigate();
   // console.log(initialRes)
 
   const cloudName = "dv5ig0sry";
@@ -500,7 +443,7 @@ function EditLecture({setAuth}) {
 
   return (
     <div>
-      <Navbar setAuth={setAuth}/>
+      <Navbar setAuth={setAuth} />
 
       <LectureHeading lectureName={title} />
 
@@ -509,11 +452,15 @@ function EditLecture({setAuth}) {
         cloudName={cloudName}
         setResources={setResources}
       />
-     
+
+      <DisplayQuizzes quizzes = {quizzes}
+                      lectureId = {lectureId}
+                      courseId = {courseId} />
+
       {textForm && (
         <InsertTextBox resources={resources} setResources={setResources} lectureId={lectureId} />
       )}
-       {/* <button onClick={()  => console.log(resources)}>click</ button> */}
+      {/* <button onClick={()  => console.log(resources)}>click</ button> */}
       <ResButton
         resources={resources}
         setResources={setResources}
@@ -523,7 +470,7 @@ function EditLecture({setAuth}) {
         courseId={courseId}
       />
 
-      <Button text="Return" event={goBack}/>
+      <Button text="Return" event={goBack} />
     </div>
   );
 }
