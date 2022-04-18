@@ -105,11 +105,12 @@ router.put("/add_quiz", async (req, res) => {
     .catch(err => console.log(err))
 
     let lectureId = req.body.lectureId;
-    console.log(lectureId)
+    // console.log(lectureId)
+    console.log(newQuiz._id)
 
     try {
         const lecture_doc_final = await Lecture.findByIdAndUpdate( {_id: lectureId} , {
-            $push: { "quiz" : newQuiz }
+            $push: { "quiz" : String(newQuiz._id) }
         } , {upsert : true})
 
         await lecture_doc_final
@@ -137,7 +138,13 @@ router.get("/get_quiz/:id", async (req, res) => {
 
     let quizId = req.params.id;
 
-    
+    try {
+        const quiz = await Quiz.findById(quizId) 
+        return res.json(quiz)
+    } catch (err) {
+        console.log(err)
+        return res.json( {error :err})
+    }
 })
 
 module.exports = router;
