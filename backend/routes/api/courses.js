@@ -160,5 +160,4 @@ router.get("/get_all_courses", async (req, res) => {
     .catch(err => console.log(err));
 })
 
-
 module.exports = router;

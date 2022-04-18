@@ -95,13 +95,14 @@ export function AddButton({ event, text }) {
 }
 
 function CreateLecturePage({ setAuth }) {
+  const [title, setTitle] = useState('')
   const [id, setID] = useState(0);
   const [data, setData] =useState([]);
   const [searchParams] = useSearchParams();
-  const course_id = searchParams.get('id'); // 'name'
+  const course_id = searchParams.get('id');
 
   function addData() {
-    let currID = id;
+    let currID = id;   
     setID(id + 1);
     let currName = "Lecture " + id;
     let JSONobj = { id: currID, name: currName };
@@ -121,10 +122,11 @@ function CreateLecturePage({ setAuth }) {
         }
     })
     .then((resp) => {
-        console.log(resp)
+        setTitle(resp.data.course.title);
+        console.log(resp);
     })
     .catch((err) => {
-        console.log(err)
+        console.log(err);
     })
   },[])
 
@@ -133,7 +135,7 @@ function CreateLecturePage({ setAuth }) {
       <Navbar setAuth={setAuth} />
 
       {/* <PageTitle title = "Add Lectures"/> */}
-      <Heading courseName={"Machine Learning"} />
+      <Heading courseName={title} />
 
       <div class="row">
         <Lectures />
@@ -163,13 +165,14 @@ function CreateLecturePage({ setAuth }) {
       </div>
 
       <div>
-        {data.map((values) => {
+        {data.map((values, id) => {
           return (
             <LectureComponenet
               name={values.name}
               id={values.id}
               setData={setData}
               data={data}
+              key={id}
             />
           );
         })}

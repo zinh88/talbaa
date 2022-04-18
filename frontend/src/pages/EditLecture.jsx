@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UploadButton from "../components/UploadButton";
 import Navbar from "./../components/Navbar";
 import { Image, Video } from "cloudinary-react";
 import {} from "./../EditLecture.css";
 import { CourseInfo, Button } from "./CreateCourse";
 import {} from "./../CreateCourse.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
 
 function InsertImage({ id, cloudName }) {
   return (
@@ -363,10 +364,13 @@ export function LectureHeading({ lectureName }) {
 }
 
 function EditLecture() {
+  const [title, setTitle] = useState('');
   const id1 = "udzo4o03kwgwjl3d7zkj";
   const id2 = "k17pkba5cddfcpcth1dj";
   const id3 = "uxhqhj80uihwzkwm944t";
   const id4 = "xr7qtsex5edb7dz9tvhl";
+  const [searchParams] = useSearchParams();
+  const lec_id = searchParams.get('id');
 
   let initialRes = [
     {id: id1, name: "Edge Computing", type:"pdf"},
@@ -380,6 +384,18 @@ function EditLecture() {
   const cloudName = "dv5ig0sry";
 
   const [textForm, setTextForm] = useState(false);
+
+  axios.get(`api/lecture/get_lecture/${lec_id}`, {
+    headers: {
+        'authorization': localStorage.authorization
+    }
+  })
+  .then((resp) => {
+    console.log(resp);
+  })
+  .then((err) => {
+    console.log(err)
+  })
 
   return (
     <div>

@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import {
   Btn2,
@@ -17,14 +19,51 @@ import StarRating from "./styles/CoursePageRating";
 function CoursePage({ setAuth }) {
   const [title, setTitle] = useState('jk');
   const [description, setDescription] = useState('');
+  const [enrolled, setEnrolled] = useState(false);
+  const { id } = useParams();
 
+  useEffect(() => {
+    console.log(id);
+    axios.get(`api/courses/get_course/${id}`, {
+        headers: {
+            'authorization': localStorage.authorization
+        }
+    })
+    .then((resp) => {
+        const course = resp.data.course;
+        console.log(resp.data.course);
+        console.log(resp.data.enroll);
+        setTitle(course.title);
+        setDescription(course.description);
+        setEnrolled(resp.data.enroll);
+    })
+    .then((err) => {
+        console.log(err)
+    })
+  },[])
+
+
+  const enroll = () => {
+    setEnrolled(!enrolled);
+    axios.put('api/users/enroll', { courseId : id}, {
+        headers: {
+            'authorization': localStorage.authorization
+        }
+    })
+    .then((resp) => {
+        console.log(resp);
+    })
+    .then((err) => {
+        console.log(err);
+    })
+  }
   return (
     <div>
       <Navbar setAuth={setAuth} />
       <HomePage style={{ "font-size": "40px", "max-width": "3000px" }}>
         <Box style={{ "align-items": "center", "justify-content": "center" }}>
-          <Title style={{ color: "#656565" }}>Course :</Title>
-          <Title style={{ color: "#007E8E" }}>{title}</Title>
+          <Title style={{ color: "#656565" }}>Course:</Title>
+          <Title style={{ "margin-left": "10px",color: "#007E8E" }}>{title}</Title>
         </Box>
         <Box
           style={{
@@ -34,7 +73,8 @@ function CoursePage({ setAuth }) {
             height: "60px",
           }}
         >
-          <Btn
+          <Btn 
+            onClick={enroll}
             style={{
               height: "100%",
               width: "12.92%",
@@ -43,9 +83,10 @@ function CoursePage({ setAuth }) {
               font: "Raleway",
               "font-size": "25px",
               "font-weight": "600",
+              "cursor": "pointer"
             }}
           >
-            Enroll
+            {enrolled? "Enrolled" : "Enroll"}
           </Btn>
         </Box>
         <Text

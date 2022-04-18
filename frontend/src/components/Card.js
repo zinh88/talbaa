@@ -2,8 +2,9 @@ import React from "react";
 import Rating from "./Rating";
 import { Author, CardFooter, CardPic, Description, StyledCard, Tags, Title, Info, Tag, Bottom, RatingBar, Stars} from "./styles/Card.styled";
 
-const Card = ({card : { title, description, pic, rating, tags, creator}}) => {
+const Card = ({card : { _id, title, description, pic, rating, tags, creator}}) => {
     return (
+        <a style={{ "text-decoration" : "none", "color" : "black"}} href={`/coursePage/${_id}`}>
         <StyledCard>
             <CardPic src={pic}/>
             <CardFooter>
@@ -29,6 +30,7 @@ const Card = ({card : { title, description, pic, rating, tags, creator}}) => {
 
             </CardFooter>
         </StyledCard>
+        </a>
     )
 }
 
