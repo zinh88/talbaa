@@ -12,6 +12,7 @@ const Lecture = require("../../models/Lecture");
 const crypto = require("crypto");
 const dotenv = require("dotenv");
 const User = require("../../models/User");
+const mongoose = require("mongoose");
 dotenv.config();
 
 router.post("/create_course", async (req, res) => {
@@ -227,5 +228,42 @@ router.get("/get_all_courses", async (req, res) => {
     .then(courses => res.json(courses))
     .catch(err => console.log(err));
 })
+
+router.get("/get_enrolled", async (req, res) => {
+    console.log("/get_enrolled");
+    const token = req.headers["authorization"].split(" ")[1];
+    try {
+        const payload = jwt.verify(token, process.env.secretOrKey);
+        const user_id = payload.user_id;
+        const user = await User.findOne({ user_id: user_id });
+        const enrolledCourses = user.enrolledCourses;
+        const cids = enrolledCourses.map(mongoose.Types.ObjectId);
+        console.log(cids);
+        const courses = await Course.find({ _id: { $in: cids } })
+        return res.json({ courses: courses });
+    } catch (error) {
+        console.log(error)
+        res.json({ message: "Server Error" });
+    }
+});
+
+router.get("/get_created", async (req, res) => {
+    console.log("/get_created");
+    const token = req.headers["authorization"].split(" ")[1];
+    try {
+        const payload = jwt.verify(token, process.env.secretOrKey);
+        const user_id = payload.user_id;
+        const user = await User.findOne({ user_id: user_id });
+        const createdCourses = user.createdCourses;
+        const cids = createdCourses.map(mongoose.Types.ObjectId);
+        console.log(cids);
+        const courses = await Course.find({ _id: { $in: cids } })
+        return res.json({ courses: courses });
+    } catch (error) {
+        console.log(error)
+        res.json({ message: "Server Error" });
+    }
+});
+
 
 module.exports = router;

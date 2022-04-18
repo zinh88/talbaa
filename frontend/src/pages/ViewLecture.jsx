@@ -6,7 +6,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 function ViewLecture({setAuth}) {
-
   const [searchParams] = useSearchParams();
   const lectureId = searchParams.get('id');
   const courseId = searchParams.get('course');
