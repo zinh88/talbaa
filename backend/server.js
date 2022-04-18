@@ -13,6 +13,7 @@ const users = require("./routes/api/users");
 const courses = require("./routes/api/courses")
 const tags = require("./routes/api/tags")
 const lectures = require("./routes/api/lectures")
+const path = require('path');
 
 app.use(cors({
     origin: '*'
@@ -44,6 +45,11 @@ app.use(passport.initialize());
 // Passport config
 require("./config/passport")(passport);
 // Routes
+const publicPath = path.join(__dirname, '../frontend/build');
+app.use(express.static(publicPath));
+app.use('*', express.static(publicPath));
+
+
 app.use("/api/users", users);
 app.use("/api/courses", courses);
 app.use("/api/lectures", lectures);
