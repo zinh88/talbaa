@@ -215,93 +215,6 @@ export function DisplayContent({ resources, cloudName, setResources }) {
   )
 }
 
-// function DropDown({resources,setResources, textForm, setTextForm}) {
-//   const itemStyle = {
-//     "font-size" : "13px",
-//     "padding-top": "0.5rem"
-//   };
-
-//   function SubmitButton({ title, note, resources, setResources }) {
-//     const buttonStyle = {
-//       "padding-top": "0.35rem",
-//       "font-size": "15px",
-//       "margin-top": "3%",
-//       "margin-left": "4%",
-//     };
-
-//     return (
-//       <div
-//         class="style"
-//         style={buttonStyle}
-//         onClick={() => {
-//           let JSONobj = { id: { note }, name: { title }, type: "textBox" };
-//           setResources([...resources, JSONobj]);
-//         }}
-//       >
-//         Submit
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div style={borderBox}>
-//       <CourseInfo
-//         name="Title*"
-//         style={textBox}
-//         placeholderType="placeholderTitle"
-//         padding="5% 0% 0% 3%"
-//         state={title}
-//         setState={setTitle}
-//       />
-//       <CourseInfo
-//         name="Text*"
-//         style={textBox}
-//         placeholderType="placeholderDescription"
-//         padding="5% 0% 0% 3%"
-//         state={note}
-//         setState={setNote}
-//       />
-
-//       <SubmitButton
-//         title={title}
-//         note={note}
-//         resources={resources}
-//         setResources={setResources}
-//       />
-//     </div>
-//   );
-// }
-
-// function DisplayContent({ resources, cloudName, setResources }) {
-//   const textStyle = {
-//     "margin-left": "5%",
-//     "margin-top": "4%",
-//   };
-
-//   return (
-//     <div>
-//       {resources.map((value) => {
-//         if (value.type == "image") {
-//           return <InsertImage id={value.id} cloudName={cloudName} />;
-//         } else if (value.type == "pdf") {
-//           return (
-//             <InsertPDF id={value.id} cloudName={cloudName} name={value.name} />
-//           );
-//         } else if (value.type == "textBox") {
-//           return (
-//             <div style={textStyle}>
-//               <h1>{value.name.title}</h1>
-//               <h3>{value.id.note}</h3>
-//             </div>
-//           );
-//         } else if (value.type == "video") {
-//           return <InsertVideo id={value.id} cloudName={cloudName} />;
-//         }
-//       })}
-//     </div>
-//   );
-// }
-
 function DropDown({ resources, setResources, textForm, setTextForm, lectureId, courseId }) {
   const itemStyle = {
     "font-size": "13px",
@@ -479,17 +392,7 @@ export function LectureHeading({ lectureName }) {
 }
 
 function EditLecture({ setAuth }) {
-  // const id1 = "udzo4o03kwgwjl3d7zkj";
-  // const id2 = "k17pkba5cddfcpcth1dj";
-  // const id3 = "uxhqhj80uihwzkwm944t";
-  // const id4 = "xr7qtsex5edb7dz9tvhl";
-
-  // let initialRes = [
-  //   {id: id1, name: "Edge Computing", type:"pdf"},
-  //   {id: id3, name: "Stack of Books", type:"image"},
-  //   {id: id2, name: "Unknown PDF", type:"pdf"},
-  //   {id: id4, name: "Circuits Tutorial", type:"video"},
-  // ]
+  
   const [searchParams] = useSearchParams();
   const lectureId = searchParams.get('id');
   const courseId = searchParams.get('course');
