@@ -42,7 +42,7 @@ router.post("/create_course", async (req, res) => {
         .then((course) => res.json(course))
         .catch((err) => console.log(err));
     
-        user_id = payload.user_id;
+    user_id = payload.user_id;
 
     try {
         const user_doc = await User.findByIdAndUpdate( {_id: user_id}, {
@@ -139,7 +139,7 @@ router.get("/get_course/:id", async (req, res) => {
     }
 
     // res.json({"enrolled": enrolled})
-    var enrolledJson = {"enrolled": enrolled}
+    // var enrolledJson = {"enrolled": enrolled}
 
     try {
         const course_doc = await Course.findOne({ _id: courseId});
