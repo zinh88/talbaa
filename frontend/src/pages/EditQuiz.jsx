@@ -6,12 +6,18 @@ import {} from "./../CreateCourse.css";
 import { Heading } from "./CreateLecture";
 import { PageTitle } from "./CreateCourse";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 function EditQuiz({ setAuth }) {
   let [courseName, setCourseName] = useState("");
   let [quiz, setQuiz] = useState([]);
   let [questions, setQuestions] = useState([]);
   const [error, setError] = useState("");
+  const [searchParams] = useSearchParams();
+  const lectureId = searchParams.get('id');
+  const courseId = searchParams.get('course');
+  let [title, setTitle] = useState("");
+  let [desc, setDesc] = useState("");
 
   let Quiz = (data) => {
     setQuestions((curr) => [...curr, data]);
@@ -29,6 +35,13 @@ function EditQuiz({ setAuth }) {
   //       console.log(err);
   //     });
   // };
+
+  let finalQuiz = []
+  const quizRes =  (data) => {  
+    // console.log(data)
+    finalQuiz = questions;
+  }
+
   return (
     <>
       <Navbar setAuth={setAuth} />
@@ -44,6 +57,9 @@ function EditQuiz({ setAuth }) {
             type="text"
             placeholder="Enter Quiz Title"
             className="placeholderTitle"
+            onChange = { (e) => {
+              setTitle(e.target.value)
+            }}
           ></input>
         </div>
 
@@ -55,6 +71,9 @@ function EditQuiz({ setAuth }) {
             type="text"
             className="placeholderDescription"
             placeholder="Enter Quiz Description"
+            onChange = { (e) => {
+              setDesc(e.target.value)
+            }}
           ></textarea>
         </div>
 
@@ -72,7 +91,7 @@ function EditQuiz({ setAuth }) {
             onClick={() =>
               setQuiz([
                 ...quiz,
-                <QuizForm quiz={Quiz} error={error} quizno={quiz.length} />,
+                <QuizForm quiz={Quiz} error={error} quizno={quiz.length} callbackFunc={quizRes} />,
               ])
             }
             className="addButton"
@@ -97,11 +116,29 @@ function EditQuiz({ setAuth }) {
             className="addButton"
             onClick={() => {
               // console.log(quiz);
-              console.log(questions);
-              // submitQuiz(questions);
-              // quiz.map((elem) => {
-              //   elem.submitHandler();
-              // });
+              // console.log(questions);
+              // console.log(finalQuiz)
+              let totalQuiz = {
+                "title": title,
+                "description": desc,
+                "questions": questions,
+                "lectureId": lectureId
+              }
+              
+              console.log(totalQuiz)
+
+              axios.put("api/lectures/add_quiz", totalQuiz, {
+                headers: {
+                  'authorization': localStorage.authorization
+                }
+              })
+              .then((resp) => {
+                console.log(resp)
+                const lecture = resp.data;
+              })
+              .catch((err) => {
+                console.log(err)
+              })
             }}
           >
             Publish Quiz

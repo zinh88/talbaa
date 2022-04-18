@@ -264,7 +264,7 @@ export function DisplayContent({resources, cloudName, setResources}){
 //   );
 // }
 
-function DropDown({ resources, setResources, textForm, setTextForm, lectureId }) {
+function DropDown({ resources, setResources, textForm, setTextForm, lectureId, courseId }) {
   const itemStyle = {
     "font-size": "13px",
     "padding-top": "0.5rem",
@@ -283,7 +283,8 @@ function DropDown({ resources, setResources, textForm, setTextForm, lectureId })
 
   const quizEvent = () => {
     // console.log("Enter Event here")
-    handleClick("/createQuiz");
+    navigate(`/createQuiz?id=${lectureId}&course:${courseId}`, { replace: true })
+    // handleClick("/createQuiz");
   };
 
   function AddResourceButton({ text, event }) {
@@ -374,7 +375,7 @@ function AddButton({ event, text }) {
   );
 }
 
-export function ResButton({resources,setResources,textForm, setTextForm, lectureId}){
+export function ResButton({resources,setResources,textForm, setTextForm, lectureId, courseId}){
 
   const textStyle = {
     "padding-top": "clamp(4%,4%,4%)",
@@ -412,6 +413,7 @@ export function ResButton({resources,setResources,textForm, setTextForm, lecture
               textForm={textForm}
               setTextForm={setTextForm}
               lectureId={lectureId}
+              courseId={courseId}
             />
           )}
         </div>
@@ -457,8 +459,6 @@ function EditLecture({setAuth}) {
   const [resources, setResources] = useState([]);
   var initialRes = []
   const searchQuery = 'api/lectures/get_lecture/' + lectureId
-
-  
 
   useEffect( () => {
     // console.log(searchQuery)
@@ -520,6 +520,7 @@ function EditLecture({setAuth}) {
         textForm={textForm}
         setTextForm={setTextForm}
         lectureId={lectureId}
+        courseId={courseId}
       />
 
       <Button text="Return" event={goBack}/>

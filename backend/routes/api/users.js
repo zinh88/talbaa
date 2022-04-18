@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
   const password = req.body.password;
   // Find user by email
 
-  let user = await User.findOne({ email });
+  let user = await User.findOne({ email: email });
 
   // User.findOne({ email })
   // .then(user => {
@@ -177,7 +177,7 @@ router.get("/get_enrolled_courses", async (req, res) => {
   try {
     const payload = jwt.verify(token, process.env.secretOrKey);
     const user_id = payload.user_id;
-    const user = await User.findOne({ user_id: user_id }).orFail();
+    const user = await User.findOne({ user_id: user_id });
     const enrolledCourses = user.enrolledCourses;
     return res.json(enrolledCourses);
   } catch (error) {

@@ -8,6 +8,7 @@ const dotenv = require("dotenv");
 const Course = require("../../models/Course")
 const Lecture = require("../../models/Lecture")
 const Content = require("../../models/Content")
+const Quiz = require("../../models/Quiz")
 dotenv.config()
 
 router.put("/add_lec_content", async (req, res) => {
@@ -92,18 +93,33 @@ router.put("/add_quiz", async (req, res) => {
         res.status(403).json({ message: "Not authorized" })
     }
     
+    const newQuiz = new Quiz({
+        title: req.body.title,
+        description: req.body.description,
+        questions: req.body.questions
+    })
+
+    await newQuiz
+    .save()
+    .then(quiz => {console.log(quiz)})
+    .catch(err => console.log(err))
+
     let lectureId = req.body.lectureId;
+    console.log(lectureId)
 
     try {
-        const lecture_doc_final = await Lectur.findByIdAndUpdate( {_id: lectureId} , {
-            $push: { "quiz" : req.body.quiz }
+        const lecture_doc_final = await Lecture.findByIdAndUpdate( {_id: lectureId} , {
+            $push: { "quiz" : newQuiz }
         } , {upsert : true})
 
         await lecture_doc_final
             .save()
-            .then(lecture => res.json(lecture))
+            .then(lecture => 
+                {res.json(lecture)
+                console.log(lecture)
+                })
             .catch(err => console.log(err))
-
+    
     } catch (error) {
         res.json( { message: error} )
     }

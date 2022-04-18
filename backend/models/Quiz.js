@@ -8,6 +8,12 @@ const QuizSchema = new Schema({
     default: "Quiz",
   },
 
+  description: {
+    type: String,
+    required: false,
+    default: ""
+  },
+
   questions: {
     type: Array,
     default: [],
