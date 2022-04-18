@@ -143,12 +143,11 @@ function CreateLecturePage({ setAuth }) {
             setData([...data, newLec]);
             {
               data.map((values) => {
-                return (
-                  <LectureComponenet
-                    name={values.name}
-                    id={values.id}
-                    setData={setData}
-                    data={data}
+                return (<LectureComponenet
+                  name={values.name}
+                  id={values.id}
+                  setData={setData}
+                  data={data}
                   />
                 );
               });
