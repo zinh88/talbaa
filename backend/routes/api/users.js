@@ -22,7 +22,7 @@ router.post("/register", async (req, res) => {
   }
 
   try {
-    let user = await User.findOne({ email: req.body.email });
+    let user = await User.findOne({ email: req.body.email }).orFail();
 
     // console.log("GETTING HERE --------------- ")
     if (user) {
@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
   const password = req.body.password;
   // Find user by email
 
-  let user = await User.findOne({ email });
+  let user = await User.findOne({ email: email });
 
   // User.findOne({ email })
   // .then(user => {
