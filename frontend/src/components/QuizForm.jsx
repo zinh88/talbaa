@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./QuizForm.css";
 import {} from "./../CreateCourse.css";
-function QuizForm({ quiz, err, quizno }) {
+function QuizForm({ quiz, err, quizno, callbackFunc}) {
   let [question, setQuestion] = useState({
     question: "",
     option1: "",
@@ -12,8 +12,10 @@ function QuizForm({ quiz, err, quizno }) {
   });
   const submitHandler = (e) => {
     e.preventDefault();
-    quiz(question);
+    let finQuiz = quiz(question)
+  callbackFunc(finQuiz);
   };
+
   return (
     <div className="quiz-form">
       <div className="quizQuestion">Question {quizno + 1}</div>
@@ -117,7 +119,7 @@ function QuizForm({ quiz, err, quizno }) {
             padding: "0.5rem",
           }}
           type="submit"
-          value="Upload question"
+          value="Add"
         />
       </form>
     </div>
